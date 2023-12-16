@@ -9,16 +9,27 @@ int main()
     settings.antialiasingLevel = 8; 
 
     sf::RenderWindow window(sf::VideoMode(800, 600), " RPG Game ", sf::Style::Default, settings);
-    sf::CircleShape shape(50.0f);
-    shape.setFillColor(sf::Color::Red);
-    shape.setOutlineThickness(10.0f);
-    shape.setOutlineColor(sf::Color::Cyan);
-
-    sf::RectangleShape rectangle(sf::Vector2f(100.0f, 20.0f));
-    rectangle.setFillColor(sf::Color::Magenta);
-    rectangle.setPosition(sf::Vector2f(110.0f, 45.0f));
-    rectangle.setOrigin(rectangle.getSize() / 2.0f);
     //------------------------Initialize---------------------------------------
+
+    //------------------------Load---------------------------------------------
+    sf::Texture playerTexture;
+    sf::Sprite playerSprite;
+
+    if (playerTexture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
+    {
+        std::cout << "Necromancer image loaded successfully" << std::endl;
+        playerSprite.setTexture(playerTexture);
+        
+        int XNIndex = 0;
+        int YNIndex = 0;
+        playerSprite.setTextureRect(sf::IntRect(XNIndex*64, YNIndex*64, 64, 64));
+    }
+    else
+    {
+        std::cout << "Necromancer image failed to load" << std::endl;
+    }
+    
+    //------------------------Load---------------------------------------------
 
     while (window.isOpen())
     {
@@ -31,13 +42,31 @@ int main()
                 window.close();
             }
         }
-        rectangle.rotate(0.01f);
+
+        sf::Vector2f position = playerSprite.getPosition();
+        sf::Vector2f new_position = position;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            new_position+= sf::Vector2f(0.07f,0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+        {
+            new_position -= sf::Vector2f(0.07f, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        {
+            new_position -= sf::Vector2f(0, 0.07f);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            new_position += sf::Vector2f(0, 0.07f);
+        }
+        playerSprite.setPosition(new_position);
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
         window.clear(sf::Color::Black);
-        window.draw(shape);
-        window.draw(rectangle);
+        window.draw(playerSprite);
         window.display();
         //-------------------------DRAW---------------------------------------
     }

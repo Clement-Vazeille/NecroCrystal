@@ -1,5 +1,5 @@
-Dependencies/SFML/lib/ filter=lfs diff=lfs merge=lfs -text
-NecroCrystal/Assets/ filter=lfs diff=lfs merge=lfs -text
+Dependencies/SFML/lib/* filter=lfs diff=lfs merge=lfs -text
+NecroCrystal/Assets/* filter=lfs diff=lfs merge=lfs -text
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.lib filter=lfs diff=lfs merge=lfs -text
