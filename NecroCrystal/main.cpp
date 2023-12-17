@@ -1,14 +1,31 @@
 #include <iostream>
-
+#include <vector>
+#include <math.h>
 #include <SFML/Graphics.hpp>
+
+sf::Vector2f convertVector(sf::Vector2i vectorI)
+{
+    return sf::Vector2f(vectorI.x, vectorI.y);
+}
+
+sf::Vector2f normalizeVector(sf::Vector2f direction)
+{
+    int norm = std::sqrtf((direction.x*direction.x)+(direction.y*direction.y));
+    sf::Vector2f new_direction(direction.x/norm,direction.y/norm);
+
+    return new_direction;
+}
 
 int main()
 {
     //------------------------Initialize---------------------------------------
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 8; 
+    settings.antialiasingLevel = 0; 
+    int xSize = 1320;
+    int ySize = 650;
+    sf::RenderWindow window(sf::VideoMode(xSize, ySize), " RPG Game ", sf::Style::Default, settings);
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), " RPG Game ", sf::Style::Default, settings);
+    float spellSpeed = 0.5f;
     //------------------------Initialize---------------------------------------
 
     //------------------------Load---------------------------------------------
@@ -28,7 +45,21 @@ int main()
     {
         std::cout << "Necromancer image failed to load" << std::endl;
     }
-    
+
+    playerSprite.setPosition(sf::Vector2f(xSize/2,ySize/2));
+
+    sf::Texture darkProjectileTexture;
+
+    std::vector<sf::Sprite> darkProjectiles;
+
+    if (darkProjectileTexture.loadFromFile("Assets/Projectiles/darkProjectile.png"))
+    {
+        std::cout << "darkProjectile image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "darkProjectile image failed to load" << std::endl;
+    }
     //------------------------Load---------------------------------------------
 
     while (window.isOpen())
@@ -47,26 +78,43 @@ int main()
         sf::Vector2f new_position = position;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            new_position+= sf::Vector2f(0.07f,0);
+            new_position+= sf::Vector2f(0.25f,0);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
-            new_position -= sf::Vector2f(0.07f, 0);
+            new_position -= sf::Vector2f(0.25f, 0);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {
-            new_position -= sf::Vector2f(0, 0.07f);
+            new_position -= sf::Vector2f(0, 0.25f);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            new_position += sf::Vector2f(0, 0.07f);
+            new_position += sf::Vector2f(0, 0.25f);
         }
         playerSprite.setPosition(new_position);
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            sf::Sprite darkProjectile;
+            darkProjectile.setTexture(darkProjectileTexture);
+            darkProjectile.setPosition(new_position + sf::Vector2f(64, 20));
+            darkProjectiles.push_back(darkProjectile);
+        }
+        for (size_t i = 0; i < darkProjectiles.size(); i++)
+        {
+            sf::Vector2f direction = convertVector(sf::Mouse::getPosition())-darkProjectiles[i].getPosition();
+            darkProjectiles[i].setPosition(darkProjectiles[i].getPosition() + normalizeVector(direction) * spellSpeed);
+        }
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
         window.clear(sf::Color::Black);
         window.draw(playerSprite);
+        for (size_t i = 0; i < darkProjectiles.size(); i++)
+        {
+            window.draw(darkProjectiles[i]);
+        }
         window.display();
         //-------------------------DRAW---------------------------------------
     }
