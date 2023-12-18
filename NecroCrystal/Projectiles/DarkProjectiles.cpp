@@ -1,6 +1,7 @@
 #include "DarkProjectiles.h"
 #include <iostream>
-#include"Math.h"
+#include "../Utilities/Math.h"
+
 
 void DarkProjectiles::Initialize()
 {
@@ -25,9 +26,8 @@ void DarkProjectiles::Update(Necromancer& necromancer)
     {
         DarkProjectile darkProjectile;
         darkProjectile.Initialize();
-        darkProjectile.Load();
-        darkProjectile.sprite.setTexture(texture); //à mettre dans Load quand je saurai passer paar référence
-        darkProjectile.sprite.setPosition(necromancer.sprite.getPosition() + sf::Vector2f(64, 20));
+        darkProjectile.Load(texture);
+        darkProjectile.sprite.setPosition(necromancer.sprite.getPosition() + sf::Vector2f(64, 20)*2.0f);
         projectiles.push_back(darkProjectile);
     }
     for (size_t i = 0; i < projectiles.size(); i++)

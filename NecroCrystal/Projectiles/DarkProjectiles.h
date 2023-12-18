@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "DarkProjectile.h"
-#include "Necromancer.h"
+#include "../Characters/Necromancer.h"
 
 class DarkProjectiles
 {
