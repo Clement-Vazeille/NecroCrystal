@@ -139,7 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DarkProjectile.cpp" />
+    <ClCompile Include="DarkProjectiles.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Necromancer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DarkProjectile.h" />
+    <ClInclude Include="DarkProjectiles.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="Necromancer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
