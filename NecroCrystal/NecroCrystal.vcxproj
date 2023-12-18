@@ -139,7 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Projectiles\DarkProjectile.cpp" />
+    <ClCompile Include="Projectiles\DarkProjectiles.cpp" />
+    <ClCompile Include="Characters\FireMage.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utilities\Math.cpp" />
+    <ClCompile Include="Characters\Necromancer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Projectiles\DarkProjectile.h" />
+    <ClInclude Include="Projectiles\DarkProjectiles.h" />
+    <ClInclude Include="Characters\FireMage.h" />
+    <ClInclude Include="Utilities\Math.h" />
+    <ClInclude Include="Characters\Necromancer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
