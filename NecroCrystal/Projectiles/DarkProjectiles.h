@@ -13,7 +13,7 @@ public:
 public:
 	void Initialize();
 	void Load();
-	void Update(Necromancer& necromancer);
+	void Update(Necromancer& necromancer,float deltaTime);
 	void Draw(sf::RenderWindow& window);
 };
 

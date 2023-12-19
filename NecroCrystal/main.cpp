@@ -15,6 +15,8 @@ int main()
     int xSize = 1320;
     int ySize = 650;
     sf::RenderWindow window(sf::VideoMode(xSize, ySize), " RPG Game ", sf::Style::Default, settings);
+    
+    window.setFramerateLimit(60); 
     //------------------------Initialize window---------------------------------------
 
     //------------------------Initialize and load objects---------------------------------------
@@ -30,9 +32,12 @@ int main()
     fireMage.Initialize();
     fireMage.Load(xSize,ySize);
     //------------------------Initialize and load objects---------------------------------------
-
+    sf::Clock clock;
     while (window.isOpen())
     {
+        sf::Time deltaTimeTimer = clock.restart();
+        float deltaTime = deltaTimeTimer.asMilliseconds();
+        std::cout << deltaTime << std::endl;
         //------------------------UPDATE---------------------------------------
         sf::Event event;
         while (window.pollEvent(event))
@@ -43,9 +48,12 @@ int main()
             }
         }
 
+        
+        
+
         fireMage.Update();
-        necromancer.Update(fireMage);
-        darkProjectiles.Update(necromancer);
+        necromancer.Update(fireMage,deltaTime);
+        darkProjectiles.Update(necromancer,deltaTime);
         
         //------------------------UPDATE---------------------------------------
 
@@ -57,6 +65,7 @@ int main()
         fireMage.Draw(window);
         window.display();
         //-------------------------DRAW---------------------------------------
+        
     }
 
     return 0;

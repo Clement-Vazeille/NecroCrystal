@@ -16,7 +16,7 @@ public:
 public:
 	void Initialize(); //called once per App Start
 	void Load(int xSize, int ySize);       //called once per App Start
-	void Update(FireMage& fireMage);     //called once per frame
+	void Update(FireMage& fireMage,float deltaTime);     //called once per frame
 	void Draw(sf::RenderWindow& window);	   //called once per frame
 private:
 	    

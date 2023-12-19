@@ -20,7 +20,7 @@ void DarkProjectiles::Load()
     }
 }
 
-void DarkProjectiles::Update(Necromancer& necromancer)
+void DarkProjectiles::Update(Necromancer& necromancer,float deltaTime)
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
     {
@@ -33,7 +33,7 @@ void DarkProjectiles::Update(Necromancer& necromancer)
     for (size_t i = 0; i < projectiles.size(); i++)
     {
         sf::Vector2f direction = Math::convertVector(sf::Mouse::getPosition()) - projectiles[i].sprite.getPosition();
-        projectiles[i].sprite.setPosition(projectiles[i].sprite.getPosition() + Math::normalizeVector(direction) * speed);
+        projectiles[i].sprite.setPosition(projectiles[i].sprite.getPosition() + Math::normalizeVector(direction) * speed*deltaTime);
     }
 }
 
