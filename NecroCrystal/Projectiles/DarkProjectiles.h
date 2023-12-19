@@ -3,6 +3,7 @@
 #include <vector>
 #include "DarkProjectile.h"
 #include "../Characters/Necromancer.h"
+#include "../Characters/FireMage.h"
 
 class DarkProjectiles
 {
@@ -13,7 +14,7 @@ public:
 public:
 	void Initialize();
 	void Load();
-	void Update(Necromancer& necromancer,float deltaTime);
+	void Update(Necromancer& necromancer,FireMage& firemage,float deltaTime);
 	void Draw(sf::RenderWindow& window);
 };
 

@@ -6,6 +6,7 @@
 #include "Projectiles/DarkProjectiles.h"
 #include "Characters/Necromancer.h"
 #include "Characters/FireMage.h"
+#include "Utilities/FrameRate.h"
 
 int main()
 {
@@ -31,13 +32,18 @@ int main()
     FireMage fireMage;
     fireMage.Initialize();
     fireMage.Load(xSize,ySize);
+
+    FrameRate frameRate;
+    frameRate.Initialize();
+    frameRate.Load();
+    
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
     while (window.isOpen())
     {
         sf::Time deltaTimeTimer = clock.restart();
-        float deltaTime = deltaTimeTimer.asMilliseconds();
-        std::cout << deltaTime << std::endl;
+        float deltaTime = ((float) deltaTimeTimer.asMicroseconds())/1000.0f;
+
         //------------------------UPDATE---------------------------------------
         sf::Event event;
         while (window.pollEvent(event))
@@ -47,13 +53,10 @@ int main()
                 window.close();
             }
         }
-
-        
-        
-
+        frameRate.Update(deltaTime);
         fireMage.Update();
         necromancer.Update(fireMage,deltaTime);
-        darkProjectiles.Update(necromancer,deltaTime);
+        darkProjectiles.Update(necromancer,fireMage,deltaTime);
         
         //------------------------UPDATE---------------------------------------
 
@@ -63,6 +66,7 @@ int main()
         necromancer.Draw(window);
         darkProjectiles.Draw(window);
         fireMage.Draw(window);
+        frameRate.Draw(window);
         window.display();
         //-------------------------DRAW---------------------------------------
         
