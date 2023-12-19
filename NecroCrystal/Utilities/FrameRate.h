@@ -6,17 +6,16 @@ private:
 	sf::Font font;
 	sf::Text text;
 
-	float timer;
-	float refreshTime;
+	double timer;
+	double refreshTime;
 
 	
 public:
 	FrameRate(); //constructor
-	~FrameRate(); //destructor
+	~FrameRate(); //destructor, s'active quand l'objet est détruit
 
-	void Initialize();
 	void Load();
-	void Update(float deltaTime);
+	void Update(double deltaTime);
 	void Draw(sf::RenderWindow& window);
 };
 

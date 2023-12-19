@@ -1,7 +1,9 @@
 #include "FireMage.h"
 #include <iostream>
 
-void FireMage::Initialize()
+
+FireMage::FireMage() :
+    width(64),height(64),scale(2),health(100)
 {
 }
 
@@ -22,13 +24,28 @@ void FireMage::Load(int xSize, int ySize)
     {
         std::cout << "Necromancer image failed to load" << std::endl;
     }
+
+    if (font.loadFromFile("Assets/Fonts/arial.ttf")) //alreay loaded in frameRate, TODO make a class that store texture/fonts shared
+    {
+        std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
+        healthText.setFont(font);
+    }
+    else
+    {
+        std::cout << "Faile to load Arial.ttf" << std::endl;
+    }
+    healthText.setPosition(sprite.getPosition() + sf::Vector2f(0,-40));
+    healthText.setScale(0.8, 0.8);
 }
 
 void FireMage::Update()
 {
+    healthText.setString("Health: " +std::to_string(health));
+    healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -40));
 }
 
 void FireMage::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+    window.draw(healthText);
 }

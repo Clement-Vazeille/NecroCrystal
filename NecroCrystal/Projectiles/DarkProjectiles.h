@@ -7,14 +7,18 @@
 
 class DarkProjectiles
 {
+private:
+	float timer;
+	float castSpeed;
 public:
 	sf::Texture texture;
 	std::vector<DarkProjectile> projectiles;
 	float speed;
 public:
-	void Initialize();
+	DarkProjectiles();
+
 	void Load();
-	void Update(Necromancer& necromancer,FireMage& firemage,float deltaTime);
+	void Update(Necromancer& necromancer,FireMage& firemage,double deltaTime);
 	void Draw(sf::RenderWindow& window);
 };
 

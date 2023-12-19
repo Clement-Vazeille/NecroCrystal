@@ -2,7 +2,12 @@
 #include"../Utilities/Math.h"
 #include <iostream>
 
-void Necromancer::Initialize()
+Necromancer::Necromancer() :
+    width(64),height(64),speed(0.25f)
+{
+}
+
+Necromancer::~Necromancer()
 {
 }
 

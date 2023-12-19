@@ -4,13 +4,18 @@ class FireMage
 {
 private:
 	sf::Texture texture;
-	int width = 64;
-	int height = 64;
-	int scale = 2;
+	int width;
+	int height;
+	int scale;
+	sf::Font font;
+	sf::Text healthText;
+
 public:
+	int health;
 	sf::Sprite sprite;
 public:
-	void Initialize();
+	FireMage();
+
 	void Load(int x, int y);
 	void Update();
 	void Draw(sf::RenderWindow& window);

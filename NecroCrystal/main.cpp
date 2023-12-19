@@ -22,19 +22,15 @@ int main()
 
     //------------------------Initialize and load objects---------------------------------------
     Necromancer necromancer;
-    necromancer.Initialize();
     necromancer.Load(xSize, ySize);
 
     DarkProjectiles darkProjectiles;
-    darkProjectiles.Initialize();
     darkProjectiles.Load();
 
     FireMage fireMage;
-    fireMage.Initialize();
     fireMage.Load(xSize,ySize);
 
     FrameRate frameRate;
-    frameRate.Initialize();
     frameRate.Load();
     
     //------------------------Initialize and load objects---------------------------------------
@@ -42,7 +38,7 @@ int main()
     while (window.isOpen())
     {
         sf::Time deltaTimeTimer = clock.restart();
-        float deltaTime = ((float) deltaTimeTimer.asMicroseconds())/1000.0f;
+        double deltaTime = ((double) deltaTimeTimer.asMicroseconds())/1000.0;
 
         //------------------------UPDATE---------------------------------------
         sf::Event event;

@@ -2,15 +2,11 @@
 #include <iostream>
 
 FrameRate::FrameRate() : 
-	timer(0),refreshTime(1000)
+	timer(0),refreshTime(300.0)
 {
 }
 
 FrameRate::~FrameRate()
-{
-}
-
-void FrameRate::Initialize()
 {
 }
 
@@ -27,7 +23,8 @@ void FrameRate::Load()
 	}
 }
 
-void FrameRate::Update(float deltaTime)
+
+void FrameRate::Update(double deltaTime)
 {
 	timer += deltaTime;
 	if (timer > refreshTime)
