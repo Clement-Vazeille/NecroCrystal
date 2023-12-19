@@ -2,7 +2,12 @@
 #include"../Utilities/Math.h"
 #include <iostream>
 
-void Necromancer::Initialize()
+Necromancer::Necromancer() :
+    width(64),height(64),speed(0.25f)
+{
+}
+
+Necromancer::~Necromancer()
 {
 }
 
@@ -26,25 +31,25 @@ void Necromancer::Load(int xSize, int ySize)
     
 }
 
-void Necromancer::Update(FireMage& fireMage)
+void Necromancer::Update(FireMage& fireMage,float deltaTime)
 {
     sf::Vector2f position = sprite.getPosition();
     sf::Vector2f new_position = position;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        new_position += sf::Vector2f(speed, 0);
+        new_position += sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        new_position -= sf::Vector2f(speed, 0);
+        new_position -= sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
-        new_position -= sf::Vector2f(0, speed);
+        new_position -= sf::Vector2f(0, 1) * speed * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        new_position += sf::Vector2f(0, speed);
+        new_position += sf::Vector2f(0, 1) * speed * deltaTime;
     }
     sprite.setPosition(new_position);
 

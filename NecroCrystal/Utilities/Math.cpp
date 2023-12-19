@@ -1,5 +1,11 @@
 #include "Math.h"
 
+sf::Vector2f Math::convertVector(sf::Vector2i vectorI)
+{
+	return sf::Vector2f(vectorI.x, vectorI.y);
+
+}
+
 sf::Vector2f Math::normalizeVector(sf::Vector2f direction)
 {
 	int norm = std::sqrtf((direction.x * direction.x) + (direction.y * direction.y));

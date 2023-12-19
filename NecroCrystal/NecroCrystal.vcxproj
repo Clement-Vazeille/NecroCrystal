@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Utilities\FrameRate.cpp" />
     <ClCompile Include="Projectiles\DarkProjectile.cpp" />
     <ClCompile Include="Projectiles\DarkProjectiles.cpp" />
     <ClCompile Include="Characters\FireMage.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Utilities\FrameRate.h" />
     <ClInclude Include="Projectiles\DarkProjectile.h" />
     <ClInclude Include="Projectiles\DarkProjectiles.h" />
     <ClInclude Include="Characters\FireMage.h" />

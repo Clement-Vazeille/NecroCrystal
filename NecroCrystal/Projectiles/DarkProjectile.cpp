@@ -1,8 +1,5 @@
 #include "DarkProjectile.h"
 
-void DarkProjectile::Initialize()
-{
-}
 
 void DarkProjectile::Load(sf::Texture& texture)
 {

@@ -6,6 +6,7 @@
 #include "Projectiles/DarkProjectiles.h"
 #include "Characters/Necromancer.h"
 #include "Characters/FireMage.h"
+#include "Utilities/FrameRate.h"
 
 int main()
 {
@@ -15,24 +16,30 @@ int main()
     int xSize = 1320;
     int ySize = 650;
     sf::RenderWindow window(sf::VideoMode(xSize, ySize), " RPG Game ", sf::Style::Default, settings);
+    
+    window.setFramerateLimit(60); 
     //------------------------Initialize window---------------------------------------
 
     //------------------------Initialize and load objects---------------------------------------
     Necromancer necromancer;
-    necromancer.Initialize();
     necromancer.Load(xSize, ySize);
 
     DarkProjectiles darkProjectiles;
-    darkProjectiles.Initialize();
     darkProjectiles.Load();
 
     FireMage fireMage;
-    fireMage.Initialize();
     fireMage.Load(xSize,ySize);
-    //------------------------Initialize and load objects---------------------------------------
 
+    FrameRate frameRate;
+    frameRate.Load();
+    
+    //------------------------Initialize and load objects---------------------------------------
+    sf::Clock clock;
     while (window.isOpen())
     {
+        sf::Time deltaTimeTimer = clock.restart();
+        double deltaTime = ((double) deltaTimeTimer.asMicroseconds())/1000.0;
+
         //------------------------UPDATE---------------------------------------
         sf::Event event;
         while (window.pollEvent(event))
@@ -42,10 +49,10 @@ int main()
                 window.close();
             }
         }
-
+        frameRate.Update(deltaTime);
         fireMage.Update();
-        necromancer.Update(fireMage);
-        darkProjectiles.Update(necromancer);
+        necromancer.Update(fireMage,deltaTime);
+        darkProjectiles.Update(necromancer,fireMage,deltaTime);
         
         //------------------------UPDATE---------------------------------------
 
@@ -55,8 +62,10 @@ int main()
         necromancer.Draw(window);
         darkProjectiles.Draw(window);
         fireMage.Draw(window);
+        frameRate.Draw(window);
         window.display();
         //-------------------------DRAW---------------------------------------
+        
     }
 
     return 0;
