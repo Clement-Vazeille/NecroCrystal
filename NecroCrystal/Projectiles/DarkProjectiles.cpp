@@ -4,7 +4,7 @@
 
 
 DarkProjectiles::DarkProjectiles() :
-    speed (0.5f),castSpeed(400),timer(0)
+    castSpeed(400),timer(0)
 {
 }
 
@@ -20,7 +20,7 @@ void DarkProjectiles::Load()
     }
 }
 
-void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double deltaTime)
+void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double deltaTime, sf::Vector2f& mousePosition)
 {
     timer += deltaTime;
 
@@ -29,23 +29,29 @@ void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double 
         timer = 0;
 
         DarkProjectile darkProjectile;
-        darkProjectile.Load(texture);
-        darkProjectile.sprite.setPosition(necromancer.sprite.getPosition() + sf::Vector2f(64, 20)*2.0f);
+        sf::Vector2f spellPosition = necromancer.sprite.getPosition() + sf::Vector2f(48, 6) * 2.0f;
+        darkProjectile.Load(texture,spellPosition, mousePosition);
         projectiles.push_back(darkProjectile);
     }
+
+
     for (int i = projectiles.size()-1; i >=0; i--)
     {
-        sf::Vector2f direction = fireMage.sprite.getPosition() +sf::Vector2f(20,20)*2.0f - projectiles[i].sprite.getPosition();
-        projectiles[i].sprite.setPosition(projectiles[i].sprite.getPosition() + Math::normalizeVector(direction) *speed * (float)deltaTime);
+        projectiles[i].Update(deltaTime);
         
-        if (Math::SpriteCollision(projectiles[i].sprite, fireMage.sprite))
+        
+        if (fireMage.health > 0)
         {
-            projectiles.erase(projectiles.begin() + i); //the code would be more optimised with a list instead of a vector 
-            //but as the number of projectiles is unlikely to become higher then 10 the optimisation won't be noticeable
+            if (Math::SpriteCollision(projectiles[i].sprite, fireMage.sprite))
+            {
+                projectiles.erase(projectiles.begin() + i); //the code would be more optimised with a list instead of a vector 
+                //but as the number of projectiles is unlikely to become higher then 10 the optimisation won't be noticeable
 
-            fireMage.health -= 10;
-            //std::cout << "Fire Mage Health: " <<fireMage.health<< std::endl;  
+                fireMage.SetHealth(fireMage.health - 10);
+                //std::cout << "Fire Mage Health: " <<fireMage.health<< std::endl;  
+            }
         }
+        
     }
 }
 

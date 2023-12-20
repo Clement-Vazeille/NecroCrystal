@@ -9,6 +9,10 @@ sf::Vector2f Math::convertVector(sf::Vector2i vectorI)
 sf::Vector2f Math::normalizeVector(sf::Vector2f direction)
 {
 	int norm = std::sqrtf((direction.x * direction.x) + (direction.y * direction.y));
+	if (norm == 0)
+	{
+		return(sf::Vector2f(0, 0));
+	}
 	sf::Vector2f new_direction(direction.x / norm, direction.y / norm);
 
 	return new_direction;

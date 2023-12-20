@@ -18,6 +18,7 @@ public:
 
 	void Load(int x, int y);
 	void Update();
+	void SetHealth(int hp);
 	void Draw(sf::RenderWindow& window);
 };
 

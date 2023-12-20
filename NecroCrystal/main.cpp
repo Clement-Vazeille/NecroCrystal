@@ -49,10 +49,11 @@ int main()
                 window.close();
             }
         }
+        sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
         frameRate.Update(deltaTime);
         fireMage.Update();
         necromancer.Update(fireMage,deltaTime);
-        darkProjectiles.Update(necromancer,fireMage,deltaTime);
+        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition);
         
         //------------------------UPDATE---------------------------------------
 

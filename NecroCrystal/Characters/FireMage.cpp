@@ -36,16 +36,30 @@ void FireMage::Load(int xSize, int ySize)
     }
     healthText.setPosition(sprite.getPosition() + sf::Vector2f(0,-40));
     healthText.setScale(0.8, 0.8);
+    healthText.setString("Health: " + std::to_string(health));
 }
 
 void FireMage::Update()
 {
-    healthText.setString("Health: " +std::to_string(health));
-    healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -40));
+    if (health > 0)
+    {
+        healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -40));
+    }
 }
 
 void FireMage::Draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
-    window.draw(healthText);
+    if (health > 0)
+    {
+        window.draw(sprite);
+        window.draw(healthText);
+    }
+	
+}
+
+void FireMage::SetHealth(int hp)
+{
+
+    health = hp;
+    healthText.setString("Health: " + std::to_string(health));
 }
