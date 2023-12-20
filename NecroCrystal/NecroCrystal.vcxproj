@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="World\Map.cpp" />
     <ClCompile Include="Utilities\FrameRate.cpp" />
     <ClCompile Include="Projectiles\DarkProjectile.cpp" />
     <ClCompile Include="Projectiles\DarkProjectiles.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="World\Map.h" />
     <ClInclude Include="Utilities\FrameRate.h" />
     <ClInclude Include="Projectiles\DarkProjectile.h" />
     <ClInclude Include="Projectiles\DarkProjectiles.h" />
