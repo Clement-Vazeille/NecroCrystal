@@ -7,6 +7,8 @@
 #include "Characters/Necromancer.h"
 #include "Characters/FireMage.h"
 #include "Utilities/FrameRate.h"
+#include "World/Map.h"
+
 
 int main()
 {
@@ -32,6 +34,9 @@ int main()
 
     FrameRate frameRate;
     frameRate.Load();
+
+    Map map;
+    map.Load();
     
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
@@ -51,6 +56,7 @@ int main()
         }
         sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
         frameRate.Update(deltaTime);
+        map.Update(deltaTime);
         fireMage.Update();
         necromancer.Update(fireMage,deltaTime);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition);
@@ -60,6 +66,7 @@ int main()
         //-------------------------DRAW---------------------------------------
         window.clear(sf::Color::Black);
 
+        map.Draw(window);
         necromancer.Draw(window);
         darkProjectiles.Draw(window);
         fireMage.Draw(window);
