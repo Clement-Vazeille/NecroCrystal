@@ -16,11 +16,14 @@ private:
 	int totalTilesY;
 	int totalTiles;
 
-	int mapTilesID[6] = {
+
+	static const int mapSize = 6;
+
+	int mapTilesID[mapSize] = {
 		2,0,1,
 		2,1,0
 	};
-	sf::Sprite mapSprites[6];
+	sf::Sprite mapSprites[mapSize];
 public:
 	Map();
 	~Map();

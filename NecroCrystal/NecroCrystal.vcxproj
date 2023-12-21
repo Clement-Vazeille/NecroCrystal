@@ -139,24 +139,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="World\Map.cpp" />
-    <ClCompile Include="Utilities\FrameRate.cpp" />
-    <ClCompile Include="Projectiles\DarkProjectile.cpp" />
-    <ClCompile Include="Projectiles\DarkProjectiles.cpp" />
-    <ClCompile Include="Characters\FireMage.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Utilities\Math.cpp" />
-    <ClCompile Include="Characters\Necromancer.cpp" />
+    <ClCompile Include="Src\World\MapLoader.cpp" />
+    <ClCompile Include="Src\World\Map.cpp" />
+    <ClCompile Include="Src\Utilities\FrameRate.cpp" />
+    <ClCompile Include="Src\Projectiles\DarkProjectile.cpp" />
+    <ClCompile Include="Src\Projectiles\DarkProjectiles.cpp" />
+    <ClCompile Include="Src\Characters\FireMage.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Utilities\Math.cpp" />
+    <ClCompile Include="Src\Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="World\Tile.h" />
-    <ClInclude Include="World\Map.h" />
-    <ClInclude Include="Utilities\FrameRate.h" />
-    <ClInclude Include="Projectiles\DarkProjectile.h" />
-    <ClInclude Include="Projectiles\DarkProjectiles.h" />
-    <ClInclude Include="Characters\FireMage.h" />
-    <ClInclude Include="Utilities\Math.h" />
-    <ClInclude Include="Characters\Necromancer.h" />
+    <ClInclude Include="Src\World\MapLoader.h" />
+    <ClInclude Include="Src\World\Tile.h" />
+    <ClInclude Include="Src\World\Map.h" />
+    <ClInclude Include="Src\Utilities\FrameRate.h" />
+    <ClInclude Include="Src\Projectiles\DarkProjectile.h" />
+    <ClInclude Include="Src\Projectiles\DarkProjectiles.h" />
+    <ClInclude Include="Src\Characters\FireMage.h" />
+    <ClInclude Include="Src\Utilities\Math.h" />
+    <ClInclude Include="Src\Characters\Necromancer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

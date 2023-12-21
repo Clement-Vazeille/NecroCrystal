@@ -3,7 +3,8 @@
 
 Map::Map():
     tileHeight(16),tileWidth(16),
-    totalTilesX(0),totalTilesY(0),totalTiles(0)
+    totalTilesX(0),totalTilesY(0),totalTiles(0),
+    tiles(nullptr)
 {
 }
 
@@ -19,8 +20,6 @@ void Map::Load()
         
         totalTilesX = tileSheetTexture.getSize().x / tileWidth;
         totalTilesY= tileSheetTexture.getSize().y / tileHeight;
-        std::cout << totalTilesX << std::endl;
-        std::cout << totalTilesY << std::endl;
 
         totalTiles = totalTilesX * totalTilesY;
 
@@ -32,7 +31,6 @@ void Map::Load()
             {
                 int i = y * totalTilesX + x;
                 tiles[i].id = i;
-                tiles[i].texture = &tileSheetTexture;
                 tiles[i].position=sf::Vector2i(x * tileWidth, y * tileHeight);
                 //tiles[i].sprite.setScale(4.0f, 4.0f);
                 //tiles[i].sprite.setPosition(sf::Vector2f(100 + x * tileWidth * 4, 100 + y * tileWidth * 4));
@@ -51,7 +49,7 @@ void Map::Load()
         {
             int i = x + y * 3;
             int tileIndex = mapTilesID[i];
-            mapSprites[i].setTexture(*tiles[tileIndex].texture);
+            mapSprites[i].setTexture(tileSheetTexture);
             mapSprites[i].setTextureRect(sf::IntRect(
                 tiles[tileIndex].position.x,
                 tiles[tileIndex].position.y,
@@ -72,7 +70,7 @@ void Map::Update(float deltaTime)
 
 void Map::Draw(sf::RenderWindow& window)
 {
-    for (size_t i = 0; i < 6; i++)
+    for (size_t i = 0; i < mapSize; i++)
     {
         window.draw(mapSprites[i]);
     }

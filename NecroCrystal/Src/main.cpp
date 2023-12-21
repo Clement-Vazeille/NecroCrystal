@@ -8,6 +8,7 @@
 #include "Characters/FireMage.h"
 #include "Utilities/FrameRate.h"
 #include "World/Map.h"
+#include "World/MapLoader.h"
 
 
 int main()
@@ -38,6 +39,7 @@ int main()
     Map map;
     map.Load();
     
+    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map");
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
     while (window.isOpen())
