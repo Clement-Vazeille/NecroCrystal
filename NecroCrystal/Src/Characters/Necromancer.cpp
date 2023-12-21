@@ -52,6 +52,8 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime)
         new_position += sf::Vector2f(0, 1) * speed * deltaTime;
     }
     sprite.setPosition(new_position);
+    //To do faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
+    //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
 
     if (Math::SpriteCollision(sprite, fireMage.sprite))
     {

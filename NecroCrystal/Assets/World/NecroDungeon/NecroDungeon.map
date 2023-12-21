@@ -1,0 +1,9 @@
+[Map]
+tileSheet=Assets/World/NecroDungeon/TileSheet.png
+name=NecroDungeon
+tile-width=16
+tile-height=16
+scale-x=4
+scale-y=4
+
+tiles=0,1,2,0,2,1

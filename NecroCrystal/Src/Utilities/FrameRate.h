@@ -9,6 +9,10 @@ private:
 	double timer;
 	double refreshTime;
 
+	bool displayed;
+	double displayTimer;
+	double displayRefreshTime;
+
 	
 public:
 	FrameRate(); //constructor
