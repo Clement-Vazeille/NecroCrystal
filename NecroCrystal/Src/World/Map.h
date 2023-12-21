@@ -19,7 +19,7 @@ private:
 
 	static const int mapSize = 6;
 
-	int mapTilesID[mapSize] = {
+	int mapTilesID[mapSize] = { //TODO transformer ça en une matrice
 		2,0,1,
 		2,1,0
 	};

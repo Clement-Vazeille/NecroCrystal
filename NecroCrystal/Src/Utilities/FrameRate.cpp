@@ -2,7 +2,8 @@
 #include <iostream>
 
 FrameRate::FrameRate() : 
-	timer(0),refreshTime(300.0)
+	timer(0),refreshTime(300.0),
+	displayed(true),displayTimer(0),displayRefreshTime(250.0)
 {
 }
 
@@ -26,20 +27,37 @@ void FrameRate::Load()
 
 void FrameRate::Update(double deltaTime)
 {
-	timer += deltaTime;
-	if (timer > refreshTime)
+	if (displayTimer < displayRefreshTime)
 	{
-		timer = 0;
-		std::string frameRateString = "FPS: " + std::to_string((int)(1000.0f / deltaTime))
-			+ " frameTime: " + std::to_string((int)deltaTime);
-		text.setString(frameRateString);
+		displayTimer += deltaTime;
+	}
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			displayed = !displayed;
+			timer = 0;
+			displayTimer = 0;
+		}
+	}
+	if (displayed)
+	{
+		timer += deltaTime;
+		if (timer > refreshTime)
+		{
+			timer = 0;
+			std::string frameRateString = "FPS: " + std::to_string((int)(1000.0f / deltaTime))
+				+ " frameTime: " + std::to_string((int)deltaTime);
+			text.setString(frameRateString);
+		}
 	}
 	
 }
 
 void FrameRate::Draw(sf::RenderWindow& window)
 {
-	window.draw(text);
+	if(displayed)
+		window.draw(text);
 }
 
 

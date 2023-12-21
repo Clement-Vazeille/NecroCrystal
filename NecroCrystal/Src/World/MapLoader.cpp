@@ -23,7 +23,7 @@ void MapLoader::Load(std::string fileName)
 				}
 				else
 				{
-					std::cout << "Map file is not valid";
+					std::cout << "Map file " << fileName << " is not valid";
 					break;
 				}
 			}
@@ -31,7 +31,12 @@ void MapLoader::Load(std::string fileName)
 
 			if (isMapValid)
 			{
+				int separatorIndex = line.find('='); //the separator is the character = 
+				std::string variableName = line.substr(0, separatorIndex);
+				std::string value = line.substr(separatorIndex + 1, line.length() - separatorIndex);
+
 				std::cout << line << std::endl;
+				break;
 			}
 
 		}
