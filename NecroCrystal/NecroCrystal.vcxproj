@@ -149,6 +149,7 @@
     <ClCompile Include="Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="World\Tile.h" />
     <ClInclude Include="World\Map.h" />
     <ClInclude Include="Utilities\FrameRate.h" />
     <ClInclude Include="Projectiles\DarkProjectile.h" />

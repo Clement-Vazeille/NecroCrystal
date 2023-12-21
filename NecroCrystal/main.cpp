@@ -17,7 +17,7 @@ int main()
     settings.antialiasingLevel = 0; 
     int xSize = 1320;
     int ySize = 650;
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), " RPG Game ", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "NecroCrystal", sf::Style::Default, settings);
     
     window.setFramerateLimit(60); 
     //------------------------Initialize window---------------------------------------
