@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Tile.h"
+#include "MapData.h"
 
 class Map
 {
@@ -9,21 +10,15 @@ private:
 
 	Tile* tiles;
 
-	int tileWidth;
-	int tileHeight;
-
 	int totalTilesX;
-	int totalTilesY;
-	int totalTiles;
+	int totalTilesY;  //data about the tileeSheet
+
+	MapData mapData;
 
 
-	static const int mapSize = 6;
+	
 
-	int mapTilesID[mapSize] = { //TODO transformer ça en une matrice
-		2,0,1,
-		2,1,0
-	};
-	sf::Sprite mapSprites[mapSize];
+	sf::Sprite* mapSprites;
 public:
 	Map();
 	~Map();

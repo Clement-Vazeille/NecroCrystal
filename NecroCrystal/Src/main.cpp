@@ -9,6 +9,7 @@
 #include "Utilities/FrameRate.h"
 #include "World/Map.h"
 #include "World/MapLoader.h"
+#include "World/MapData.h"
 
 
 int main()
@@ -36,10 +37,11 @@ int main()
     FrameRate frameRate;
     frameRate.Load();
 
+
     Map map;
     map.Load();
     
-    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map");
+    
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
     while (window.isOpen())

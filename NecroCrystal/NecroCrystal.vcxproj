@@ -150,6 +150,7 @@
     <ClCompile Include="Src\Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\World\MapData.h" />
     <ClInclude Include="Src\World\MapLoader.h" />
     <ClInclude Include="Src\World\Tile.h" />
     <ClInclude Include="Src\World\Map.h" />
