@@ -16,6 +16,6 @@ struct MapData
 	int mapHeight = 0;
 
 	int tilesNumber = 0;
-	int* tiles = nullptr; //TODO transformer ça en une matrice
+	int** tiles = nullptr;
 	
 };

@@ -70,19 +70,22 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 				else if (variable == "tiles")
 				{
 					mapData.tilesNumber = mapData.mapHeight * mapData.mapWidth;
-					mapData.tiles = new int[mapData.tilesNumber];
-					int start = 0;
-					int end = 0;
-					for (int i = 0; i < mapData.tilesNumber-1; i++)
+					mapData.tiles = new int*[mapData.mapHeight];
+					for(int y=0;y<mapData.mapHeight;y++)
 					{
-						end = value.find(',', start);
-						mapData.tiles[i] = std::stoi(value.substr(start, end - start));
-						
-						start = end + 1;
+						int start = 0;
+						int end = 0;
+						mapData.tiles[y] = new int[mapData.mapWidth];
+						std::getline(file, line);
+						for (int x = 0; x < mapData.mapWidth; x++)
+						{
+							end = line.find(',', start);
+							mapData.tiles[y][x] = std::stoi(line.substr(start, end - start));
+
+							start = end + 1;
+						}
+
 					}
-					end = value.length();
-					mapData.tiles[mapData.tilesNumber - 1] = std::stoi(value.substr(start, end - start));
-					
 				}
 			}
 

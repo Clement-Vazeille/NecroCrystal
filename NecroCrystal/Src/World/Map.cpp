@@ -33,8 +33,6 @@ void Map::Load()
                 int i = y * totalTilesX + x;
                 tiles[i].id = i;
                 tiles[i].position=sf::Vector2i(x * mapData.tileWidth, y * mapData.tileHeight);
-                //tiles[i].sprite.setScale(4.0f, 4.0f);
-                //tiles[i].sprite.setPosition(sf::Vector2f(100 + x * tileWidth * 4, 100 + y * tileWidth * 4));
             }
         }
         
@@ -48,7 +46,7 @@ void Map::Load()
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
             int i = x + y * mapData.mapWidth;
-            int tileIndex = mapData.tiles[i];
+            int tileIndex = mapData.tiles[y][x];
             mapSprites[i].setTexture(tileSheetTexture);
             mapSprites[i].setTextureRect(sf::IntRect(
                 tiles[tileIndex].position.x,

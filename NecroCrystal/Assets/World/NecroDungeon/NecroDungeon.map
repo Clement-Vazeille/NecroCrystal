@@ -7,4 +7,7 @@ scaleX=4
 scaleY=4
 mapWidth=4
 mapHeight=3
-tiles=2,0,0,2,8,8,8,8,2,1,1,2
+tiles=
+2,0,0,2,
+8,8,8,8,
+2,1,1,2,
