@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../Utilities/CameraService.h"
 
 class DarkProjectile
 {
@@ -14,7 +15,7 @@ public:
 	DarkProjectile();
 
 	void Load(sf::Texture& texture,const sf::Vector2f& initalPosition,sf::Vector2f& spellTarget);
-	void Update(float deltaTime);
+	void Update(float deltaTime,CameraService& cameraService);
 	void Draw(sf::RenderWindow& window);
 };
 

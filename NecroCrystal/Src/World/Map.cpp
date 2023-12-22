@@ -1,10 +1,10 @@
 #include "Map.h"
 #include <iostream>
+#include "MapLoader.h"
 
 Map::Map():
-    tileHeight(16),tileWidth(16),
-    totalTilesX(0),totalTilesY(0),totalTiles(0),
-    tiles(nullptr)
+    totalTilesX(0),totalTilesY(0),
+    tiles(nullptr),mapSprites(nullptr)
 {
 }
 
@@ -14,16 +14,17 @@ Map::~Map()
 
 void Map::Load()
 {
-    if (tileSheetTexture.loadFromFile("Assets/World/NecroDungeon/TileSheet.png"))
+    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map", mapData);
+    if (tileSheetTexture.loadFromFile(mapData.tileSheet))
     {
         std::cout << "NecroDungeon tileSheet texture loaded successfully" << std::endl;
         
-        totalTilesX = tileSheetTexture.getSize().x / tileWidth;
-        totalTilesY= tileSheetTexture.getSize().y / tileHeight;
+        totalTilesX = tileSheetTexture.getSize().x / mapData.tileWidth;
+        totalTilesY= tileSheetTexture.getSize().y / mapData.tileHeight;
+        mapSprites = new sf::Sprite[mapData.tilesNumber];
 
-        totalTiles = totalTilesX * totalTilesY;
 
-        tiles = new Tile[totalTiles];
+        tiles = new Tile[mapData.tilesNumber];
 
         for (size_t y = 0; y < totalTilesY; y++)
         {
@@ -31,9 +32,7 @@ void Map::Load()
             {
                 int i = y * totalTilesX + x;
                 tiles[i].id = i;
-                tiles[i].position=sf::Vector2i(x * tileWidth, y * tileHeight);
-                //tiles[i].sprite.setScale(4.0f, 4.0f);
-                //tiles[i].sprite.setPosition(sf::Vector2f(100 + x * tileWidth * 4, 100 + y * tileWidth * 4));
+                tiles[i].position=sf::Vector2i(x * mapData.tileWidth, y * mapData.tileHeight);
             }
         }
         
@@ -42,35 +41,34 @@ void Map::Load()
     {
         std::cout << "NecroDungeon tileSheet texture failed to load" << std::endl;
     }
-
-    for (size_t y = 0; y < 2; y++)
+    for (size_t y = 0; y < mapData.mapHeight; y++)
     {
-        for (size_t x = 0; x < 3; x++)
+        for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            int i = x + y * 3;
-            int tileIndex = mapTilesID[i];
+            int i = x + y * mapData.mapWidth;
+            int tileIndex = mapData.tiles[y][x];
             mapSprites[i].setTexture(tileSheetTexture);
             mapSprites[i].setTextureRect(sf::IntRect(
                 tiles[tileIndex].position.x,
                 tiles[tileIndex].position.y,
-                tileWidth,
-                tileHeight
+                mapData.tileWidth,
+                mapData.tileHeight
             ));
-            mapSprites[i].setPosition(sf::Vector2f(x * 16*4, y * 16*4));
-            mapSprites[i].setScale(4.0f, 4.0f);
+            mapSprites[i].setPosition(sf::Vector2f(x * mapData.tileWidth*(int)mapData.scaleX, y * mapData.tileHeight * (int)mapData.scaleY));
+            mapSprites[i].setScale(mapData.scaleX, mapData.scaleY);
         }
     }
 
 }
 
-void Map::Update(float deltaTime)
+void Map::Update(float deltaTime, CameraService& cameraService)
 {
 
 }
 
 void Map::Draw(sf::RenderWindow& window)
 {
-    for (size_t i = 0; i < mapSize; i++)
+    for (size_t i = 0; i < mapData.tilesNumber; i++)
     {
         window.draw(mapSprites[i]);
     }

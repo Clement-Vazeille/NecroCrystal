@@ -31,34 +31,39 @@ void Necromancer::Load(int xSize, int ySize)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime)
+void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& window,CameraService& cameraService)
 {
     sf::Vector2f position = sprite.getPosition();
-    sf::Vector2f new_position = position;
+    sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
+    sf::Vector2f vertical_change = sf::Vector2f(0, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        new_position += sf::Vector2f(1, 0)*speed*deltaTime;
+        horizontal_change += sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        new_position -= sf::Vector2f(1, 0)*speed*deltaTime;
+        horizontal_change -= sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
-        new_position -= sf::Vector2f(0, 1) * speed * deltaTime;
+         vertical_change -= sf::Vector2f(0, 1) * speed * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        new_position += sf::Vector2f(0, 1) * speed * deltaTime;
+        vertical_change += sf::Vector2f(0, 1) * speed * deltaTime;
     }
-    sprite.setPosition(new_position);
-    //To do faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
+    sf::Vector2f movement =vertical_change + horizontal_change;
+    cameraService.Update(-movement.y);
+    cameraService.MoveSprite(sprite, movement);
+    //sprite.setPosition(position+vertical_change+horizontal_change);
+    //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
     //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
 
     if (Math::SpriteCollision(sprite, fireMage.sprite))
     {
         std::cout << "COLLISION !!!!" << std::endl;
     }
+    
 }
 
 void Necromancer::Draw(sf::RenderWindow& window)

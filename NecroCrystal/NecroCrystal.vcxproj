@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Utilities\CameraService.cpp" />
     <ClCompile Include="Src\World\MapLoader.cpp" />
     <ClCompile Include="Src\World\Map.cpp" />
     <ClCompile Include="Src\Utilities\FrameRate.cpp" />
@@ -150,6 +151,8 @@
     <ClCompile Include="Src\Characters\Necromancer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Utilities\CameraService.h" />
+    <ClInclude Include="Src\World\MapData.h" />
     <ClInclude Include="Src\World\MapLoader.h" />
     <ClInclude Include="Src\World\Tile.h" />
     <ClInclude Include="Src\World\Map.h" />

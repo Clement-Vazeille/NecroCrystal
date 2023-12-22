@@ -1,0 +1,20 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+class CameraService
+{
+	//Pour le moment l'idée c'est d'avoir une variable diff qui compte la ddifférence verticale avec la position précédente
+	//On retient aussi la position absolue au cas où ce sera utile plus tard
+
+private:
+	float diff;
+	float cameraPosition;
+public:
+	CameraService();
+
+	void MoveSprite(sf::Sprite& sprite, sf::Vector2f& movement);
+	void SetSprite(sf::Sprite& sprite, sf::Vector2f& position);
+
+	void Update(float new_diff);
+};
+

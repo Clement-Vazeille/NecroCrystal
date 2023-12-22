@@ -9,6 +9,8 @@
 #include "Utilities/FrameRate.h"
 #include "World/Map.h"
 #include "World/MapLoader.h"
+#include "World/MapData.h"
+#include "Utilities/CameraService.h"
 
 
 int main()
@@ -36,10 +38,13 @@ int main()
     FrameRate frameRate;
     frameRate.Load();
 
+
     Map map;
     map.Load();
+
+    CameraService cameraService;
     
-    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map");
+    
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
     while (window.isOpen())
@@ -58,10 +63,10 @@ int main()
         }
         sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
         frameRate.Update(deltaTime);
-        map.Update(deltaTime);
-        fireMage.Update();
-        necromancer.Update(fireMage,deltaTime);
-        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition);
+        map.Update(deltaTime,cameraService);
+        fireMage.Update(cameraService);
+        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
+        necromancer.Update(fireMage,deltaTime,window,cameraService);
         
         //------------------------UPDATE---------------------------------------
 

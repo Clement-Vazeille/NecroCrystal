@@ -4,6 +4,7 @@
 #include "DarkProjectile.h"
 #include "../Characters/Necromancer.h"
 #include "../Characters/FireMage.h"
+#include "../Utilities/CameraService.h"
 
 class DarkProjectiles
 {
@@ -17,7 +18,7 @@ public:
 	DarkProjectiles();
 
 	void Load();
-	void Update(Necromancer& necromancer,FireMage& firemage,double deltaTime,sf::Vector2f& mousePosition);
+	void Update(Necromancer& necromancer,FireMage& firemage,double deltaTime,sf::Vector2f& mousePosition, CameraService& cameraService);
 	void Draw(sf::RenderWindow& window);
 };
 

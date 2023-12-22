@@ -20,9 +20,10 @@ void DarkProjectile::Load(sf::Texture& texture,const sf::Vector2f& initialPositi
 	//std::cout << "Direction non normale : " << std::endl << "X: " << (target - sprite.getPosition()).x << std::endl << "Y: " << (target - sprite.getPosition()).y << std::endl;
 }
 
-void DarkProjectile::Update(float deltaTime)
+void DarkProjectile::Update(float deltaTime,CameraService& cameraService)
 {
-	sprite.setPosition(sprite.getPosition() + Math::normalizeVector(direction) * speed * deltaTime);
+	sf::Vector2f movement = Math::normalizeVector(direction) * speed * deltaTime;
+	cameraService.MoveSprite(sprite, movement);
 }
 
 void DarkProjectile::Draw(sf::RenderWindow& window)
