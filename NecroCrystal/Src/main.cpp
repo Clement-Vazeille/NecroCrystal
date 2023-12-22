@@ -10,6 +10,7 @@
 #include "World/Map.h"
 #include "World/MapLoader.h"
 #include "World/MapData.h"
+#include "Utilities/CameraService.h"
 
 
 int main()
@@ -40,6 +41,8 @@ int main()
 
     Map map;
     map.Load();
+
+    CameraService cameraService;
     
     
     //------------------------Initialize and load objects---------------------------------------
@@ -60,10 +63,10 @@ int main()
         }
         sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
         frameRate.Update(deltaTime);
-        map.Update(deltaTime);
-        fireMage.Update();
-        necromancer.Update(fireMage,deltaTime,window);
-        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition);
+        map.Update(deltaTime,cameraService);
+        fireMage.Update(cameraService);
+        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
+        necromancer.Update(fireMage,deltaTime,window,cameraService);
         
         //------------------------UPDATE---------------------------------------
 

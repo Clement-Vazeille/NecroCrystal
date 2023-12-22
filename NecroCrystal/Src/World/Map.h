@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Tile.h"
 #include "MapData.h"
+#include "../Utilities/CameraService.h"
 
 class Map
 {
@@ -24,7 +25,7 @@ public:
 	~Map();
 
 	void Load();
-	void Update(float deltaTime);
+	void Update(float deltaTime, CameraService& cameraService);
 	void Draw(sf::RenderWindow& window);
 };
 

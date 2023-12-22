@@ -31,7 +31,7 @@ void Necromancer::Load(int xSize, int ySize)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& window)
+void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& window,CameraService& cameraService)
 {
     sf::Vector2f position = sprite.getPosition();
     sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
@@ -52,22 +52,18 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& wi
     {
         vertical_change += sf::Vector2f(0, 1) * speed * deltaTime;
     }
-    sprite.setPosition(position+vertical_change+horizontal_change);
+    sf::Vector2f movement =vertical_change + horizontal_change;
+    cameraService.Update(-movement.y);
+    cameraService.MoveSprite(sprite, movement);
+    //sprite.setPosition(position+vertical_change+horizontal_change);
     //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
     //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
-    
-    window.setPosition(window.getPosition()+sf::Vector2i(vertical_change));
-    //un gros fail, une autre idée pourrait être d'avoir un vector 2f qui se balade partout et qui contient les variations d'écran
-    //de la frame actuelle, ou de celle d'avant
-    //soit on change tout au fur et à mesure(moins pratique), sont on change tout à la fin (plus long)
-
-    //idée, créer une nouvelle fonction qui remplace .setPosition et qui prend en compe les changmeent de window 
-    // (c'est vraiment une super idée) 
 
     if (Math::SpriteCollision(sprite, fireMage.sprite))
     {
         std::cout << "COLLISION !!!!" << std::endl;
     }
+    
 }
 
 void Necromancer::Draw(sf::RenderWindow& window)

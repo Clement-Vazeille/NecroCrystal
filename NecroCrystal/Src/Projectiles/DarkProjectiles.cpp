@@ -2,7 +2,6 @@
 #include <iostream>
 #include "../Utilities/Math.h"
 
-
 DarkProjectiles::DarkProjectiles() :
     castSpeed(400),timer(0)
 {
@@ -20,7 +19,7 @@ void DarkProjectiles::Load()
     }
 }
 
-void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double deltaTime, sf::Vector2f& mousePosition)
+void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService)
 {
     timer += deltaTime;
 
@@ -37,7 +36,7 @@ void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double 
 
     for (int i = projectiles.size()-1; i >=0; i--)
     {
-        projectiles[i].Update(deltaTime);
+        projectiles[i].Update(deltaTime,cameraService);
         
         
         if (fireMage.health > 0)

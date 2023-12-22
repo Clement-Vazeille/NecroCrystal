@@ -61,7 +61,7 @@ void Map::Load()
 
 }
 
-void Map::Update(float deltaTime)
+void Map::Update(float deltaTime, CameraService& cameraService)
 {
 
 }

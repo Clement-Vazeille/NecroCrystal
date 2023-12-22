@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../Utilities/CameraService.h"
 class FireMage
 {
 private:
@@ -17,7 +18,7 @@ public:
 	FireMage();
 
 	void Load(int x, int y);
-	void Update();
+	void Update(CameraService& cameraService);
 	void SetHealth(int hp);
 	void Draw(sf::RenderWindow& window);
 };

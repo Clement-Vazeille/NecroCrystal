@@ -39,10 +39,12 @@ void FireMage::Load(int xSize, int ySize)
     healthText.setString("Health: " + std::to_string(health));
 }
 
-void FireMage::Update()
+void FireMage::Update(CameraService& cameraService)
 {
     if (health > 0)
     {
+        sf::Vector2f movement = sf::Vector2f(0, 0);
+        cameraService.MoveSprite(sprite,movement);
         healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -40));
     }
 }
