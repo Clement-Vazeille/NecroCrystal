@@ -3,7 +3,7 @@
 #include <iostream>
 
 Necromancer::Necromancer() :
-    width(64),height(64),speed(0.25f)
+    width(64),height(64),speed(0.32f)
 {
 }
 
@@ -31,7 +31,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& window,CameraService& cameraService)
+void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& cameraService)
 {
     sf::Vector2f position = sprite.getPosition();
     sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
@@ -66,7 +66,7 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& wi
     
 }
 
-void Necromancer::Draw(sf::RenderWindow& window)
+void Necromancer::Draw(sf::RenderWindow* window)
 {
-    window.draw(sprite);
+    window->draw(sprite);
 }

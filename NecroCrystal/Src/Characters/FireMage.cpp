@@ -49,12 +49,12 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     }
 }
 
-void FireMage::Draw(sf::RenderWindow& window)
+void FireMage::Draw(sf::RenderWindow* window)
 {
     if (health > 0)
     {
-        window.draw(sprite);
-        window.draw(healthText);
+        window->draw(sprite);
+        window->draw(healthText);
     }
 	
 }

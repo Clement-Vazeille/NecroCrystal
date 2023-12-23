@@ -69,18 +69,18 @@ int main()
         map.Update(deltaTime,cameraService);
         fireMage.Update(cameraService,windowManager.size);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
-        necromancer.Update(fireMage,deltaTime,*window,cameraService);
+        necromancer.Update(fireMage,deltaTime,cameraService);
         
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
         window->clear(sf::Color::Black);
 
-        map.Draw(*window);
-        necromancer.Draw(*window);
-        darkProjectiles.Draw(*window);
-        fireMage.Draw(*window);
-        frameRate.Draw(*window);
+        map.Draw(window);
+        necromancer.Draw(window);
+        darkProjectiles.Draw(window);
+        fireMage.Draw(window);
+        frameRate.Draw(window);
         window->display();
         //-------------------------DRAW---------------------------------------
         

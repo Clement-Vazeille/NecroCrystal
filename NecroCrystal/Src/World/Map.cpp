@@ -76,13 +76,13 @@ void Map::Update(float deltaTime, CameraService& cameraService)
     }
 }
 
-void Map::Draw(sf::RenderWindow& window)
+void Map::Draw(sf::RenderWindow* window)
 {
     for (size_t y = 0; y < mapData.mapHeight; y++)
     {
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            window.draw(mapSprites[y][x]);
+            window->draw(mapSprites[y][x]);
         }
     }
 }

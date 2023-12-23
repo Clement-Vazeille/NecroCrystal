@@ -9,6 +9,9 @@ private:
 	double timer;
 	double refreshTime;
 
+	double fpsSum;  //pour moyenner le résultat
+	int fpsNumber;
+
 	bool displayed;
 	double displayTimer;
 	double displayRefreshTime;
@@ -20,6 +23,6 @@ public:
 
 	void Load();
 	void Update(double deltaTime);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow* window);
 };
 

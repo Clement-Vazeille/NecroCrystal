@@ -26,7 +26,7 @@ void DarkProjectile::Update(float deltaTime,CameraService& cameraService)
 	cameraService.MoveSprite(sprite, movement);
 }
 
-void DarkProjectile::Draw(sf::RenderWindow& window)
+void DarkProjectile::Draw(sf::RenderWindow* window)
 {
-	window.draw(sprite);
+	window->draw(sprite);
 }

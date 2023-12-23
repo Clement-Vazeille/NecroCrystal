@@ -21,6 +21,6 @@ public:
 	void Load(sf::Vector2i& windowDimensions);
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions);
 	void SetHealth(int hp);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow* window);
 };
 
