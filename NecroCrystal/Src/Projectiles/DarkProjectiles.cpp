@@ -54,7 +54,7 @@ void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double 
     }
 }
 
-void DarkProjectiles::Draw(sf::RenderWindow& window)
+void DarkProjectiles::Draw(sf::RenderWindow* window)
 {
 
     for (size_t i = 0; i < projectiles.size(); i++)

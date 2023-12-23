@@ -14,7 +14,7 @@ void DarkProjectile::Load(sf::Texture& texture,const sf::Vector2f& initialPositi
 	sprite.scale(sf::Vector2f(2.0f, 2.0f));
 	sprite.setPosition(initialPosition);
 
-	target = spellTarget;
+	target = spellTarget-(sf::Vector2f(texture.getSize())*sprite.getScale().x / 2.0f); //dividing by 2 make that the target will be hit by the spell middle and not the spell top left corner
 	direction = Math::normalizeVector(target - sprite.getPosition());
 
 	//std::cout << "Direction non normale : " << std::endl << "X: " << (target - sprite.getPosition()).x << std::endl << "Y: " << (target - sprite.getPosition()).y << std::endl;
@@ -26,7 +26,7 @@ void DarkProjectile::Update(float deltaTime,CameraService& cameraService)
 	cameraService.MoveSprite(sprite, movement);
 }
 
-void DarkProjectile::Draw(sf::RenderWindow& window)
+void DarkProjectile::Draw(sf::RenderWindow* window)
 {
-	window.draw(sprite);
+	window->draw(sprite);
 }

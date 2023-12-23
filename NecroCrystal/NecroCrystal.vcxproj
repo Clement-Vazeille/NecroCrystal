@@ -149,6 +149,7 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Utilities\Math.cpp" />
     <ClCompile Include="Src\Characters\Necromancer.cpp" />
+    <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Utilities\CameraService.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Src\Characters\FireMage.h" />
     <ClInclude Include="Src\Utilities\Math.h" />
     <ClInclude Include="Src\Characters\Necromancer.h" />
+    <ClInclude Include="Src\GameGestion\WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

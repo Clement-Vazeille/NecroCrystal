@@ -19,13 +19,13 @@ private:
 
 	
 
-	sf::Sprite* mapSprites;
+	sf::Sprite** mapSprites;
 public:
 	Map();
 	~Map();
 
 	void Load();
 	void Update(float deltaTime, CameraService& cameraService);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow* window);
 };
 

@@ -3,7 +3,7 @@
 #include <iostream>
 
 Necromancer::Necromancer() :
-    width(64),height(64),speed(0.25f)
+    width(64),height(64),speed(0.32f)
 {
 }
 
@@ -11,7 +11,7 @@ Necromancer::~Necromancer()
 {
 }
 
-void Necromancer::Load(int xSize, int ySize)
+void Necromancer::Load(sf::Vector2i& windowDimensions)
 {
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
@@ -22,7 +22,7 @@ void Necromancer::Load(int xSize, int ySize)
         int YNIndex = 0;
         sprite.setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         sprite.scale(sf::Vector2f(scale, scale));//multiplie la taille par 3
-        sprite.setPosition(sf::Vector2f(xSize / 2, ySize / 2));
+        sprite.setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y *0.42));
     }
     else
     {
@@ -31,7 +31,7 @@ void Necromancer::Load(int xSize, int ySize)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& window,CameraService& cameraService)
+void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& cameraService)
 {
     sf::Vector2f position = sprite.getPosition();
     sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
@@ -66,7 +66,7 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime,sf::RenderWindow& wi
     
 }
 
-void Necromancer::Draw(sf::RenderWindow& window)
+void Necromancer::Draw(sf::RenderWindow* window)
 {
-    window.draw(sprite);
+    window->draw(sprite);
 }

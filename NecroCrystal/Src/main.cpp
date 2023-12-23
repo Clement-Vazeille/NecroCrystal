@@ -11,29 +11,28 @@
 #include "World/MapLoader.h"
 #include "World/MapData.h"
 #include "Utilities/CameraService.h"
+#include "GameGestion/WindowManager.h"
 
 
 int main()
 {
     //------------------------Initialize window---------------------------------------
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 0; 
-    int xSize = 1320;
-    int ySize = 650;
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "NecroCrystal", sf::Style::Default, settings);
-    
-    window.setFramerateLimit(60); 
+
+    WindowManager windowManager;
+    windowManager.Load();
+    sf::RenderWindow* window = windowManager.GetWindow();
+     
     //------------------------Initialize window---------------------------------------
 
     //------------------------Initialize and load objects---------------------------------------
     Necromancer necromancer;
-    necromancer.Load(xSize, ySize);
+    necromancer.Load(windowManager.size);
 
     DarkProjectiles darkProjectiles;
     darkProjectiles.Load();
 
     FireMage fireMage;
-    fireMage.Load(xSize,ySize);
+    fireMage.Load(windowManager.size);
 
     FrameRate frameRate;
     frameRate.Load();
@@ -47,38 +46,42 @@ int main()
     
     //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
-    while (window.isOpen())
+    while (window->isOpen())
     {
         sf::Time deltaTimeTimer = clock.restart();
         double deltaTime = ((double) deltaTimeTimer.asMicroseconds())/1000.0;
 
         //------------------------UPDATE---------------------------------------
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
             {
-                window.close();
+                window->close();
             }
         }
-        sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+        windowManager.Update(deltaTime);
+        window = windowManager.GetWindow();
+
+        sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
         frameRate.Update(deltaTime);
         map.Update(deltaTime,cameraService);
-        fireMage.Update(cameraService);
+        fireMage.Update(cameraService,windowManager.size);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
-        necromancer.Update(fireMage,deltaTime,window,cameraService);
+        necromancer.Update(fireMage,deltaTime,cameraService);
         
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
-        window.clear(sf::Color::Black);
+        window->clear(sf::Color::Black);
 
         map.Draw(window);
         necromancer.Draw(window);
         darkProjectiles.Draw(window);
         fireMage.Draw(window);
         frameRate.Draw(window);
-        window.display();
+        window->display();
         //-------------------------DRAW---------------------------------------
         
     }
