@@ -21,7 +21,7 @@ void Map::Load()
         
         totalTilesX = tileSheetTexture.getSize().x / mapData.tileWidth;
         totalTilesY= tileSheetTexture.getSize().y / mapData.tileHeight;
-        mapSprites = new sf::Sprite[mapData.tilesNumber];
+        
 
 
         tiles = new Tile[mapData.tilesNumber];
@@ -41,21 +41,24 @@ void Map::Load()
     {
         std::cout << "NecroDungeon tileSheet texture failed to load" << std::endl;
     }
+
+    mapSprites = new sf::Sprite*[mapData.mapHeight];
     for (size_t y = 0; y < mapData.mapHeight; y++)
     {
+        mapSprites[y] = new sf::Sprite[mapData.mapWidth];
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
             int i = x + y * mapData.mapWidth;
             int tileIndex = mapData.tiles[y][x];
-            mapSprites[i].setTexture(tileSheetTexture);
-            mapSprites[i].setTextureRect(sf::IntRect(
+            mapSprites[y][x].setTexture(tileSheetTexture);
+            mapSprites[y][x].setTextureRect(sf::IntRect(
                 tiles[tileIndex].position.x,
                 tiles[tileIndex].position.y,
                 mapData.tileWidth,
                 mapData.tileHeight
             ));
-            mapSprites[i].setPosition(sf::Vector2f(x * mapData.tileWidth*(int)mapData.scaleX, y * mapData.tileHeight * (int)mapData.scaleY));
-            mapSprites[i].setScale(mapData.scaleX, mapData.scaleY);
+            mapSprites[y][x].setPosition(sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX, y * mapData.tileHeight * (int)mapData.scaleY));
+            mapSprites[y][x].setScale(mapData.scaleX, mapData.scaleY);
         }
     }
 
@@ -63,14 +66,23 @@ void Map::Load()
 
 void Map::Update(float deltaTime, CameraService& cameraService)
 {
-
+    for (size_t y = 0; y < mapData.mapHeight; y++)
+    {
+        for (size_t x = 0; x < mapData.mapWidth; x++)
+        {
+            sf::Vector2f movement = sf::Vector2f(0,0);
+            cameraService.MoveSprite(mapSprites[y][x], movement);
+        }
+    }
 }
 
 void Map::Draw(sf::RenderWindow& window)
 {
-    for (size_t i = 0; i < mapData.tilesNumber; i++)
+    for (size_t y = 0; y < mapData.mapHeight; y++)
     {
-        window.draw(mapSprites[i]);
+        for (size_t x = 0; x < mapData.mapWidth; x++)
+        {
+            window.draw(mapSprites[y][x]);
+        }
     }
-    
 }

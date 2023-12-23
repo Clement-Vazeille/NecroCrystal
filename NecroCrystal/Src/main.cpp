@@ -18,7 +18,7 @@ int main()
     //------------------------Initialize window---------------------------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 0; 
-    int xSize = 1320;
+    int xSize = 1280;
     int ySize = 650;
     sf::RenderWindow window(sf::VideoMode(xSize, ySize), "NecroCrystal", sf::Style::Default, settings);
     

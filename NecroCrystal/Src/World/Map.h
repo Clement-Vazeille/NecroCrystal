@@ -19,7 +19,7 @@ private:
 
 	
 
-	sf::Sprite* mapSprites;
+	sf::Sprite** mapSprites;
 public:
 	Map();
 	~Map();
