@@ -10,6 +10,7 @@ private:
 	int scale;
 	sf::Font font;
 	sf::Text healthText;
+	float heathBarDistance;
 
 public:
 	int health;
@@ -17,8 +18,8 @@ public:
 public:
 	FireMage();
 
-	void Load(int x, int y);
-	void Update(CameraService& cameraService);
+	void Load(sf::Vector2i& windowDimensions);
+	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions);
 	void SetHealth(int hp);
 	void Draw(sf::RenderWindow& window);
 };

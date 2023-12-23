@@ -3,11 +3,11 @@
 
 
 FireMage::FireMage() :
-    width(64),height(64),scale(2),health(100)
+    width(64),height(64),scale(2),health(100),heathBarDistance(0.03)
 {
 }
 
-void FireMage::Load(int xSize, int ySize)
+void FireMage::Load(sf::Vector2i& windowDimensions)
 {
     if (texture.loadFromFile("Assets/OtherMages/funnyMageColored.png"))
     {
@@ -18,7 +18,7 @@ void FireMage::Load(int xSize, int ySize)
         int YNIndex = 0;
         sprite.setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         sprite.scale(sf::Vector2f(scale, scale));//multiplie la taille par scale (c'est 2)
-        sprite.setPosition(sf::Vector2f(4*xSize / 5, ySize / 2));
+        sprite.setPosition(sf::Vector2f(4*windowDimensions.x / 5, windowDimensions.y / 2));
     }
     else
     {
@@ -34,18 +34,18 @@ void FireMage::Load(int xSize, int ySize)
     {
         std::cout << "Faile to load Arial.ttf" << std::endl;
     }
-    healthText.setPosition(sprite.getPosition() + sf::Vector2f(0,-40));
+    healthText.setPosition(sprite.getPosition() + sf::Vector2f(0,-windowDimensions.y*heathBarDistance));
     healthText.setScale(0.8, 0.8);
     healthText.setString("Health: " + std::to_string(health));
 }
 
-void FireMage::Update(CameraService& cameraService)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions)
 {
     if (health > 0)
     {
         sf::Vector2f movement = sf::Vector2f(0, 0);
         cameraService.MoveSprite(sprite,movement);
-        healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -40));
+        healthText.setPosition(sprite.getPosition() + sf::Vector2f(0, -windowDimensions.y*heathBarDistance));
     }
 }
 

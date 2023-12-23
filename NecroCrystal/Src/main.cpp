@@ -18,30 +18,21 @@ int main()
 {
     //------------------------Initialize window---------------------------------------
 
-    //sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    //int xSize = desktop.width;
-    //int ySize = desktop.height;
-    //sf::RenderWindow window(desktop, "NecroCrystal", sf::Style::Titlebar);
-    
-    //window.setFramerateLimit(60);
-     
     WindowManager windowManager;
     windowManager.Load();
     sf::RenderWindow* window = windowManager.GetWindow();
-    int xSize = windowManager.size.x;
-    int ySize = windowManager.size.y;
      
     //------------------------Initialize window---------------------------------------
 
     //------------------------Initialize and load objects---------------------------------------
     Necromancer necromancer;
-    necromancer.Load(xSize, ySize);
+    necromancer.Load(windowManager.size);
 
     DarkProjectiles darkProjectiles;
     darkProjectiles.Load();
 
     FireMage fireMage;
-    fireMage.Load(xSize,ySize);
+    fireMage.Load(windowManager.size);
 
     FrameRate frameRate;
     frameRate.Load();
@@ -76,7 +67,7 @@ int main()
         sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
         frameRate.Update(deltaTime);
         map.Update(deltaTime,cameraService);
-        fireMage.Update(cameraService);
+        fireMage.Update(cameraService,windowManager.size);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
         necromancer.Update(fireMage,deltaTime,*window,cameraService);
         

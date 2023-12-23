@@ -27,7 +27,7 @@ void WindowManager::Update(double deltaTime)
 	timer += deltaTime;
 	if (timer > refreshTime)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::F11))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::F11))               //change fullScreen-desktopMode
 		{
 			timer = 0;
 			isGameFullScreen = !isGameFullScreen;
@@ -45,6 +45,8 @@ void WindowManager::Update(double deltaTime)
 				desktopWindow->setVisible(true);
 			}
 		}
+		if (isGameFullScreen)										 //upate window size information (for sprite positions)
+			size = sf::Vector2i(fullScreenMode.width, fullScreenMode.height);
 	}
 }
 

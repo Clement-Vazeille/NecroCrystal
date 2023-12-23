@@ -47,7 +47,7 @@ void FrameRate::Update(double deltaTime)
 		{
 			timer = 0;
 			std::string frameRateString = "FPS: " + std::to_string((int)(1000.0f / deltaTime))
-				+ " frameTime: " + std::to_string((int)deltaTime);
+				+ "   FrameTime: " + std::to_string((int)deltaTime) + " ms";
 			text.setString(frameRateString);
 		}
 	}
