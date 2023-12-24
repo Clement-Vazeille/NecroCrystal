@@ -16,13 +16,15 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
-        sprite.setTexture(texture);
+        sprites = new sf::Sprite[1];
+        //sprites[0] = sprite;
+        sprites[0].setTexture(texture);
 
         int XNIndex = 0;
         int YNIndex = 0;
-        sprite.setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
-        sprite.scale(sf::Vector2f(scale, scale));//multiplie la taille par 3
-        sprite.setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y *0.42));
+        sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
+        sprites[0].scale(sf::Vector2f(scale, scale));//multiplie la taille par 3
+        sprites[0].setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y * 0.42));
     }
     else
     {
@@ -31,9 +33,9 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& cameraService)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
 {
-    sf::Vector2f position = sprite.getPosition();
+    sf::Vector2f position = sprites[0].getPosition();
     sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
     sf::Vector2f vertical_change = sf::Vector2f(0, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -54,19 +56,19 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& camer
     }
     sf::Vector2f movement =vertical_change + horizontal_change;
     cameraService.Update(-movement.y);
-    cameraService.MoveSprite(sprite, movement);
+    cameraService.MoveSprite(sprites[0], movement);
     //sprite.setPosition(position+vertical_change+horizontal_change);
     //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
     //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
-
-    if (Math::SpriteCollision(sprite, fireMage.sprite))
-    {
-        std::cout << "COLLISION !!!!" << std::endl;
-    }
     
 }
 
 void Necromancer::Draw(sf::RenderWindow* window)
 {
-    window->draw(sprite);
+    window->draw(sprites[0]);
+}
+
+sf::Sprite& Necromancer::getSprite(void) const
+{
+    return sprites[0];
 }

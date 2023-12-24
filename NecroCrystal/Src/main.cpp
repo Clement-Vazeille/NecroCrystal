@@ -5,7 +5,7 @@
 
 #include "Projectiles/DarkProjectiles.h"
 #include "Characters/Necromancer.h"
-#include "Characters/FireMage.h"
+#include "Characters/Enemy/FireMage.h"
 #include "Utilities/FrameRate.h"
 #include "World/Map.h"
 #include "World/MapLoader.h"
@@ -67,9 +67,9 @@ int main()
         sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
         frameRate.Update(deltaTime);
         map.Update(deltaTime,cameraService);
-        fireMage.Update(cameraService,windowManager.size);
+        fireMage.Update(cameraService,windowManager.size,deltaTime);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
-        necromancer.Update(fireMage,deltaTime,cameraService);
+        necromancer.Update(cameraService,windowManager.size,deltaTime);
         
         //------------------------UPDATE---------------------------------------
 
