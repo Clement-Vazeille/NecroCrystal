@@ -14,7 +14,8 @@ protected:
 	float speed;
 	int faction;  //pourrait se faire avec un enum
 	
-	std::vector<sf::Sprite> sprites;
+	int spriteNumber;
+	sf::Sprite* sprites;
 
 public:
 	Character();

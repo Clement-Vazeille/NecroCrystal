@@ -15,8 +15,8 @@ void Character::SetHealth(int hp)
 
 void Character::Draw(sf::RenderWindow* window) const
 {
-	for (auto& sprite : sprites)
+	for (size_t i=0;i<spriteNumber;i++)
 	{
-		window->draw(sprite);
+		window->draw(sprites[i]);
 	}
 }

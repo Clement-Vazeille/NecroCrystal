@@ -28,7 +28,7 @@ void DarkProjectiles::Update(Necromancer& necromancer,FireMage& fireMage,double 
         timer = 0;
 
         DarkProjectile darkProjectile;
-        sf::Vector2f spellPosition = necromancer.sprite.getPosition() + sf::Vector2f(48, 6) * 2.0f;
+        sf::Vector2f spellPosition = necromancer.getSprite().getPosition() + sf::Vector2f(48, 6) * 2.0f;
         darkProjectile.Load(texture,spellPosition, mousePosition);
         projectiles.push_back(darkProjectile);
     }

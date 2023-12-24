@@ -12,6 +12,8 @@ protected:
 	float speed;
 
 	int scale = 2;
+
+	sf::Sprite* sprites;
 public:
 	sf::Sprite sprite; //TODO :  l'encapsuler
 public:
@@ -21,5 +23,8 @@ public:
 	void Load(sf::Vector2i& windowDimensions);       //called once per App Start
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);     //called once per frame
 	void Draw(sf::RenderWindow* window);	   //called once per frame
+
+	sf::Sprite& getSprite(void) const;
+
 };
 
