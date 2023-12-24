@@ -39,7 +39,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions)
     healthText.setString("Health: " + std::to_string(health));
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
 {
     if (health > 0)
     {

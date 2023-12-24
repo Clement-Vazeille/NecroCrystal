@@ -3,7 +3,7 @@
 #include <vector>
 #include "DarkProjectile.h"
 #include "../Characters/Necromancer.h"
-#include "../Characters/FireMage.h"
+#include "../Characters/Enemy/FireMage.h"
 #include "../Utilities/CameraService.h"
 
 class DarkProjectiles

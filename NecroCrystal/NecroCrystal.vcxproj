@@ -139,19 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Characters\Enemy\Enemy.cpp" />
+    <ClCompile Include="Src\Characters\character.cpp" />
     <ClCompile Include="Src\Utilities\CameraService.cpp" />
     <ClCompile Include="Src\World\MapLoader.cpp" />
     <ClCompile Include="Src\World\Map.cpp" />
     <ClCompile Include="Src\Utilities\FrameRate.cpp" />
     <ClCompile Include="Src\Projectiles\DarkProjectile.cpp" />
     <ClCompile Include="Src\Projectiles\DarkProjectiles.cpp" />
-    <ClCompile Include="Src\Characters\FireMage.cpp" />
+    <ClCompile Include="Src\Characters\Enemy\FireMage.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Utilities\Math.cpp" />
     <ClCompile Include="Src\Characters\Necromancer.cpp" />
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Characters\Enemy\Enemy.h" />
+    <ClInclude Include="Src\Characters\character.h" />
     <ClInclude Include="Src\Utilities\CameraService.h" />
     <ClInclude Include="Src\World\MapData.h" />
     <ClInclude Include="Src\World\MapLoader.h" />
@@ -160,7 +164,7 @@
     <ClInclude Include="Src\Utilities\FrameRate.h" />
     <ClInclude Include="Src\Projectiles\DarkProjectile.h" />
     <ClInclude Include="Src\Projectiles\DarkProjectiles.h" />
-    <ClInclude Include="Src\Characters\FireMage.h" />
+    <ClInclude Include="Src\Characters\Enemy\FireMage.h" />
     <ClInclude Include="Src\Utilities\Math.h" />
     <ClInclude Include="Src\Characters\Necromancer.h" />
     <ClInclude Include="Src\GameGestion\WindowManager.h" />

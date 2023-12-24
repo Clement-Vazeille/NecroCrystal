@@ -31,7 +31,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     
 }
 
-void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& cameraService)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
 {
     sf::Vector2f position = sprite.getPosition();
     sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
@@ -58,11 +58,6 @@ void Necromancer::Update(FireMage& fireMage,float deltaTime,CameraService& camer
     //sprite.setPosition(position+vertical_change+horizontal_change);
     //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
     //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
-
-    if (Math::SpriteCollision(sprite, fireMage.sprite))
-    {
-        std::cout << "COLLISION !!!!" << std::endl;
-    }
     
 }
 

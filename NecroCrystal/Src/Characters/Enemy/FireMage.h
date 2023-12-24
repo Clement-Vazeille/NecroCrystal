@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../Utilities/CameraService.h"
+#include "../../Utilities/CameraService.h"
 class FireMage
 {
-private:
+protected:
 	sf::Texture texture;
 	int width;
 	int height;
@@ -19,7 +19,7 @@ public:
 	FireMage();
 
 	void Load(sf::Vector2i& windowDimensions);
-	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions);
+	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);
 	void SetHealth(int hp);
 	void Draw(sf::RenderWindow* window);
 };
