@@ -19,7 +19,7 @@ public:
 	ProjectilesHandler();
 
 	void Load();
-	void Update(std::vector<Character*>, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions);
+	void Update(std::vector<Character*> characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions);
 	void Draw(sf::RenderWindow* window) const;
 	
 };

@@ -13,7 +13,7 @@ protected:
 	int health;
 	float speed;
 	int faction;  //pourrait se faire avec un enum
-	//0 pour inconnu, 1 pour avec le nécro, 2 pour méchant
+	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
 	
 	int spriteNumber;
 	sf::Sprite* sprites;
