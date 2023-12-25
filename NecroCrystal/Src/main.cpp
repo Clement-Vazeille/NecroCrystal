@@ -68,7 +68,7 @@ int main()
         frameRate.Update(deltaTime);
         map.Update(deltaTime,cameraService);
         fireMage->Update(cameraService,windowManager.size,deltaTime);
-        darkProjectiles.Update((Necromancer*)necromancer,(FireMage*)fireMage,deltaTime,mousePosition,cameraService);
+        darkProjectiles.Update((Necromancer*)necromancer,(FireMage*)fireMage,deltaTime,mousePosition,cameraService,windowManager.size);
         necromancer->Update(cameraService,windowManager.size,deltaTime);
         
         //------------------------UPDATE---------------------------------------
