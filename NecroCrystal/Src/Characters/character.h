@@ -28,6 +28,8 @@ public:
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;
 
+	sf::Sprite& getSprite(void) const;
+	int getFaction(void) const;
 	
 };
 

@@ -19,8 +19,7 @@ void Projectile::Draw(sf::RenderWindow* window) const
 {
 	window->draw(sprite);
 }
-
-float Projectile::getCastSpeed(void) const
+int Projectile::getFaction(void) const
 {
-	return castSpeed;
+	return faction;
 }

@@ -4,9 +4,8 @@
 
 DarkProjectile::DarkProjectile()
 {
-	castSpeed = 400;
 	speed = 0.5f;
-	faction = 2;
+	faction = 1;
 }
 
 void DarkProjectile::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)

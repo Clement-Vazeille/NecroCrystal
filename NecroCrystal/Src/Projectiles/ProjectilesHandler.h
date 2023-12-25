@@ -9,8 +9,9 @@ class ProjectilesHandler
 {
 protected:
 	float timer;
+	float darkProjectileCastSpeed;
 
-	std::vector<Projectile> projectiles;
+	std::vector<Projectile*> projectiles;
 
 	//textures
 	sf::Texture darkProjectileTexture;

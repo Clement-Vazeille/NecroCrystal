@@ -29,3 +29,12 @@ void Character::Draw(sf::RenderWindow* window) const
 	}
 }
 
+sf::Sprite& Character::getSprite(void) const   //TODO changer pour remplacer par les hitboxes
+{
+	return sprites[0];
+}
+
+int Character::getFaction(void) const
+{
+	return faction;
+}
