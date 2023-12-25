@@ -1,6 +1,9 @@
 #include "character.h"
 
-Character::Character() : health(0),width(0),height(0),scale(0),speed(0)
+Character::Character() : 
+	health(0),width(0),height(0),scale(0),
+	speed(0),faction(0),
+	sprites(nullptr),spriteNumber(0)
 {
 }
 
@@ -19,4 +22,9 @@ void Character::Draw(sf::RenderWindow* window) const
 	{
 		window->draw(sprites[i]);
 	}
+}
+
+sf::Sprite& Character::getSprite(void) const
+{
+	return sprites[0];
 }

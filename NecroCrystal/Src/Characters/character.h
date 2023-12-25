@@ -13,6 +13,7 @@ protected:
 	int health;
 	float speed;
 	int faction;  //pourrait se faire avec un enum
+	//0 pour inconnu, 1 pour avec le nécro, 2 pour méchant
 	
 	int spriteNumber;
 	sf::Sprite* sprites;
@@ -25,5 +26,7 @@ public:
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)=0; //rajouter l'entity list
 	void SetHealth(int hp);
 	void Draw(sf::RenderWindow* window) const;
+
+	sf::Sprite& getSprite(void) const;
 };
 

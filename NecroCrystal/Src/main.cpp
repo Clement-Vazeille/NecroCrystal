@@ -25,8 +25,8 @@ int main()
     //------------------------Initialize window---------------------------------------
 
     //------------------------Initialize and load objects---------------------------------------
-    Necromancer necromancer;
-    necromancer.Load(windowManager.size);
+    Character* necromancer = new Necromancer;
+    necromancer->Load(windowManager.size);
 
     DarkProjectiles darkProjectiles;
     darkProjectiles.Load();
@@ -69,7 +69,7 @@ int main()
         map.Update(deltaTime,cameraService);
         fireMage.Update(cameraService,windowManager.size,deltaTime);
         darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
-        necromancer.Update(cameraService,windowManager.size,deltaTime);
+        necromancer->Update(cameraService,windowManager.size,deltaTime);
         
         //------------------------UPDATE---------------------------------------
 
@@ -77,7 +77,7 @@ int main()
         window->clear(sf::Color::Black);
 
         map.Draw(window);
-        necromancer.Draw(window);
+        necromancer->Draw(window);
         darkProjectiles.Draw(window);
         fireMage.Draw(window);
         frameRate.Draw(window);

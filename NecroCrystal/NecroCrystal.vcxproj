@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Characters\Enemy\Enemy.cpp" />
-    <ClCompile Include="Src\Characters\character.cpp" />
+    <ClCompile Include="Src\Characters\Character.cpp" />
     <ClCompile Include="Src\Utilities\CameraService.cpp" />
     <ClCompile Include="Src\World\MapLoader.cpp" />
     <ClCompile Include="Src\World\Map.cpp" />
@@ -155,7 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Characters\Enemy\Enemy.h" />
-    <ClInclude Include="Src\Characters\character.h" />
+    <ClInclude Include="Src\Characters\Character.h" />
     <ClInclude Include="Src\Utilities\CameraService.h" />
     <ClInclude Include="Src\World\MapData.h" />
     <ClInclude Include="Src\World\MapLoader.h" />

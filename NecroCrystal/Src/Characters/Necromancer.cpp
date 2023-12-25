@@ -2,9 +2,15 @@
 #include"../Utilities/Math.h"
 #include <iostream>
 
-Necromancer::Necromancer() :
-    width(64),height(64),speed(0.32f)
+Necromancer::Necromancer()
 {
+    scale = 2;
+    width = 64;
+    height = 64;
+    speed = 0.32f;
+    sprites = nullptr;
+    spriteNumber = 1;
+    faction = 1;
 }
 
 Necromancer::~Necromancer()
@@ -63,12 +69,4 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     
 }
 
-void Necromancer::Draw(sf::RenderWindow* window)
-{
-    window->draw(sprites[0]);
-}
 
-sf::Sprite& Necromancer::getSprite(void) const
-{
-    return sprites[0];
-}
