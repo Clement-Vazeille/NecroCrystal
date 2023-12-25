@@ -2,29 +2,19 @@
 #include <SFML/Graphics.hpp>
 #include "Enemy/FireMage.h"
 #include "../Utilities/CameraService.h"
+#include "Character.h"
 
-class Necromancer
+class Necromancer : public Character
 {
 protected:
-	sf::Texture texture;
-	float width;
-	float height;
-	float speed;
 
-	int scale = 2;
-
-	sf::Sprite* sprites;
-public:
-	sf::Sprite sprite; //TODO :  l'encapsuler
 public:
 	Necromancer();
 	~Necromancer();
 
 	void Load(sf::Vector2i& windowDimensions);       //called once per App Start
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);     //called once per frame
-	void Draw(sf::RenderWindow* window);	   //called once per frame
 
 	sf::Sprite& getSprite(void) const;
-
 };
 

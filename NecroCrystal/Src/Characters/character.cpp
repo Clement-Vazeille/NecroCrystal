@@ -1,6 +1,9 @@
 #include "character.h"
 
-Character::Character() : health(0),width(0),height(0),scale(0),speed(0)
+Character::Character() : 
+	health(0),width(0),height(0),scale(0),
+	speed(0),faction(0),
+	sprites(nullptr),spriteNumber(0)
 {
 }
 
@@ -13,6 +16,11 @@ void Character::SetHealth(int hp)
 	health = hp;
 }
 
+int Character::GetHealth(void) const
+{
+	return health;
+}
+
 void Character::Draw(sf::RenderWindow* window) const
 {
 	for (size_t i=0;i<spriteNumber;i++)
@@ -20,3 +28,4 @@ void Character::Draw(sf::RenderWindow* window) const
 		window->draw(sprites[i]);
 	}
 }
+

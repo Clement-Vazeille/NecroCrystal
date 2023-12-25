@@ -139,8 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GameGestion\GameLoop.cpp" />
+    <ClCompile Include="Src\Projectiles\Projectile.cpp" />
+    <ClCompile Include="Src\Projectiles\ProjectilesHandler.cpp" />
     <ClCompile Include="Src\Characters\Enemy\Enemy.cpp" />
-    <ClCompile Include="Src\Characters\character.cpp" />
+    <ClCompile Include="Src\Characters\Character.cpp" />
     <ClCompile Include="Src\Utilities\CameraService.cpp" />
     <ClCompile Include="Src\World\MapLoader.cpp" />
     <ClCompile Include="Src\World\Map.cpp" />
@@ -154,8 +157,11 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\GameGestion\GameLoop.h" />
+    <ClInclude Include="Src\Projectiles\Projectile.h" />
+    <ClInclude Include="Src\Projectiles\ProjectilesHandler.h" />
     <ClInclude Include="Src\Characters\Enemy\Enemy.h" />
-    <ClInclude Include="Src\Characters\character.h" />
+    <ClInclude Include="Src\Characters\Character.h" />
     <ClInclude Include="Src\Utilities\CameraService.h" />
     <ClInclude Include="Src\World\MapData.h" />
     <ClInclude Include="Src\World\MapLoader.h" />

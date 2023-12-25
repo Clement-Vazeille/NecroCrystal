@@ -1,50 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <math.h>
 #include <SFML/Graphics.hpp>
 
-#include "Projectiles/DarkProjectiles.h"
-#include "Characters/Necromancer.h"
-#include "Characters/Enemy/FireMage.h"
-#include "Utilities/FrameRate.h"
-#include "World/Map.h"
-#include "World/MapLoader.h"
-#include "World/MapData.h"
-#include "Utilities/CameraService.h"
 #include "GameGestion/WindowManager.h"
-
+#include "GameGestion/GameLoop.h"
 
 int main()
 {
-    //------------------------Initialize window---------------------------------------
-
+    //------------------------Initialize window and gameloop---------------------------------------
     WindowManager windowManager;
     windowManager.Load();
     sf::RenderWindow* window = windowManager.GetWindow();
      
-    //------------------------Initialize window---------------------------------------
+    GameLoop gameLoop;
+    gameLoop.initialize(windowManager.size);
+    //------------------------Initialize window and gameloop---------------------------------------
 
-    //------------------------Initialize and load objects---------------------------------------
-    Necromancer necromancer;
-    necromancer.Load(windowManager.size);
-
-    DarkProjectiles darkProjectiles;
-    darkProjectiles.Load();
-
-    FireMage fireMage;
-    fireMage.Load(windowManager.size);
-
-    FrameRate frameRate;
-    frameRate.Load();
-
-
-    Map map;
-    map.Load();
-
-    CameraService cameraService;
-    
-    
-    //------------------------Initialize and load objects---------------------------------------
     sf::Clock clock;
     while (window->isOpen())
     {
@@ -65,26 +34,17 @@ int main()
         window = windowManager.GetWindow();
 
         sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
-        frameRate.Update(deltaTime);
-        map.Update(deltaTime,cameraService);
-        fireMage.Update(cameraService,windowManager.size,deltaTime);
-        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
-        necromancer.Update(cameraService,windowManager.size,deltaTime);
         
+        gameLoop.update(deltaTime,windowManager.size,mousePosition);
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
         window->clear(sf::Color::Black);
 
-        map.Draw(window);
-        necromancer.Draw(window);
-        darkProjectiles.Draw(window);
-        fireMage.Draw(window);
-        frameRate.Draw(window);
-        window->display();
-        //-------------------------DRAW---------------------------------------
-        
-    }
+        gameLoop.draw(window);
 
+        window->display();
+        //-------------------------DRAW---------------------------------------   
+    }
     return 0;
 }
