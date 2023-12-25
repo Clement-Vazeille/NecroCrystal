@@ -31,8 +31,8 @@ int main()
     DarkProjectiles darkProjectiles;
     darkProjectiles.Load();
 
-    FireMage fireMage;
-    fireMage.Load(windowManager.size);
+    Character* fireMage = new FireMage;
+    fireMage->Load(windowManager.size);
 
     FrameRate frameRate;
     frameRate.Load();
@@ -67,8 +67,8 @@ int main()
         sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
         frameRate.Update(deltaTime);
         map.Update(deltaTime,cameraService);
-        fireMage.Update(cameraService,windowManager.size,deltaTime);
-        darkProjectiles.Update(necromancer,fireMage,deltaTime,mousePosition,cameraService);
+        fireMage->Update(cameraService,windowManager.size,deltaTime);
+        darkProjectiles.Update((Necromancer*)necromancer,(FireMage*)fireMage,deltaTime,mousePosition,cameraService);
         necromancer->Update(cameraService,windowManager.size,deltaTime);
         
         //------------------------UPDATE---------------------------------------
@@ -79,7 +79,7 @@ int main()
         map.Draw(window);
         necromancer->Draw(window);
         darkProjectiles.Draw(window);
-        fireMage.Draw(window);
+        fireMage->Draw(window);
         frameRate.Draw(window);
         window->display();
         //-------------------------DRAW---------------------------------------

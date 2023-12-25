@@ -15,5 +15,6 @@ public:
 	void Load(sf::Vector2i& windowDimensions);       //called once per App Start
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);     //called once per frame
 
+	sf::Sprite& getSprite(void) const;
 };
 

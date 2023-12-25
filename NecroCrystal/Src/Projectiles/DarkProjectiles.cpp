@@ -19,7 +19,7 @@ void DarkProjectiles::Load()
     }
 }
 
-void DarkProjectiles::Update(Character* necromancer,FireMage& fireMage,double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService)
+void DarkProjectiles::Update(Necromancer* necromancer,FireMage* fireMage,double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService)
 {
     timer += deltaTime;
 
@@ -39,14 +39,14 @@ void DarkProjectiles::Update(Character* necromancer,FireMage& fireMage,double de
         projectiles[i].Update(deltaTime,cameraService);
         
         
-        if (fireMage.health > 0)
+        if (fireMage->GetHealth() > 0)
         {
-            if (Math::SpriteCollision(projectiles[i].sprite, fireMage.sprite))
+            if (Math::SpriteCollision(projectiles[i].sprite, fireMage->getSprite()))
             {
                 projectiles.erase(projectiles.begin() + i); //the code would be more optimised with a list instead of a vector 
                 //but as the number of projectiles is unlikely to become higher then 10 the optimisation won't be noticeable
 
-                fireMage.SetHealth(fireMage.health - 10);
+                fireMage->SetHealth(fireMage->GetHealth() - 10);
                 //std::cout << "Fire Mage Health: " <<fireMage.health<< std::endl;  
             }
         }

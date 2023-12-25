@@ -16,6 +16,11 @@ void Character::SetHealth(int hp)
 	health = hp;
 }
 
+int Character::GetHealth(void) const
+{
+	return health;
+}
+
 void Character::Draw(sf::RenderWindow* window) const
 {
 	for (size_t i=0;i<spriteNumber;i++)
@@ -24,7 +29,3 @@ void Character::Draw(sf::RenderWindow* window) const
 	}
 }
 
-sf::Sprite& Character::getSprite(void) const
-{
-	return sprites[0];
-}

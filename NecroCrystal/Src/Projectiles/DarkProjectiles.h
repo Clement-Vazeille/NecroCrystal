@@ -18,7 +18,7 @@ public:
 	DarkProjectiles();
 
 	void Load();
-	void Update(Character* necromancer,FireMage& firemage,double deltaTime,sf::Vector2f& mousePosition, CameraService& cameraService);
+	void Update(Necromancer* necromancer,FireMage* firemage,double deltaTime,sf::Vector2f& mousePosition, CameraService& cameraService);
 	void Draw(sf::RenderWindow* window);
 };
 

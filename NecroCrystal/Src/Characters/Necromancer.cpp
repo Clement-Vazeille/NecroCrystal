@@ -15,6 +15,7 @@ Necromancer::Necromancer()
 
 Necromancer::~Necromancer()
 {
+    delete sprites;
 }
 
 void Necromancer::Load(sf::Vector2i& windowDimensions)
@@ -70,3 +71,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 }
 
 
+sf::Sprite& Necromancer::getSprite(void) const
+{
+    return sprites[0];
+}
