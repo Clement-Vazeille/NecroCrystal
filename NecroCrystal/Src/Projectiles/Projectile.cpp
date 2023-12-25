@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "../Utilities/Math.h"
 
-Projectile::Projectile() : speed(0.2f)
+Projectile::Projectile() : speed(0.2f),faction(0)
 {
 }
 
@@ -18,4 +18,9 @@ void Projectile::Load(sf::Texture& texture, const sf::Vector2f& initialPosition,
 void Projectile::Draw(sf::RenderWindow* window) const
 {
 	window->draw(sprite);
+}
+
+float Projectile::getCastSpeed(void) const
+{
+	return castSpeed;
 }

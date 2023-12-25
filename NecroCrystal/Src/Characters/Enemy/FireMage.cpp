@@ -11,7 +11,7 @@ FireMage::FireMage() :
     speed = 0.32f;
     sprites = nullptr;
     spriteNumber = 1;
-    faction = 1;
+    faction = 2;
     health = 100;
 }
 
