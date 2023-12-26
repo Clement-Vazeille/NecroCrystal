@@ -31,7 +31,7 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 
         Projectile* darkProjectile = new DarkProjectile();
         sf::Vector2f spellPosition = ((Necromancer*) characters[0])->getSprite().getPosition() + sf::Vector2f(48, 6) * 2.0f;//TODO normaliser
-        darkProjectile->Load(darkProjectileTexture, spellPosition, mousePosition);
+        darkProjectile->Load(darkProjectileTexture, spellPosition, mousePosition,windowDimensions);
         projectiles.push_back(darkProjectile);
     }
 

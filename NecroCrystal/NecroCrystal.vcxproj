@@ -149,7 +149,6 @@
     <ClCompile Include="Src\World\Map.cpp" />
     <ClCompile Include="Src\Utilities\FrameRate.cpp" />
     <ClCompile Include="Src\Projectiles\DarkProjectile.cpp" />
-    <ClCompile Include="Src\Projectiles\DarkProjectiles.cpp" />
     <ClCompile Include="Src\Characters\Enemy\FireMage.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Utilities\Math.cpp" />
@@ -169,7 +168,6 @@
     <ClInclude Include="Src\World\Map.h" />
     <ClInclude Include="Src\Utilities\FrameRate.h" />
     <ClInclude Include="Src\Projectiles\DarkProjectile.h" />
-    <ClInclude Include="Src\Projectiles\DarkProjectiles.h" />
     <ClInclude Include="Src\Characters\Enemy\FireMage.h" />
     <ClInclude Include="Src\Utilities\Math.h" />
     <ClInclude Include="Src\Characters\Necromancer.h" />

@@ -31,7 +31,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions)
         int XNIndex = 0;
         int YNIndex = 0;
         sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
-        sprites[0].scale(sf::Vector2f(scale, scale));//multiplie la taille par scale (c'est 2)
+        sprites[0].scale(sf::Vector2f(scale*(double)windowDimensions.x/1920.0, scale*(double)windowDimensions.y/1080.0));//multiplie la taille par scale (c'est 2)
         sprites[0].setPosition(sf::Vector2f(4 * windowDimensions.x / 5, windowDimensions.y / 2));
     }
     else
@@ -55,12 +55,10 @@ void FireMage::Load(sf::Vector2i& windowDimensions)
 
 void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
 {
-    if (health > 0)
-    {
-        sf::Vector2f movement = sf::Vector2f(0, 0);
-        cameraService.MoveSprite(sprites[0], movement);
-        healthText.setPosition(sprites[0].getPosition() + sf::Vector2f(0, -windowDimensions.y * heathBarDistance));
-    }
+    sf::Vector2f movement = sf::Vector2f(0, 0);
+    cameraService.MoveSprite(sprites[0], movement);
+    healthText.setPosition(sprites[0].getPosition() + sf::Vector2f(0, -windowDimensions.y * heathBarDistance));
+    sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
 }
 
 sf::Sprite& FireMage::getSprite(void) const

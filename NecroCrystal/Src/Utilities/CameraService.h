@@ -11,7 +11,7 @@ private:
 	float cameraPosition;
 
 	sf::Vector2f windowSizeMem;
-	sf::Vector2f windowSizeChange;
+	sf::Vector2f windowSizeChangeRatio;
 public:
 	CameraService(sf::Vector2f windowSize);
 
