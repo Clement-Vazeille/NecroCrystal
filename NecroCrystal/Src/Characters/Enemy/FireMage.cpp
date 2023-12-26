@@ -15,9 +15,14 @@ FireMage::FireMage() :
     health = 100;
 }
 
+FireMage::~FireMage()
+{
+    Character::~Character();
+}
+
 void FireMage::Load(sf::Vector2i& windowDimensions)
 {
-    if (texture.loadFromFile("Assets/OtherMages/funnyMageColored.png"))
+    if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMage.png"))
     {
         sprites = new sf::Sprite[1];
         std::cout << "Necromancer image loaded successfully" << std::endl;

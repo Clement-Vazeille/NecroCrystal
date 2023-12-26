@@ -24,7 +24,7 @@ public:
 
 	virtual void Load(sf::Vector2i& windowDimensions)=0;
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)=0; //rajouter l'entity list
-	void SetHealth(int hp);
+	bool SetHealth(int hp); //renvoi true si le character meurt
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;
 

@@ -9,11 +9,13 @@ Character::Character() :
 
 Character::~Character()
 {
+	//delete(sprites); fait crash le programme ????
 }
 
-void Character::SetHealth(int hp)
+bool Character::SetHealth(int hp)
 {
 	health = hp;
+	return(health<=0);
 }
 
 int Character::GetHealth(void) const

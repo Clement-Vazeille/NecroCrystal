@@ -8,7 +8,7 @@ GameLoop::~GameLoop()
 {
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        free(*it);
+        delete(*it);
     }
 }
 

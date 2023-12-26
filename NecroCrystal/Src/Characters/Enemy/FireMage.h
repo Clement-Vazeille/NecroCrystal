@@ -11,6 +11,7 @@ protected:
 
 public:
 	FireMage();
+	~FireMage();
 
 	void Load(sf::Vector2i& windowDimensions);
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);
