@@ -30,7 +30,8 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
         timer = 0;
 
         Projectile* darkProjectile = new DarkProjectile();
-        sf::Vector2f spellPosition = ((Necromancer*) characters[0])->getSprite().getPosition() + sf::Vector2f(48, 6) * 2.0f;//TODO normaliser
+        sf::Vector2f spellPosition = ((Necromancer*) characters[0])->getSprite().getPosition() + 2.0f*
+            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
         darkProjectile->Load(darkProjectileTexture, spellPosition, mousePosition,windowDimensions);
         projectiles.push_back(darkProjectile);
     }
@@ -43,7 +44,8 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 
         for(auto itChar = std::begin(characters); itChar != std::end(characters);itChar++)         
         {
-            if (Math::SpriteCollision(((DarkProjectile*)*it)->getSprite(), (*itChar)->getSprite()) && (*it)->getFaction() != (*itChar)->getFaction() )
+            if (((DarkProjectile*)*it)->getHitbox()->getGlobalBounds().intersects((*itChar)->getSprite().getGlobalBounds()) 
+                && (*it)->getFaction() != (*itChar)->getFaction() )
             {
                 delete(*it);
                 projectiles.erase(it); 

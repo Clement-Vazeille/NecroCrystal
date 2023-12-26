@@ -71,10 +71,10 @@ void Map::Update(float deltaTime, CameraService& cameraService, sf::Vector2i map
     {
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            sf::Vector2f position = sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX * ((double)mapDimensions.x / 1920.0),
+            sf::Vector2f position = sf::Vector2f(x * mapData.tileWidth * mapData.scaleX * ((double)mapDimensions.x / 1920.0),
                 y * mapData.tileHeight * (int)mapData.scaleY * ((double)mapDimensions.y / 1080.0));
             cameraService.SetSprite(mapSprites[y][x], position);
-            mapSprites[y][x].setScale(mapData.scaleX * ((double)mapDimensions.x / 1920.0), mapData.scaleY * ((double)mapDimensions.y / 1080.0));
+            mapSprites[y][x].setScale(mapData.scaleX * ((float)mapDimensions.x / 1920.0f), mapData.scaleY * ((float)mapDimensions.y / 1080.0f));
         }
     }
 }

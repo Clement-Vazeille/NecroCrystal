@@ -14,9 +14,12 @@ protected:
 	float speed;
 	int faction;  //pourrait se faire avec un enum
 	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
+
+	bool show_hitboxes = true;
 	
 	int spriteNumber;
 	sf::Sprite* sprites;
+	sf::RectangleShape hitbox;
 
 public:
 	Character();
@@ -30,6 +33,8 @@ public:
 
 	sf::Sprite& getSprite(void) const;
 	int getFaction(void) const;
+
+	sf::RectangleShape* getHitbox(void);
 	
 };
 

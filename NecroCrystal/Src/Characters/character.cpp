@@ -29,6 +29,9 @@ void Character::Draw(sf::RenderWindow* window) const
 	{
 		window->draw(sprites[i]);
 	}
+
+	if(show_hitboxes)
+		window->draw(hitbox);
 }
 
 sf::Sprite& Character::getSprite(void) const   //TODO changer pour remplacer par les hitboxes
@@ -39,4 +42,9 @@ sf::Sprite& Character::getSprite(void) const   //TODO changer pour remplacer par
 int Character::getFaction(void) const
 {
 	return faction;
+}
+
+sf::RectangleShape* Character::getHitbox(void)
+{
+	return &hitbox;
 }
