@@ -9,12 +9,15 @@ class CameraService
 private:
 	float diff;
 	float cameraPosition;
+
+	sf::Vector2f windowSizeMem;
+	sf::Vector2f windowSizeChange;
 public:
-	CameraService();
+	CameraService(sf::Vector2f windowSize);
 
 	void MoveSprite(sf::Sprite& sprite, sf::Vector2f& movement);
 	void SetSprite(sf::Sprite& sprite, sf::Vector2f& position);
 
-	void Update(float new_diff);
+	void Update(float new_diff, sf::Vector2f windowSize);
 };
 

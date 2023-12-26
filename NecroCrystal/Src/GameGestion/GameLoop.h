@@ -22,7 +22,7 @@ protected:
 	FrameRate frameRate;
 
 public:
-	GameLoop();
+	GameLoop(sf::Vector2f windowSize);
 	~GameLoop();
 
 	void initialize(sf::Vector2i& windowDimensions);

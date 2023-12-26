@@ -17,10 +17,12 @@ void WindowManager::Load()
 	desktopWindow = new sf::RenderWindow(desktopMode, "NecroCrystal", sf::Style::Default);
 	fullScreenWindow = new sf::RenderWindow(fullScreenMode, "NecroCrystal", sf::Style::Fullscreen);
 	fullScreenWindow->setVisible(false);
-	desktopWindow->setFramerateLimit(60);
-	fullScreenWindow->setFramerateLimit(60);
+	//desktopWindow->setFramerateLimit(60);
+	//fullScreenWindow->setFramerateLimit(60);
 
 	size = sf::Vector2i(desktopMode.width, desktopMode.height);
+
+	std::cout << fullScreenMode.width << ", " << fullScreenMode.height << std::endl;
 
 }
 

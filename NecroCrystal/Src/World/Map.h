@@ -15,8 +15,6 @@ private:
 	int totalTilesY;  //data about the tileeSheet
 
 	MapData mapData;
-
-
 	
 
 	sf::Sprite** mapSprites;
@@ -24,8 +22,8 @@ public:
 	Map();
 	~Map();
 
-	void Load();
-	void Update(float deltaTime, CameraService& cameraService);
+	void Load(sf::Vector2i mapDimensions);
+	void Update(float deltaTime, CameraService& cameraService, sf::Vector2i mapDimensions);
 	void Draw(sf::RenderWindow* window);
 };
 
