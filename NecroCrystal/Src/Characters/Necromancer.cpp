@@ -30,8 +30,17 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
         int XNIndex = 0;
         int YNIndex = 0;
         sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
-        sprites[0].scale(sf::Vector2f(scale, scale));//multiplie la taille par 3
+        hitbox.setSize(sprites[0].getGlobalBounds().getSize());
+
+        sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));//multiplie la taille par 3
         sprites[0].setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y * 0.42));
+
+        hitbox.setOutlineColor(sf::Color::Red);
+        hitbox.setOutlineThickness(-1);
+        hitbox.setFillColor(sf::Color::Transparent);
+
+        hitbox.setScale(sprites[0].getScale());
+        hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
     }
     else
     {
@@ -42,32 +51,35 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
 
 void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
 {
+    sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+
     sf::Vector2f position = sprites[0].getPosition();
-    sf::Vector2f horizontal_change = sf::Vector2f(0, 0);
-    sf::Vector2f vertical_change = sf::Vector2f(0, 0);
+    sf::Vector2f change = sf::Vector2f(0, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        horizontal_change += sf::Vector2f(1, 0)*speed*deltaTime;
+        change += sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        horizontal_change -= sf::Vector2f(1, 0)*speed*deltaTime;
+        change -= sf::Vector2f(1, 0)*speed*deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
-         vertical_change -= sf::Vector2f(0, 1) * speed * deltaTime;
+         change -= sf::Vector2f(0, 1) * speed * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        vertical_change += sf::Vector2f(0, 1) * speed * deltaTime;
+        change += sf::Vector2f(0, 1) * speed * deltaTime;
     }
-    sf::Vector2f movement =vertical_change + horizontal_change;
-    cameraService.Update(-movement.y);
+    sf::Vector2f movement = sf::Vector2f(change.x * (float)windowDimensions.x / 1920.0f, change.y * (float)windowDimensions.y / 1080.0f);
+    cameraService.Update(-movement.y,sf::Vector2f(windowDimensions));
     cameraService.MoveSprite(sprites[0], movement);
-    //sprite.setPosition(position+vertical_change+horizontal_change);
+
+    hitbox.setScale(sprites[0].getScale());
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
     //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
     //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
-    
+    // 
 }
 
 

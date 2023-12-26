@@ -10,7 +10,8 @@ int main()
     windowManager.Load();
     sf::RenderWindow* window = windowManager.GetWindow();
      
-    GameLoop gameLoop;
+
+    GameLoop gameLoop(sf::Vector2f(windowManager.size));
     gameLoop.initialize(windowManager.size);
     //------------------------Initialize window and gameloop---------------------------------------
 
@@ -34,7 +35,9 @@ int main()
         window = windowManager.GetWindow();
 
         sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
-        
+        mousePosition.x = mousePosition.x * (float)windowManager.size.x / 1920.0f; //TODO : remplacer ça par les sizes en fullscreen
+        mousePosition.y = mousePosition.y * (float)windowManager.size.y / 1080.0f;
+
         gameLoop.update(deltaTime,windowManager.size,mousePosition);
         //------------------------UPDATE---------------------------------------
 

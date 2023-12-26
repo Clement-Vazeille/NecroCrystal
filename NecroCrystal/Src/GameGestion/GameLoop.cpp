@@ -1,6 +1,6 @@
 #include "GameLoop.h"
 
-GameLoop::GameLoop()
+GameLoop::GameLoop(sf::Vector2f windowSize) : cameraService(windowSize)
 {
 }
 
@@ -8,7 +8,7 @@ GameLoop::~GameLoop()
 {
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        free(*it);
+        delete(*it);
     }
 }
 
@@ -16,7 +16,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
 {
     projectileHandler.Load();
     frameRate.Load();
-    map.Load();    //devrait load les ennemis
+    map.Load(windowDimensions);    //devrait load les ennemis
 
     Character* necromancer = new Necromancer;
     necromancer->Load(windowDimensions);
@@ -32,7 +32,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
 void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition)
 {
     frameRate.Update(deltaTime);
-    map.Update(deltaTime, cameraService);
+    map.Update(deltaTime, cameraService,windowDimensions);
     projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions);
     
     for (auto it = std::begin(characters); it != std::end(characters); it++)

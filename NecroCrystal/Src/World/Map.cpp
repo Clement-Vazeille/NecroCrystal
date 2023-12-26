@@ -12,7 +12,7 @@ Map::~Map()
 {
 }
 
-void Map::Load()
+void Map::Load(sf::Vector2i mapDimensions)
 {
     MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map", mapData);
     if (tileSheetTexture.loadFromFile(mapData.tileSheet))
@@ -57,21 +57,24 @@ void Map::Load()
                 mapData.tileWidth,
                 mapData.tileHeight
             ));
-            mapSprites[y][x].setPosition(sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX, y * mapData.tileHeight * (int)mapData.scaleY));
-            mapSprites[y][x].setScale(mapData.scaleX, mapData.scaleY);
+            mapSprites[y][x].setPosition(sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX* ((double)mapDimensions.x / 1920.0), 
+                y * mapData.tileHeight * (int)mapData.scaleY* ((double)mapDimensions.y / 1080.0)));
+            mapSprites[y][x].setScale(mapData.scaleX * ((double)mapDimensions.x/1280.0), mapData.scaleY * ((double)mapDimensions.y/1080.0));
         }
     }
 
 }
 
-void Map::Update(float deltaTime, CameraService& cameraService)
+void Map::Update(float deltaTime, CameraService& cameraService, sf::Vector2i mapDimensions)
 {
     for (size_t y = 0; y < mapData.mapHeight; y++)
     {
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            sf::Vector2f movement = sf::Vector2f(0,0);
-            cameraService.MoveSprite(mapSprites[y][x], movement);
+            sf::Vector2f position = sf::Vector2f(x * mapData.tileWidth * mapData.scaleX * ((double)mapDimensions.x / 1920.0),
+                y * mapData.tileHeight * (int)mapData.scaleY * ((double)mapDimensions.y / 1080.0));
+            cameraService.SetSprite(mapSprites[y][x], position);
+            mapSprites[y][x].setScale(mapData.scaleX * ((float)mapDimensions.x / 1920.0f), mapData.scaleY * ((float)mapDimensions.y / 1080.0f));
         }
     }
 }

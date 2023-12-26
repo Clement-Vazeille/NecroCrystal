@@ -22,6 +22,8 @@ void WindowManager::Load()
 
 	size = sf::Vector2i(desktopMode.width, desktopMode.height);
 
+	std::cout << fullScreenMode.width << ", " << fullScreenMode.height << std::endl;
+
 }
 
 void WindowManager::Update(double deltaTime)

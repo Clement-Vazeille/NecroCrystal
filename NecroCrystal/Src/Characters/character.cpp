@@ -9,11 +9,13 @@ Character::Character() :
 
 Character::~Character()
 {
+	//delete(sprites); fait crash le programme ????
 }
 
-void Character::SetHealth(int hp)
+bool Character::SetHealth(int hp)
 {
 	health = hp;
+	return(health<=0);
 }
 
 int Character::GetHealth(void) const
@@ -27,5 +29,22 @@ void Character::Draw(sf::RenderWindow* window) const
 	{
 		window->draw(sprites[i]);
 	}
+
+	if(show_hitboxes)
+		window->draw(hitbox);
 }
 
+sf::Sprite& Character::getSprite(void) const   //TODO changer pour remplacer par les hitboxes
+{
+	return sprites[0];
+}
+
+int Character::getFaction(void) const
+{
+	return faction;
+}
+
+sf::RectangleShape* Character::getHitbox(void)
+{
+	return &hitbox;
+}
