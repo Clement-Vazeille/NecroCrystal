@@ -21,7 +21,7 @@ void ProjectilesHandler::Load()
     }
 }
 
-void ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions)
+void ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map)
 {
     timer += deltaTime;
 
@@ -44,7 +44,7 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 
         for(auto itChar = std::begin(characters); itChar != std::end(characters);itChar++)         
         {
-            if (((DarkProjectile*)*it)->getHitbox()->getGlobalBounds().intersects((*itChar)->getSprite().getGlobalBounds()) 
+            if (((DarkProjectile*)*it)->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
                 && (*it)->getFaction() != (*itChar)->getFaction() )
             {
                 delete(*it);
@@ -56,11 +56,16 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
                     delete(*itChar);
                     characters.erase(itChar);
                     itChar--;
-                }
+                }                                       //TODO le jeu doit crash si un projectile touche 2 entitées en même temps
             }
         }
 
-        //TODO faire que un projectile explose si il touche un mur
+        if (map.ColideWithWall( ((DarkProjectile*)*it)->getHitbox()))
+        {
+            delete(*it);
+            projectiles.erase(it);
+            it--;
+        }
     }
 }
 

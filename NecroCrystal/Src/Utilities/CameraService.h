@@ -17,6 +17,7 @@ public:
 
 	void MoveSprite(sf::Sprite& sprite, sf::Vector2f& movement);
 	void SetSprite(sf::Sprite& sprite, sf::Vector2f& position);
+	void SetRectangle(sf::RectangleShape& sprite, sf::Vector2f& position);
 
 	void Update(float new_diff, sf::Vector2f windowSize);
 };

@@ -87,6 +87,32 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 
 					}
 				}
+				else if (variable == "walls") //hitbox reader
+				{
+					int hitboxNumber = std::stoi(value);
+					mapData.hitboxNumber = hitboxNumber;
+					mapData.wallHitboxPositions = new sf::Vector2f[hitboxNumber];
+					mapData.wallHitboxSizes = new sf::Vector2f[hitboxNumber];
+					for (int i = 0; i < hitboxNumber; i++)
+					{
+						int start = 0;            //a line is xposition,yposition,width,height
+						int end = 0;			  //values unity is tiles
+						std::getline(file, line); 
+
+						end = line.find(',', start);
+						mapData.wallHitboxPositions[i].x = std::stoi(line.substr(start, end - start));
+						start = end + 1;
+						end = line.find(',', start);
+						mapData.wallHitboxPositions[i].y = std::stoi(line.substr(start, end - start));
+						start = end + 1;
+						end = line.find(',', start);
+						mapData.wallHitboxSizes[i].x = std::stoi(line.substr(start, end - start));
+						start = end + 1;
+						end = line.find(',', start);
+						mapData.wallHitboxSizes[i].y = std::stoi(line.substr(start, end - start));
+						start = end + 1;
+					}
+				}
 			}
 
 		}

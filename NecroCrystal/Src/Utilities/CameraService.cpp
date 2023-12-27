@@ -18,6 +18,11 @@ void CameraService::SetSprite(sf::Sprite& sprite, sf::Vector2f& position) //only
 	sprite.setPosition(position + sf::Vector2f(0,cameraPosition));
 }
 
+void CameraService::SetRectangle(sf::RectangleShape& rect, sf::Vector2f& position)
+{
+	rect.setPosition(position + sf::Vector2f(0, cameraPosition));
+}
+
 void CameraService::Update(float new_diff, sf::Vector2f windowSize)
 {
 	diff = new_diff;

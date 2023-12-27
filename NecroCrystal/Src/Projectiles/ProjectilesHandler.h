@@ -4,6 +4,7 @@
 #include "Projectile.h"
 #include "../Characters/Character.h"
 #include "../Utilities/CameraService.h"
+#include "../World/Map.h"
 
 class ProjectilesHandler
 {
@@ -20,7 +21,7 @@ public:
 	ProjectilesHandler();
 
 	void Load();
-	void Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions);
+	void Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map);
 	void Draw(sf::RenderWindow* window) const;
 	
 };
