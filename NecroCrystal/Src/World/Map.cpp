@@ -63,6 +63,7 @@ void Map::Load(sf::Vector2i mapDimensions)
         }
     }
 
+
 }
 
 void Map::Update(float deltaTime, CameraService& cameraService, sf::Vector2i mapDimensions)

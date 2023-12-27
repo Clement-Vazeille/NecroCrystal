@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include <SFML/Graphics.hpp>
 
 struct MapData
 {
@@ -17,5 +18,8 @@ struct MapData
 
 	int tilesNumber = 0;
 	int** tiles = nullptr;
-	
+
+	int hitboxNumber = 0;
+	sf::Vector2f* wallHitboxPosition = nullptr; //hitboxes from every wall of the map
+	sf::Vector2f* wallHitboxSizes = nullptr;
 };
