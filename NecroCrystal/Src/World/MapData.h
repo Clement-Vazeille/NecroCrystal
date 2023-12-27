@@ -20,6 +20,6 @@ struct MapData
 	int** tiles = nullptr;
 
 	int hitboxNumber = 0;
-	sf::Vector2f* wallHitboxPosition = nullptr; //hitboxes from every wall of the map
+	sf::Vector2f* wallHitboxPositions = nullptr; //hitboxes from every wall of the map
 	sf::Vector2f* wallHitboxSizes = nullptr;
 };
