@@ -41,32 +41,37 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-
-        for(auto itChar = std::begin(characters); itChar != std::end(characters);itChar++)         
-        {
-            if (((DarkProjectile*)*it)->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
-                && (*it)->getFaction() != (*itChar)->getFaction() )
-            {
-                delete(*it);
-                projectiles.erase(it); 
-                it--;
-
-                if ((*itChar)->SetHealth((*itChar)->GetHealth() - 10))
-                {
-                    delete(*itChar);
-                    characters.erase(itChar);
-                    itChar--;
-                }                                       //TODO le jeu doit crash si un projectile touche 2 entitées en même temps
-            }
-        }
-
-        if (map.ColideWithWall( ((DarkProjectile*)*it)->getHitbox()))
+        if (ProjectilesHandler::ProjectileCollisionChecker(*it, characters, map))
         {
             delete(*it);
             projectiles.erase(it);
             it--;
         }
     }
+}
+
+bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map)
+{
+    for (auto itChar = std::begin(characters); itChar != std::end(characters); itChar++)
+    {
+        if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
+            && projectile->getFaction() != (*itChar)->getFaction())
+        {
+            if ((*itChar)->SetHealth((*itChar)->GetHealth() - 10))
+            {
+                delete(*itChar);
+                characters.erase(itChar);
+                itChar--;
+            }
+            return(true);
+        }
+    }
+
+    if (map.ColideWithWall(projectile->getHitbox()))
+    {
+        return true;
+    }
+    return false;
 }
 
 void ProjectilesHandler::Draw(sf::RenderWindow* window) const
