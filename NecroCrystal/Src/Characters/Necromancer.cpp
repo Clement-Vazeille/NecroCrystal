@@ -15,16 +15,15 @@ Necromancer::Necromancer()
 
 Necromancer::~Necromancer()
 {
-    delete sprites;
+    Character::~Character();
 }
 
-void Necromancer::Load(sf::Vector2i& windowDimensions)
+void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
         sprites = new sf::Sprite[1];
-        //sprites[0] = sprite;
         sprites[0].setTexture(texture);
 
         int XNIndex = 0;
@@ -33,7 +32,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));//multiplie la taille par 3
-        sprites[0].setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y * 0.42));
+        sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
 
         hitbox.setOutlineColor(sf::Color::Red);
         hitbox.setOutlineThickness(-1);
@@ -49,12 +48,13 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     
 }
 
-void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map)
 {
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    hitbox.setScale(sprites[0].getScale());
 
     sf::Vector2f position = sprites[0].getPosition();
-    sf::Vector2f change = sf::Vector2f(0, 0);
+    sf::Vector2f change = sf::Vector2f(0.0f, 0.0f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         change += sf::Vector2f(1, 0)*speed*deltaTime;
@@ -71,15 +71,36 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     {
         change += sf::Vector2f(0, 1) * speed * deltaTime;
     }
-    sf::Vector2f movement = sf::Vector2f(change.x * (float)windowDimensions.x / 1920.0f, change.y * (float)windowDimensions.y / 1080.0f);
+
+    //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
+    sf::Vector2f movement_x = sf::Vector2f(change.x * (float)windowDimensions.x / 1920.0f,0.0f);
+    sf::Vector2f movement_y = sf::Vector2f(0.0f, change.y * (float)windowDimensions.y / 1080.0f);
+    
+    hitbox.move(movement_x);
+    if (map.ColideWithWall(&hitbox))
+    {
+        hitbox.move(-movement_x);                 //because if we do it after it won't move
+        movement_x.x = 0.0f;
+    }
+    hitbox.move(-movement_x);
+
+    hitbox.move(movement_y);
+    if (map.ColideWithWall(&hitbox))
+    {
+        hitbox.move(-movement_y);
+        movement_y.y = 0.0f;
+    }
+    hitbox.move(-movement_y);
+    //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
+
+    sf::Vector2f movement = movement_x + movement_y;
+    if (movement.x != 0.0f && movement.y != 0.0f)
+        movement = movement * 0.85f;
+
     cameraService.Update(-movement.y,sf::Vector2f(windowDimensions));
     cameraService.MoveSprite(sprites[0], movement);
 
-    hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
-    //TODO faire qu'on va un peu moins vite en diagonale (mais toujours un peu plus vite qu'en ligne droite)
-    //actuellement, on va 40% plus vite en ligne droite, on pourrait le passer à 20%
-    // 
 }
 
 

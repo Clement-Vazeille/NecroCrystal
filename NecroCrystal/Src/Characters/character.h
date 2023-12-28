@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../Utilities/CameraService.h"
 #include <vector>
+
+#include "../World/Map.h"
+#include "../Utilities/CameraService.h"
 
 class Character
 {
@@ -25,8 +27,8 @@ public:
 	Character();
 	~Character();
 
-	virtual void Load(sf::Vector2i& windowDimensions)=0;
-	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)=0; //rajouter l'entity list
+	virtual void Load(sf::Vector2i& windowDimensions,sf::Vector2f position)=0;
+	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map)=0; //rajouter l'entity list
 	bool SetHealth(int hp); //renvoi true si le character meurt
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;

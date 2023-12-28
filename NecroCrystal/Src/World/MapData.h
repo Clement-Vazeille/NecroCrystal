@@ -22,4 +22,10 @@ struct MapData
 	int hitboxNumber = 0;
 	sf::Vector2f* wallHitboxPositions = nullptr; //hitboxes from every wall of the map
 	sf::Vector2f* wallHitboxSizes = nullptr;
+
+	sf::Vector2f necroSpawn;
+
+	int enemyNumber = 0;
+	sf::Vector2f* enemyPositions = nullptr;
+	int* enemyTypes = nullptr; //0 for fireMage, 1 for mele mage, 2 crazy fire mage, 3 captain mage, 4 boss
 };

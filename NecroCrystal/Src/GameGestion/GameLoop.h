@@ -6,6 +6,7 @@
 #include "../Projectiles/ProjectilesHandler.h"
 #include <vector>
 #include "../World/Map.h"
+#include "../World/MapData.h"
 #include "../Utilities/CameraService.h"
 #include "../Utilities/FrameRate.h"
 

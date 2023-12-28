@@ -16,7 +16,8 @@ protected:
 
 	//textures
 	sf::Texture darkProjectileTexture;
-	
+
+	bool ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map);
 public:
 	ProjectilesHandler();
 

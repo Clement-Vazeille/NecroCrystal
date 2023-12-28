@@ -17,15 +17,23 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
     projectileHandler.Load();
     frameRate.Load();
     map.Load(windowDimensions);    //devrait load les ennemis
+    MapData* mapData = map.getData();
 
     Character* necromancer = new Necromancer;
-    necromancer->Load(windowDimensions);
-
-    Character* fireMage = new FireMage;
-    fireMage->Load(windowDimensions);
-
+    necromancer->Load(windowDimensions,mapData->necroSpawn);
     characters.push_back(necromancer);
-    characters.push_back(fireMage);
+
+    for (size_t i = 0; i < mapData->enemyNumber; i++)
+    {
+        if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
+        {
+            Character* fireMage = new FireMage;
+            fireMage->Load(windowDimensions, mapData->enemyPositions[i]);
+            characters.push_back(fireMage);
+        }
+    }
+    
+
 
 }
 
@@ -37,7 +45,7 @@ void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2
     
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        (*it)->Update(cameraService, windowDimensions, deltaTime);
+        (*it)->Update(cameraService, windowDimensions, deltaTime,map);
     }
 }
 

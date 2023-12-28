@@ -4,7 +4,7 @@
 
 Map::Map():
     totalTilesX(0),totalTilesY(0),
-    tiles(nullptr),mapSprites(nullptr)
+    tiles(nullptr),mapSprites(nullptr),wallHitbox(nullptr)
 {
 }
 
@@ -48,7 +48,6 @@ void Map::Load(sf::Vector2i mapDimensions)
         mapSprites[y] = new sf::Sprite[mapData.mapWidth];
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            int i = x + y * mapData.mapWidth;
             int tileIndex = mapData.tiles[y][x];
             mapSprites[y][x].setTexture(tileSheetTexture);
             mapSprites[y][x].setTextureRect(sf::IntRect(
@@ -128,4 +127,9 @@ bool Map::ColideWithWall(sf::RectangleShape* objectHitbox) const
             return true;
     }
     return false;
+}
+
+MapData* Map::getData(void)
+{
+    return &mapData;
 }
