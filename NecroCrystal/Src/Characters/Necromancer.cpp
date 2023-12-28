@@ -18,7 +18,7 @@ Necromancer::~Necromancer()
     Character::~Character();
 }
 
-void Necromancer::Load(sf::Vector2i& windowDimensions)
+void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
@@ -32,7 +32,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));//multiplie la taille par 3
-        sprites[0].setPosition(sf::Vector2f(windowDimensions.x / 2, windowDimensions.y * 0.42));
+        sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
 
         hitbox.setOutlineColor(sf::Color::Red);
         hitbox.setOutlineThickness(-1);

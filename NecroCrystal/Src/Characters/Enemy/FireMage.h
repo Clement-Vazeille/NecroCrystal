@@ -14,7 +14,7 @@ public:
 	FireMage();
 	~FireMage();
 
-	void Load(sf::Vector2i& windowDimensions);
+	void Load(sf::Vector2i& windowDimensions,sf::Vector2f position);
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map);
 
 	sf::Sprite& getSprite(void) const;

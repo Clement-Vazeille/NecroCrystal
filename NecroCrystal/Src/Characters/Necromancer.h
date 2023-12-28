@@ -13,7 +13,7 @@ public:
 	Necromancer();
 	~Necromancer();
 
-	void Load(sf::Vector2i& windowDimensions);       //called once per App Start
+	void Load(sf::Vector2i& windowDimensions,sf::Vector2f position);       //called once per App Start
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map);     //called once per frame
 
 	sf::Sprite& getSprite(void) const;

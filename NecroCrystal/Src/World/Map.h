@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Tile.h"
 #include "MapData.h"
 #include "../Utilities/CameraService.h"
@@ -29,5 +30,7 @@ public:
 	void Draw(sf::RenderWindow* window);
 
 	bool ColideWithWall(sf::RectangleShape* hitbox) const;
+
+	MapData* getData(void);
 };
 

@@ -128,3 +128,8 @@ bool Map::ColideWithWall(sf::RectangleShape* objectHitbox) const
     }
     return false;
 }
+
+MapData* Map::getData(void)
+{
+    return &mapData;
+}

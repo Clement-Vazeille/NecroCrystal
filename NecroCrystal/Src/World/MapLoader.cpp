@@ -115,8 +115,8 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 				else if (variable == "spawn")
 				{
 					int virgIndex = value.find(',');
-					mapData.necroSpawn.x = std::stoi(value.substr(0, virgIndex));
-					mapData.necroSpawn.y = std::stoi(value.substr(virgIndex + 1, value.length() - virgIndex - 1));
+					mapData.necroSpawn.x = std::stoi(value.substr(0, virgIndex)) * mapData.tileWidth*mapData.scaleX;
+					mapData.necroSpawn.y = std::stoi(value.substr(virgIndex + 1, value.length() - virgIndex - 1)) * mapData.tileHeight * mapData.scaleY;
 				}
 				else if (variable == "enemies")
 				{
@@ -131,10 +131,10 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 						std::getline(file, line);
 
 						end = line.find(',', start);
-						mapData.enemyPositions[i].x = std::stoi(line.substr(start, end - start));
+						mapData.enemyPositions[i].x = std::stoi(line.substr(start, end - start)) * mapData.tileWidth * mapData.scaleX;
 						start = end + 1;
 						end = line.find(',', start);
-						mapData.enemyPositions[i].y = std::stoi(line.substr(start, end - start));
+						mapData.enemyPositions[i].y = std::stoi(line.substr(start, end - start)) * mapData.tileHeight * mapData.scaleY;
 						start = end + 1;
 						end = line.find(',', start);
 						mapData.enemyTypes[i] = std::stoi(line.substr(start, end - start));

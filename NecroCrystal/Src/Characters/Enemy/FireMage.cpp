@@ -20,7 +20,7 @@ FireMage::~FireMage()
     Character::~Character();
 }
 
-void FireMage::Load(sf::Vector2i& windowDimensions)
+void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
     if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMage.png"))
     {
@@ -33,7 +33,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions)
         sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
         sprites[0].scale(sf::Vector2f(scale*(double)windowDimensions.x/1920.0, scale*(double)windowDimensions.y/1080.0));//multiplie la taille par scale (c'est 2)
-        sprites[0].setPosition(sf::Vector2f(4 * windowDimensions.x / 5, windowDimensions.y / 2));
+        sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0,position.y* (double)windowDimensions.y / 1080.0));
     }
     else
     {
