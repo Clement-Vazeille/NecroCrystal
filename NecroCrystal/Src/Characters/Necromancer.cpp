@@ -15,7 +15,7 @@ Necromancer::Necromancer()
 
 Necromancer::~Necromancer()
 {
-    delete sprites;
+    Character::~Character();
 }
 
 void Necromancer::Load(sf::Vector2i& windowDimensions)
@@ -24,7 +24,6 @@ void Necromancer::Load(sf::Vector2i& windowDimensions)
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
         sprites = new sf::Sprite[1];
-        //sprites[0] = sprite;
         sprites[0].setTexture(texture);
 
         int XNIndex = 0;
@@ -101,7 +100,6 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     cameraService.Update(-movement.y,sf::Vector2f(windowDimensions));
     cameraService.MoveSprite(sprites[0], movement);
 
-    
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 

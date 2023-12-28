@@ -110,7 +110,34 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 						start = end + 1;
 						end = line.find(',', start);
 						mapData.wallHitboxSizes[i].y = std::stoi(line.substr(start, end - start));
+					}
+				}
+				else if (variable == "spawn")
+				{
+					int virgIndex = value.find(',');
+					mapData.necroSpawn.x = std::stoi(value.substr(0, virgIndex));
+					mapData.necroSpawn.y = std::stoi(value.substr(virgIndex + 1, value.length() - virgIndex - 1));
+				}
+				else if (variable == "enemies")
+				{
+					int enemyNumber = std::stoi(value);
+					mapData.enemyNumber = enemyNumber;
+					mapData.enemyTypes = new int[enemyNumber];
+					mapData.enemyPositions = new sf::Vector2f[enemyNumber];
+					for (int i = 0; i < enemyNumber; i++)
+					{
+						int start = 0;            //a line is xposition,yposition,width,height
+						int end = 0;			  //values unity is tiles
+						std::getline(file, line);
+
+						end = line.find(',', start);
+						mapData.enemyPositions[i].x = std::stoi(line.substr(start, end - start));
 						start = end + 1;
+						end = line.find(',', start);
+						mapData.enemyPositions[i].y = std::stoi(line.substr(start, end - start));
+						start = end + 1;
+						end = line.find(',', start);
+						mapData.enemyTypes[i] = std::stoi(line.substr(start, end - start));
 					}
 				}
 			}
