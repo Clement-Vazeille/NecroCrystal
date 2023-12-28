@@ -61,7 +61,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions)
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map)
 {
     sf::Vector2f movement = sf::Vector2f(0, 0);
     cameraService.MoveSprite(sprites[0], movement);

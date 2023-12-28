@@ -9,7 +9,6 @@ int main()
     WindowManager windowManager;
     windowManager.Load();
     sf::RenderWindow* window = windowManager.GetWindow();
-     
 
     GameLoop gameLoop(sf::Vector2f(windowManager.size));
     gameLoop.initialize(windowManager.size);
