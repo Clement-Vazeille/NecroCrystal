@@ -23,10 +23,10 @@ void Projectile::Load(sf::Texture& texture, const sf::Vector2f& initialPosition,
 	hitbox.setPosition(sprite.getGlobalBounds().getPosition());
 }
 
-void Projectile::Draw(sf::RenderWindow* window) const
+void Projectile::Draw(sf::RenderWindow* window, bool drawHitbox) const
 {
 	window->draw(sprite);
-	if(showHitbox)
+	if(drawHitbox)
 		window->draw(hitbox);
 }
 int Projectile::getFaction(void) const
