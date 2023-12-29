@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Utilities\HitboxDisplay.cpp" />
     <ClCompile Include="Src\GameGestion\GameLoop.cpp" />
     <ClCompile Include="Src\Projectiles\Projectile.cpp" />
     <ClCompile Include="Src\Projectiles\ProjectilesHandler.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Utilities\HitboxDisplay.h" />
     <ClInclude Include="Src\GameGestion\GameLoop.h" />
     <ClInclude Include="Src\Projectiles\Projectile.h" />
     <ClInclude Include="Src\Projectiles\ProjectilesHandler.h" />

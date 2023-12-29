@@ -29,12 +29,15 @@ void Character::Draw(sf::RenderWindow* window) const
 	{
 		window->draw(sprites[i]);
 	}
-
-	if(show_hitboxes)
-		window->draw(hitbox);
+		
 }
 
-sf::Sprite& Character::getSprite(void) const   //TODO changer pour remplacer par les hitboxes
+void Character::DrawHitbox(sf::RenderWindow* window) const
+{
+	window->draw(hitbox);
+}
+
+sf::Sprite& Character::getSprite(void) const   //devrait techniquement plus être utilisé
 {
 	return sprites[0];
 }

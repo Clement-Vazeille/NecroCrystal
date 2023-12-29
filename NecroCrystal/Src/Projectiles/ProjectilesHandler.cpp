@@ -74,10 +74,10 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
     return false;
 }
 
-void ProjectilesHandler::Draw(sf::RenderWindow* window) const
+void ProjectilesHandler::Draw(sf::RenderWindow* window,bool drawHitbox) const
 {
 	for (auto& projectile : projectiles)
 	{
-		projectile->Draw(window);
+		projectile->Draw(window,drawHitbox);
 	}
 }

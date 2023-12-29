@@ -23,7 +23,7 @@ public:
 
 	void Load();
 	void Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map);
-	void Draw(sf::RenderWindow* window) const;
+	void Draw(sf::RenderWindow* window,bool drawHitbox) const;
 	
 };
 

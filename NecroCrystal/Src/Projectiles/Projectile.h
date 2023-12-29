@@ -17,7 +17,7 @@ public:
 	Projectile();
 	virtual void Load(sf::Texture& texture, const sf::Vector2f& initalPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions);
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime) = 0; //rajouter l'entity list
-	void Draw(sf::RenderWindow* window) const;
+	void Draw(sf::RenderWindow* window,bool drawHitbox) const;
 	int getFaction(void) const;
 	sf::RectangleShape* getHitbox(void);
 };
