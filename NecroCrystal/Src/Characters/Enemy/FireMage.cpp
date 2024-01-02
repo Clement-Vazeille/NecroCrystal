@@ -3,9 +3,9 @@
 
 
 FireMage::FireMage() : 
-    heathBarDistance(0.03)
+    heathBarDistance(0.03),loopAnimation(80,20,128,128)
 {
-    scale = 2;
+    scale = 1;
     width = 64;
     height = 64;
     speed = 0.32f;
@@ -22,15 +22,16 @@ FireMage::~FireMage()
 
 void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
-    if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMage.png"))
+    if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMageSpriteSheet.png"))
     {
         sprites = new sf::Sprite[1];
         std::cout << "Necromancer image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
-        int XNIndex = 0;
-        int YNIndex = 0;
-        sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
+        loopAnimation.Initialize(sprites[0]);
+        //int XNIndex = 0;
+        //int YNIndex = 0;
+        //sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
         sprites[0].scale(sf::Vector2f(scale*(double)windowDimensions.x/1920.0, scale*(double)windowDimensions.y/1080.0));//multiplie la taille par scale (c'est 2)
         sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0,position.y* (double)windowDimensions.y / 1080.0));
@@ -67,6 +68,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     cameraService.MoveSprite(sprites[0], movement);
     healthText.setPosition(sprites[0].getPosition() + sf::Vector2f(0, -windowDimensions.y * heathBarDistance));
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
+    loopAnimation.Update(sprites[0],deltaTime);
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());

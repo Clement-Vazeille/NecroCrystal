@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Utilities\LoopAnimation.cpp" />
     <ClCompile Include="Src\PlayerElements\MouseCursor.cpp" />
     <ClCompile Include="Src\Utilities\HitboxDisplay.cpp" />
     <ClCompile Include="Src\GameGestion\GameLoop.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Utilities\LoopAnimation.h" />
     <ClInclude Include="Src\PlayerElements\MouseCursor.h" />
     <ClInclude Include="Src\Utilities\HitboxDisplay.h" />
     <ClInclude Include="Src\GameGestion\GameLoop.h" />
