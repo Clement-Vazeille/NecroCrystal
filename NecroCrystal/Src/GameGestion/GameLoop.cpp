@@ -16,7 +16,8 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
 {
     projectileHandler.Load();
     frameRate.Load();
-    map.Load(windowDimensions);    //devrait load les ennemis
+    map.Load(windowDimensions);
+    mouseCursor.Load(windowDimensions);
     MapData* mapData = map.getData();
 
     Character* necromancer = new Necromancer;
@@ -36,6 +37,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
 void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition)
 {
     frameRate.Update(deltaTime);
+    mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
     projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions,map);
     hitboxDisplay.Update(deltaTime);
@@ -58,4 +60,5 @@ void GameLoop::draw(sf::RenderWindow* window)
     }
     projectileHandler.Draw(window,hitboxDisplay.getValue());
     frameRate.Draw(window);
+    mouseCursor.Draw(window);
 }

@@ -31,7 +31,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
-        sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));//multiplie la taille par 3
+        sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
         sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
 
         hitbox.setOutlineColor(sf::Color::Red);
