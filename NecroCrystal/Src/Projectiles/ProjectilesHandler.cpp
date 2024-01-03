@@ -41,7 +41,7 @@ void ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-        if (ProjectilesHandler::ProjectileCollisionChecker(*it, characters, map))
+        if (this->ProjectileCollisionChecker(*it, characters, map))
         {
             delete(*it);
             projectiles.erase(it);

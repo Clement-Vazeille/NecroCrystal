@@ -4,6 +4,7 @@
 #include "../../Utilities/LoopAnimation.h"
 #include "Enemy.h"
 #include "../../World//Map.h"
+
 class FireMage : public Enemy
 {
 protected:
