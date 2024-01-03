@@ -73,14 +73,6 @@ void Map::Load(sf::Vector2i mapDimensions)
             mapData.wallHitboxPositions[i].y * mapData.tileHeight * (int)mapData.scaleY * ((double)mapDimensions.y / 1080.0))); //les 2 varient selon la résolution de l'écran
         wallHitbox[i].setScale(mapData.scaleX * ((double)mapDimensions.x / 1920.0), mapData.scaleY * ((double)mapDimensions.y / 1080.0));
     }
-
-    std::cout << "sizeX :" << wallHitbox[0].getSize().x << " map data :" << mapData.wallHitboxPositions[0].x << std::endl;
-    std::cout << "sizeY :" << wallHitbox[0].getSize().y << std::endl;
-    std::cout << "posX :" << wallHitbox[0].getPosition().x << std::endl;
-    std::cout << "posY :" << wallHitbox[0].getPosition().y << std::endl;
-    std::cout << "scaleX :" << wallHitbox[0].getScale().x << " direct value :" << mapData.scaleX * ((double)mapDimensions.x / 1280.0) << std::endl;
-    std::cout << "wallHitboxNumber :" << mapData.hitboxNumber << std::endl;
-
 }
 
 void Map::Update(float deltaTime, CameraService& cameraService, sf::Vector2i mapDimensions)

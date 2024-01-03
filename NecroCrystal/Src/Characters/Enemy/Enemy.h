@@ -1,8 +1,16 @@
 #pragma once
 #include "../Character.h"
+#include "../../Utilities/LoopAnimation.h"
 
 class Enemy : public Character
 {
-	//la barre gèrera les barres de vie
+protected: 
+	LoopAnimation healthAnimation;
+	sf::Texture healthTexture;
+	double removedNotCountedHealth;
+public :
+	Enemy();
+	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);
+	bool SetHealth(int hp);
 };
 

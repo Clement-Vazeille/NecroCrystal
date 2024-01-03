@@ -13,6 +13,7 @@ protected:
 	int height;    //before applying the scale
 	float scale;
 	int health;
+	int maxHealth;
 	float speed;
 	int faction;  //pourrait se faire avec un enum
 	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
@@ -27,7 +28,7 @@ public:
 
 	virtual void Load(sf::Vector2i& windowDimensions,sf::Vector2f position)=0;
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map)=0; //rajouter l'entity list
-	bool SetHealth(int hp); //renvoi true si le character meurt
+	virtual bool SetHealth(int hp); //renvoi true si le character meurt
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;
 	void DrawHitbox(sf::RenderWindow* window) const;

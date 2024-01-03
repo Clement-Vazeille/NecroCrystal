@@ -1,15 +1,15 @@
 #include "character.h"
 
 Character::Character() : 
-	health(0),width(0),height(0),scale(0),
-	speed(0),faction(0),
+	width(0),height(0),scale(0),
+	speed(0),faction(0),health(0),maxHealth(0),
 	sprites(nullptr),spriteNumber(0)
 {
 }
 
 Character::~Character()
 {
-	//delete(sprites); fait crash le programme ????
+	//delete(sprites); //fait crash le programme ????
 }
 
 bool Character::SetHealth(int hp)

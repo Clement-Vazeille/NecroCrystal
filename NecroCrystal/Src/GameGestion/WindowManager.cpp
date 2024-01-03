@@ -20,6 +20,9 @@ void WindowManager::Load()
 	//desktopWindow->setFramerateLimit(60);
 	//fullScreenWindow->setFramerateLimit(60);
 
+	desktopWindow->setMouseCursorVisible(false);
+	fullScreenWindow->setMouseCursorVisible(false);
+
 	size = sf::Vector2i(desktopMode.width, desktopMode.height);
 
 	std::cout << fullScreenMode.width << ", " << fullScreenMode.height << std::endl;
