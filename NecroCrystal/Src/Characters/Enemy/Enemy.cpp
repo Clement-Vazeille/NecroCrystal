@@ -2,7 +2,7 @@
 #include <iostream>
 
 Enemy::Enemy() :
-	healthAnimation(0,12,64,32)
+	healthAnimation(0,12,64,32),removedNotCountedHealth(0)
 {
 }
 
@@ -14,18 +14,25 @@ void Enemy::LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position)
         sprites[1].setTexture(healthTexture);
 
         healthAnimation.Initialize(sprites[1]);
-        sprites[1].scale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));//multiplie la taille par scale (c'est 2)
+        sprites[1].scale(sf::Vector2f(2*scale * (double)windowDimensions.x / 1920.0, 1.5*scale * (double)windowDimensions.y / 1080.0));//multiplie la taille par scale (c'est 2)
         sprites[1].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, (position.y-50) * (double)windowDimensions.y / 1080.0));
     }
     else
     {
-        std::cout << "FireMage image failed to load" << std::endl;
+        std::cout << "Healthbar image failed to load" << std::endl;
     }
 }
 
 bool Enemy::SetHealth(int hp)
 {
+    removedNotCountedHealth += health - hp;
 	health = hp;
-    healthAnimation.Update(sprites[1], 0);
+
+    while (removedNotCountedHealth / (double)maxHealth >= 1.0 / 12.0)    //update the sprite of the health bar
+    {
+        removedNotCountedHealth -= (double)maxHealth / 12.0;
+        healthAnimation.Update(sprites[1], 0);
+    }
+
 	return(health <= 0);
 }

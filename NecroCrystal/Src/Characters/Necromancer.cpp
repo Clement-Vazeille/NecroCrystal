@@ -20,7 +20,7 @@ Necromancer::~Necromancer()
 
 void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
-    if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
+    if (texture.loadFromFile("Assets/Player/Textures/necromancer.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
         sprites = new sf::Sprite[1];

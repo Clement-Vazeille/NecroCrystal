@@ -12,8 +12,8 @@ FireMage::FireMage() :
     sprites = nullptr;
     spriteNumber = 2;
     faction = 2;
-    health = 200;
-    maxHealth = 200;
+    health = 120;
+    maxHealth = 120;
 }
 
 FireMage::~FireMage()
@@ -53,6 +53,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 {
     sf::Vector2f movement = sf::Vector2f(0, 0);
     cameraService.MoveSprite(sprites[0], movement);
+    cameraService.MoveSprite(sprites[1], movement);
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
     loopAnimation.Update(sprites[0],deltaTime);
 
