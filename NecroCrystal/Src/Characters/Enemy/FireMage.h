@@ -7,9 +7,6 @@
 class FireMage : public Enemy
 {
 protected:
-	sf::Font font;
-	sf::Text healthText;
-	float heathBarDistance;
 	LoopAnimation loopAnimation;
 
 public:

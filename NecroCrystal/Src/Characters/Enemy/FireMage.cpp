@@ -3,7 +3,7 @@
 
 
 FireMage::FireMage() : 
-    heathBarDistance(0.03),loopAnimation(80,20,128,128)
+    loopAnimation(80,20,128,128)
 {
     scale = 1;
     width = 64;
@@ -41,19 +41,6 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         std::cout << "Necromancer image failed to load" << std::endl;
     }
 
-    if (font.loadFromFile("Assets/Fonts/arial.ttf")) //alreay loaded in frameRate, TODO make a class that store texture/fonts shared
-    {
-        std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
-        healthText.setFont(font);
-    }
-    else
-    {
-        std::cout << "Faile to load Arial.ttf" << std::endl;
-    }
-    healthText.setPosition(sprites[0].getPosition() + sf::Vector2f(0, -windowDimensions.y * heathBarDistance));
-    healthText.setScale(0.8, 0.8);
-    healthText.setString("Health: " + std::to_string(health));
-
     hitbox.setOutlineColor(sf::Color::Red);
     hitbox.setOutlineThickness(-1);
     hitbox.setFillColor(sf::Color::Transparent);
@@ -66,7 +53,6 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 {
     sf::Vector2f movement = sf::Vector2f(0, 0);
     cameraService.MoveSprite(sprites[0], movement);
-    healthText.setPosition(sprites[0].getPosition() + sf::Vector2f(0, -windowDimensions.y * heathBarDistance));
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
     loopAnimation.Update(sprites[0],deltaTime);
 
