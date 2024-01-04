@@ -9,7 +9,7 @@
 class ProjectilesHandler
 {
 protected:
-	float timer;
+	float darkProjctileTimer;
 	float darkProjectileCastSpeed;
 
 	std::vector<Projectile*> projectiles;
