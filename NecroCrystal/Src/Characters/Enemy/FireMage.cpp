@@ -55,10 +55,16 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
+    sprites[1].setScale(sf::Vector2f(2 * scale * (double)windowDimensions.x / 1920.0, 1.5 * scale * (double)windowDimensions.y / 1080.0));
     loopAnimation.Update(sprites[0],deltaTime);
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+}
+
+void FireMage::FireBall(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, ProjectilesHandler projectileHandler)
+{
+
 }
 
 sf::Sprite& FireMage::getSprite(void) const
