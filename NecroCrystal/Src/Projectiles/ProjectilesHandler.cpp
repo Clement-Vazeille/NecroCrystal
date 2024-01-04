@@ -4,7 +4,7 @@
 #include "../Characters/Necromancer.h"
 #include "../Utilities/Math.h"
 
-ProjectilesHandler::ProjectilesHandler() : timer(0),darkProjectileCastSpeed(400)
+ProjectilesHandler::ProjectilesHandler() : darkProjctileTimer(0),darkProjectileCastSpeed(400)
 {
 }
 
@@ -23,11 +23,11 @@ void ProjectilesHandler::Load()
 
 void ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map)
 {
-    timer += deltaTime;
+    darkProjctileTimer += deltaTime;
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && timer > darkProjectileCastSpeed) //darkSpell Creator
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && darkProjctileTimer > darkProjectileCastSpeed) //darkSpell Creator
     {
-        timer = 0;
+        darkProjctileTimer = 0;
 
         Projectile* darkProjectile = new DarkProjectile();
         sf::Vector2f spellPosition = ((Necromancer*) characters[0])->getSprite().getPosition() + 2.0f*
