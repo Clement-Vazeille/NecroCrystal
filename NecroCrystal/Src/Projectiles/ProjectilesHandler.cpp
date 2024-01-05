@@ -1,17 +1,20 @@
 #include "ProjectilesHandler.h"
 #include<iostream>
 #include "DarkProjectile.h"
+#include "FireBall.h"
 #include "../Characters/Necromancer.h"
 #include "../Utilities/Math.h"
 
-ProjectilesHandler::ProjectilesHandler() : darkProjctileTimer(0),darkProjectileCastSpeed(400)
+ProjectilesHandler::ProjectilesHandler() : 
+    projectilesTextures(nullptr),textureNumber(2)
 {
 }
 
 void ProjectilesHandler::Load()
 {
+    projectilesTextures = new sf::Texture[2];
 
-    if (darkProjectileTexture.loadFromFile("Assets/Projectiles/darkProjectile.png"))
+    if (projectilesTextures[0].loadFromFile("Assets/Projectiles/darkProjectile.png"))
     {
         std::cout << "darkProjectile image loaded successfully" << std::endl;
     }
@@ -19,25 +22,31 @@ void ProjectilesHandler::Load()
     {
         std::cout << "darkProjectile image failed to load" << std::endl;
     }
+
+    if (projectilesTextures[1].loadFromFile("Assets/Projectiles/fireball.png"))
+    {
+        std::cout << "fireProjectile image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "fireProjectile image failed to load" << std::endl;
+    }
+
 }
 
 void ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map)
 {
-    darkProjctileTimer += deltaTime;
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && darkProjctileTimer > darkProjectileCastSpeed) //darkSpell Creator
+    for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
-        darkProjctileTimer = 0;
-
-        Projectile* darkProjectile = new DarkProjectile();
-        sf::Vector2f spellPosition = ((Necromancer*) characters[0])->getSprite().getPosition() + 2.0f*
-            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
-        darkProjectile->Load(darkProjectileTexture, spellPosition, mousePosition,windowDimensions);
-        projectiles.push_back(darkProjectile);
+        Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters);
+        if (projectile != nullptr)
+        {
+            std::cout << "fire" << std::endl;
+            projectiles.push_back(projectile);
+        }
     }
 
-
-    for (auto it = std::begin(projectiles); it!=std::end(projectiles); it++) 
+    for (auto it = std::begin(projectiles); it!=std::end(projectiles); it++) //boucle qui update les charactères (les move + check position)
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 

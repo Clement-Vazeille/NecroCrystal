@@ -9,13 +9,13 @@
 class ProjectilesHandler
 {
 protected:
-	float darkProjctileTimer;
-	float darkProjectileCastSpeed;
+	
 
 	std::vector<Projectile*> projectiles;
 
 	//textures
-	sf::Texture darkProjectileTexture;
+	sf::Texture* projectilesTextures;
+	int textureNumber;
 
 	bool ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map);
 public:
@@ -23,6 +23,7 @@ public:
 
 	void Load();
 	void Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map);
+	
 	void Draw(sf::RenderWindow* window,bool drawHitbox) const;
 	
 };

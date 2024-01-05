@@ -44,7 +44,7 @@ void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2
 
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        (*it)->Update(cameraService, windowDimensions, deltaTime,map);
+        (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
 }
 

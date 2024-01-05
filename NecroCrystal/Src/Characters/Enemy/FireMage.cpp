@@ -1,9 +1,11 @@
 #include "FireMage.h"
 #include <iostream>
-
+#include "../../Projectiles/FireBall.h"
+#include "../Necromancer.h"
 
 FireMage::FireMage() : 
-    loopAnimation(80,20,128,128)
+    loopAnimation(80,20,128,128),
+    fireBallTimer(0),fireBallRefreshTime(400)
 {
     scale = 1;
     width = 64;
@@ -49,7 +51,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)
 {
     sf::Vector2f movement = sf::Vector2f(0, 0);
     cameraService.MoveSprite(sprites[0], movement);
@@ -60,11 +62,26 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+
+    //this->LaunchFireball();
 }
 
-void FireMage::FireBall(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, ProjectilesHandler projectileHandler)
+Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
-
+    fireBallTimer += deltaTime;
+    if(fireBallTimer >= fireBallRefreshTime)
+    {
+        fireBallTimer = 0;
+        Projectile* fireBall = new FireBall();
+        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * texture.getSize().x / 1.5f, 0));
+        sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
+            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
+        fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
+        //projectileHandler.CreateFireBall(characters, windowDimensions, sprites[0].getPosition() +
+        //(sf::Vector2f(sprites[0].getScale().x * texture.getSize().x / 1.5f, 0)));
+        return fireBall;
+    }
+    return nullptr;
 }
 
 sf::Sprite& FireMage::getSprite(void) const

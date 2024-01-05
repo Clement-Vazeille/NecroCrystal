@@ -1,5 +1,6 @@
 #include "Projectile.h"
 #include "../Utilities/Math.h"
+#include "iostream"
 
 Projectile::Projectile() : speed(0.2f),faction(0)
 {
