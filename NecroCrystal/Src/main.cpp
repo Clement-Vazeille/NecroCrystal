@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameGestion/WindowManager.h"
-#include "GameGestion/GameLoop.h"
+#include "GameGestion/LoopManager.h"
 
 int main()
 {
@@ -10,8 +10,8 @@ int main()
     windowManager.Load();
     sf::RenderWindow* window = windowManager.GetWindow();
 
-    GameLoop gameLoop(sf::Vector2f(windowManager.size));
-    gameLoop.initialize(windowManager.size);
+    LoopManager loopManager(sf::Vector2f(windowManager.size));
+    loopManager.initialize(windowManager.size);
     //------------------------Initialize window and gameloop---------------------------------------
 
     sf::Clock clock;
@@ -37,13 +37,13 @@ int main()
         mousePosition.x = mousePosition.x * (float)windowManager.size.x / 1920.0f; //TODO : remplacer ça par les sizes en fullscreen
         mousePosition.y = mousePosition.y * (float)windowManager.size.y / 1080.0f;
 
-        gameLoop.update(deltaTime,windowManager.size,mousePosition);
+        loopManager.update(deltaTime,windowManager.size,mousePosition);
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------
         window->clear(sf::Color::Black);
 
-        gameLoop.draw(window);
+        loopManager.draw(window);
 
         window->display();
         //-------------------------DRAW---------------------------------------   

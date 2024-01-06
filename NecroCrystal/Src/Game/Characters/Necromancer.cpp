@@ -1,8 +1,9 @@
 #include "Necromancer.h"
 #include"../Utilities/Math.h"
+#include "../Projectiles/DarkProjectile.h"
 #include <iostream>
 
-Necromancer::Necromancer()
+Necromancer::Necromancer() : darkProjectileTimer(0), darkProjectileCastSpeed(400)
 {
     scale = 2;
     width = 64;
@@ -11,6 +12,8 @@ Necromancer::Necromancer()
     sprites = nullptr;
     spriteNumber = 1;
     faction = 1;
+    health =100;
+    maxHealth = 100;
 }
 
 Necromancer::~Necromancer()
@@ -48,7 +51,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     
 }
 
-void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters)
 {
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     hitbox.setScale(sprites[0].getScale());
@@ -101,6 +104,23 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     cameraService.MoveSprite(sprites[0], movement);
 
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+}
+
+Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
+{
+    darkProjectileTimer += deltaTime;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && darkProjectileTimer > darkProjectileCastSpeed) //darkSpell Creator
+    {
+        darkProjectileTimer = 0;
+
+        Projectile* darkProjectile = new DarkProjectile();
+        sf::Vector2f spellPosition = (sprites[0].getPosition() + 2.0f *
+            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f));
+        darkProjectile->Load(projectilesTextures[0], spellPosition, mousePosition, windowDimensions);
+        return darkProjectile;
+    }
+    return nullptr;
 }
 
 

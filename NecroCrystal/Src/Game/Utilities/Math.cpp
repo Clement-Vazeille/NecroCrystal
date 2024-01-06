@@ -23,3 +23,8 @@ bool Math::SpriteCollision(sf::Sprite sprite1, sf::Sprite sprite2)
 
 	return sprite1.getGlobalBounds().intersects(sprite2.getGlobalBounds());
 }
+
+sf::Vector2f Math::windowNormalizeVector(sf::Vector2f entryVector, sf::Vector2i& windowDimensions)
+{
+	return sf::Vector2f(entryVector.x*windowDimensions.x/1920.0f,entryVector.y*windowDimensions.y/1080.0f);
+}
