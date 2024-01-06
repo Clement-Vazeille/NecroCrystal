@@ -39,7 +39,7 @@ void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2
     frameRate.Update(deltaTime);
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
-    projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions,map);
+    projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions,map); 
     hitboxDisplay.Update(deltaTime);
 
     for (auto it = std::begin(characters); it != std::end(characters); it++)

@@ -1,16 +1,16 @@
 #pragma once
 #include <vector>
-#include "../Characters/Character.h"
-#include "../Characters/Necromancer.h"
-#include "../Characters/Enemy/Enemy.h"
-#include "../Characters/Enemy/FireMage.h"
-#include "../PlayerElements/MouseCursor.h"
-#include "../Projectiles/ProjectilesHandler.h"
-#include "../World/Map.h"
-#include "../World/MapData.h"
-#include "../Utilities/CameraService.h"
-#include "../Utilities/FrameRate.h"
-#include "../Utilities/HitboxDisplay.h"
+#include "Characters/Character.h"
+#include "Characters/Necromancer.h"
+#include "Characters/Enemy/Enemy.h"
+#include "Characters/Enemy/FireMage.h"
+#include "PlayerElements/MouseCursor.h"
+#include "Projectiles/ProjectilesHandler.h"
+#include "World/Map.h"
+#include "World/MapData.h"
+#include "Utilities/CameraService.h"
+#include "Utilities/FrameRate.h"
+#include "Utilities/HitboxDisplay.h"
 
 class GameLoop
 {
