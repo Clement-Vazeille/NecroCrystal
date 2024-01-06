@@ -30,7 +30,10 @@ public:
 	~GameLoop();
 
 	void initialize(sf::Vector2i& windowDimensions);
-	void update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
+	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
+	// 0 : R A S
+	// 1 : win
+	// 2 : necro is dead
 	void draw(sf::RenderWindow* window);
 };
 

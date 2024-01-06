@@ -34,40 +34,48 @@ void ProjectilesHandler::Load()
 
 }
 
-void ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map)
+bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, sf::Vector2i& windowDimensions,Map& map)
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
         Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters);
         if (projectile != nullptr)
         {
-            std::cout << "fire" << std::endl;
             projectiles.push_back(projectile);
         }
     }
 
+    bool isNecroDead = false;
     for (auto it = std::begin(projectiles); it!=std::end(projectiles); it++) //boucle qui update les charactères (les move + check position)
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-        if (this->ProjectileCollisionChecker(*it, characters, map))
+        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead))
         {
             delete(*it);
             projectiles.erase(it);
             it--;
+            if (isNecroDead)
+                return(isNecroDead);
         }
     }
+    return(isNecroDead);
 }
 
-bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map)
+bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map, bool& isNecroDead)
 {
     for (auto itChar = std::begin(characters); itChar != std::end(characters); itChar++)
     {
         if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
             && projectile->getFaction() != (*itChar)->getFaction())
         {
-            if ((*itChar)->SetHealth((*itChar)->GetHealth() - 10))
+            if ((*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage()))
             {
+                if (itChar == std::begin(characters))//check if it's the necromancer that died
+                {
+                    isNecroDead = true;
+                    return(true);
+                }
                 delete(*itChar);
                 characters.erase(itChar);
                 itChar--;

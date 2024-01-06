@@ -2,7 +2,7 @@
 #include "../Utilities/Math.h"
 #include "iostream"
 
-Projectile::Projectile() : speed(0.2f),faction(0)
+Projectile::Projectile() : speed(0.2f),faction(0),scale(1),damage(0)
 {
 }
 
@@ -33,6 +33,11 @@ void Projectile::Draw(sf::RenderWindow* window, bool drawHitbox) const
 int Projectile::getFaction(void) const
 {
 	return faction;
+}
+
+int Projectile::getDamage(void) const
+{
+	return damage;
 }
 
 sf::RectangleShape* Projectile::getHitbox(void)

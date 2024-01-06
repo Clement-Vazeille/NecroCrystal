@@ -1,4 +1,5 @@
 #include "FireMage.h"
+
 #include <iostream>
 #include "../../Projectiles/FireBall.h"
 #include "../Necromancer.h"
@@ -62,8 +63,6 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
-
-    //this->LaunchFireball();
 }
 
 Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
@@ -77,9 +76,6 @@ Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectiles
         sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
             sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
         fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
-        std::cout << initialPosition.x << std::endl;
-        //projectileHandler.CreateFireBall(characters, windowDimensions, sprites[0].getPosition() +
-        //(sf::Vector2f(sprites[0].getScale().x * texture.getSize().x / 1.5f, 0)));
         return fireBall;
     }
     return nullptr;

@@ -6,6 +6,7 @@ FireBall::FireBall()
 	speed = 0.2f;
 	faction = 2;
 	scale = 4.5f;
+	damage = 10;
 }
 
 void FireBall::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)

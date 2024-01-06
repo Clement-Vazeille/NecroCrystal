@@ -1,35 +1,35 @@
-#include "PauseLoop.h"
+#include "ClearLoop.h"
 #include <iostream>
 
-PauseLoop::PauseLoop()
+ClearLoop::ClearLoop()
 {
 }
 
-PauseLoop::~PauseLoop()
+ClearLoop::~ClearLoop()
 {
 }
 
-void PauseLoop::initialize(sf::Vector2i& windowDimensions)
+void ClearLoop::initialize(sf::Vector2i& windowDimensions)
 {
-	if (texture.loadFromFile("Assets/Menu/Pause.png"))
+	if (texture.loadFromFile("Assets/Menu/levelCleared.png"))
 	{
-		std::cout << "Pause texture loaded successfully" << std::endl;
+		std::cout << "Level Cleared texture loaded successfully" << std::endl;
 		sprite.setTexture(texture);
 		sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
 		sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f);
 		sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 	}
 	else
-		std::cout << "Pause texture failed to load" << std::endl;
+		std::cout << "Level Cleared texture failed to load" << std::endl;
 }
 
-void PauseLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
+void ClearLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
 	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 }
 
-void PauseLoop::draw(sf::RenderWindow* window)
+void ClearLoop::draw(sf::RenderWindow* window)
 {
 	window->draw(sprite);
 }

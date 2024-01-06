@@ -34,18 +34,25 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
     }
 }
 
-void GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition)
+int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition)
 {
     frameRate.Update(deltaTime);
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
-    projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions,map); 
+    if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map))
+        return 2;
     hitboxDisplay.Update(deltaTime);
 
+    bool isLevelCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
+        if ((*it)->getFaction() != 1) //faction 1 is the necromancer faction
+            isLevelCleared = false;
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
+    if (isLevelCleared)
+        return 1;
+    return 0;
 }
 
 void GameLoop::draw(sf::RenderWindow* window)

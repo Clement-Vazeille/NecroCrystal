@@ -1,9 +1,15 @@
 #pragma once
 
 #include "../Game/GameLoop.h"
+#include "../Pause/PauseLoop.h"
+#include "../WinLoose/ClearLoop.h"
+#include "../WinLoose/LooseLoop.h"
 class LoopManager
 {
 protected:
+	PauseLoop pauseLoop;
+	ClearLoop clearLoop;
+	LooseLoop looseLoop;
 	GameLoop gameLoop;
 	int state;
 	// 0 for main menu

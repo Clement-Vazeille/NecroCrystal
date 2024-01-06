@@ -2,7 +2,7 @@
 #include <iostream>
 
 LoopManager::LoopManager(sf::Vector2f windowSize) :
-	gameLoop(sf::Vector2f(windowSize)),state(4),
+	gameLoop(windowSize), state(4),
 	pauseTimer(0),pauseCooldown(800)
 {
 }
@@ -13,6 +13,9 @@ LoopManager::~LoopManager()
 
 void LoopManager::initialize(sf::Vector2i& windowDimensions)
 {
+	pauseLoop.initialize(windowDimensions);
+	clearLoop.initialize(windowDimensions);
+	looseLoop.initialize(windowDimensions);
 	gameLoop.initialize(windowDimensions); //TODO gameLoop prend en entrée un fichier map
 }
 
@@ -34,12 +37,36 @@ void LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	}
 
 	//update of activated loops
+	if (state == 1)
+		pauseLoop.update(deltaTime, windowDimensions, mousePosition);
+	if(state == 2)
+		clearLoop.update(deltaTime, windowDimensions, mousePosition);
+	if(state == 3)
+		looseLoop.update(deltaTime, windowDimensions, mousePosition);
 	if(state == 4)
-		gameLoop.update(deltaTime,windowDimensions,mousePosition);
+	{
+		int gameState = gameLoop.update(deltaTime, windowDimensions, mousePosition); //0 if RAS
+		if (gameState == 1)//win for player
+			state = 2;
+		if (gameState == 2)//player is dead
+			state = 3;
+	}
 }
 
 void LoopManager::draw(sf::RenderWindow* window)
 {
-	if(state == 4 || state == 1)
+	if (state == 1|| state == 2 || state == 3 || state == 4)
 		gameLoop.draw(window);
+	if (state == 1)
+	{
+		pauseLoop.draw(window);
+	}
+	if (state == 2)
+	{
+		clearLoop.draw(window);
+	}
+	if (state == 3)
+	{
+		looseLoop.draw(window);
+	}
 }
