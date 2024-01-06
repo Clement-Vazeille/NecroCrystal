@@ -12,6 +12,8 @@ Necromancer::Necromancer() : darkProjectileTimer(0), darkProjectileCastSpeed(400
     sprites = nullptr;
     spriteNumber = 1;
     faction = 1;
+    health =100;
+    maxHealth = 100;
 }
 
 Necromancer::~Necromancer()

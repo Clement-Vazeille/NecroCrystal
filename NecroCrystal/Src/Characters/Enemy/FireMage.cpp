@@ -5,7 +5,7 @@
 
 FireMage::FireMage() : 
     loopAnimation(80,20,128,128),
-    fireBallTimer(0),fireBallRefreshTime(400)
+    fireBallTimer(700),fireBallRefreshTime(3200)
 {
     scale = 1;
     width = 64;
@@ -73,10 +73,11 @@ Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectiles
     {
         fireBallTimer = 0;
         Projectile* fireBall = new FireBall();
-        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * texture.getSize().x / 1.5f, 0));
+        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f,sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
         sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
             sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
         fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
+        std::cout << initialPosition.x << std::endl;
         //projectileHandler.CreateFireBall(characters, windowDimensions, sprites[0].getPosition() +
         //(sf::Vector2f(sprites[0].getScale().x * texture.getSize().x / 1.5f, 0)));
         return fireBall;

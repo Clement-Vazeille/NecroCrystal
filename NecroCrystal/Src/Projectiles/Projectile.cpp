@@ -10,7 +10,7 @@ void Projectile::Load(sf::Texture& texture, const sf::Vector2f& initialPosition,
 {
 	sprite.setTexture(texture);
 	hitbox.setSize(sprite.getGlobalBounds().getSize());
-	sprite.setScale(sf::Vector2f(2.5f*(float)windowDimensions.x/1920.0f, 2.5f*(float)windowDimensions.y/1080.0f));
+	sprite.setScale(sf::Vector2f(scale*(float)windowDimensions.x/1920.0f, scale*(float)windowDimensions.y/1080.0f));
 	sprite.setPosition(initialPosition);
 
 	target = spellTarget - (sf::Vector2f(texture.getSize()) * sprite.getScale().x / 2.0f); //dividing by 2 make that the target will be hit by the spell middle and not the spell top left corner

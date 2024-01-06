@@ -10,6 +10,7 @@ protected:
 	float speed;
 	sf::Sprite sprite; //could become an array
 	int faction;
+	float scale;
 
 	sf::RectangleShape hitbox;
 	bool showHitbox = true;
