@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Pause\PauseLoop.cpp" />
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
     <ClCompile Include="Src\Game\Utilities\LoopAnimation.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Pause\PauseLoop.h" />
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
     <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
     <ClInclude Include="Src\Game\Utilities\LoopAnimation.h" />

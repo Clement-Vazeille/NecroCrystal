@@ -9,9 +9,13 @@ protected:
 	// 0 for main menu
 	// 1 for pause
 	// 2 for win
-	// 3 for level 1
+	// 3 for lose
+	// 4 for level 1
 
 	//l'upadate de main menu, pause et win est un bool sur si on doit quitté cet écran
+
+	float pauseTimer;
+	float pauseCooldown;
 public:
 	LoopManager(sf::Vector2f windowSize);
 	~LoopManager();
