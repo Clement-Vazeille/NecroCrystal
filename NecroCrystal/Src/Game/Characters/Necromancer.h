@@ -8,8 +8,11 @@
 class Necromancer : public Character
 {
 protected:
+	LoopAnimation loopAnimation;
 	float darkProjectileTimer;
 	float darkProjectileCastSpeed;
+	
+	bool faceRight;
 public:
 	Necromancer();
 	~Necromancer();
