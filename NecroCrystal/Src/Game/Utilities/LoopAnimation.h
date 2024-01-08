@@ -15,10 +15,14 @@ protected:
 
 	int xFrameSize;
 	int yFrameSize;
+
+	bool flipped;
 public:
 	LoopAnimation(float refreshTimer,int frameNumber,int xFrameSize,int yFrameSize);
 
 	void Initialize(sf::Sprite& sprite);
 	void Update(sf::Sprite& sprite, float deltaTime);
+	void Reset(sf::Sprite& sprite);
+	void Flip(void);
 };
 

@@ -3,12 +3,14 @@
 #include "../Projectiles/DarkProjectile.h"
 #include <iostream>
 
-Necromancer::Necromancer() : darkProjectileTimer(0), darkProjectileCastSpeed(400)
+Necromancer::Necromancer() : 
+    darkProjectileTimer(0), darkProjectileCastSpeed(400),
+    loopAnimation(120, 7, 64, 64),faceRight(true)
 {
     scale = 2;
     width = 64;
     height = 64;
-    speed = 0.32f;
+    speed = 0.35f;
     sprites = nullptr;
     spriteNumber = 1;
     faction = 1;
@@ -23,7 +25,7 @@ Necromancer::~Necromancer()
 
 void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
-    if (texture.loadFromFile("Assets/Player/Textures/necromancer.png"))
+    if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
         sprites = new sf::Sprite[1];
@@ -36,6 +38,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
         sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
+        loopAnimation.Initialize(sprites[0]);
 
         hitbox.setOutlineColor(sf::Color::Red);
         hitbox.setOutlineThickness(-1);
@@ -58,21 +61,35 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 
     sf::Vector2f position = sprites[0].getPosition();
     sf::Vector2f change = sf::Vector2f(0.0f, 0.0f);
+    bool moved = false;
+    bool turned = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         change += sf::Vector2f(1, 0)*speed*deltaTime;
+        moved = true;
+        if (!faceRight)
+            turned = true;
+        faceRight = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
         change -= sf::Vector2f(1, 0)*speed*deltaTime;
+        moved = true;
+        if (faceRight && !turned)
+        {
+            turned = true;
+            faceRight = false;
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
          change -= sf::Vector2f(0, 1) * speed * deltaTime;
+         moved = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         change += sf::Vector2f(0, 1) * speed * deltaTime;
+        moved = true;
     }
 
     //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
@@ -102,6 +119,13 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 
     cameraService.Update(-movement.y,sf::Vector2f(windowDimensions));
     cameraService.MoveSprite(sprites[0], movement);
+
+    if (turned)
+        loopAnimation.Flip();
+    if (moved)
+        loopAnimation.Update(sprites[0], deltaTime);
+    else
+        loopAnimation.Reset(sprites[0]);
 
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
