@@ -5,14 +5,15 @@
 
 Necromancer::Necromancer() : 
     darkProjectileTimer(0), darkProjectileCastSpeed(400),
-    loopAnimation(120, 7, 64, 64),faceRight(true)
+    loopAnimation(120, 7, 64, 64),faceRight(true),
+    healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0)
 {
     scale = 2;
     width = 64;
     height = 64;
     speed = 0.35f;
     sprites = nullptr;
-    spriteNumber = 1;
+    spriteNumber = 2;
     faction = 1;
     health =100;
     maxHealth = 100;
@@ -28,7 +29,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
-        sprites = new sf::Sprite[1];
+        sprites = new sf::Sprite[spriteNumber];
         sprites[0].setTexture(texture);
 
         int XNIndex = 0;
@@ -51,12 +52,26 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     {
         std::cout << "Necromancer image failed to load" << std::endl;
     }
-    
+
+    if (healthTexture.loadFromFile("Assets/Player/Textures/necroHealthBar.png"))
+    {
+        std::cout << "Necro HealthBar image loaded successfully" << std::endl;
+        sprites[1].setTexture(healthTexture);
+
+        healthAnimation.Initialize(sprites[1]);
+        sprites[1].setScale(sf::Vector2f(2.5*scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
+        sprites[1].setPosition(sf::Vector2f(0,0));
+    }
+    else
+    {
+        std::cout << "Healthbar image failed to load" << std::endl;
+    }
 }
 
 void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters)
 {
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));
     hitbox.setScale(sprites[0].getScale());
 
     sf::Vector2f position = sprites[0].getPosition();
@@ -151,4 +166,18 @@ Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectil
 sf::Sprite& Necromancer::getSprite(void) const
 {
     return sprites[0];
+}
+
+bool Necromancer::SetHealth(int hp)
+{
+    removedNotCountedHealth += health - hp;
+    health = hp;
+
+    while (removedNotCountedHealth / (double)maxHealth >= 1.0 / 16.0)    //update the sprite of the health bar
+    {
+        removedNotCountedHealth -= (double)maxHealth / 16.0;
+        healthAnimation.Update(sprites[1], 0);
+    }
+
+    return(health <= 0);
 }
