@@ -13,6 +13,10 @@ protected:
 	float darkProjectileCastSpeed;
 	
 	bool faceRight;
+
+	LoopAnimation healthAnimation;
+	sf::Texture healthTexture;
+	double removedNotCountedHealth;
 public:
 	Necromancer();
 	~Necromancer();
@@ -22,5 +26,6 @@ public:
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	sf::Sprite& getSprite(void) const;
+	bool SetHealth(int hp);
 };
 

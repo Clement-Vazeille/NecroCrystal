@@ -2,7 +2,7 @@
 #include <iostream>
 
 WindowManager::WindowManager() :
-	isGameFullScreen(false),
+	isGameFullScreen(true),
 	timer(0),refreshTime(600),
 	fullScreenWindow(nullptr),
 	desktopWindow(nullptr)
@@ -16,16 +16,15 @@ void WindowManager::Load()
 
 	desktopWindow = new sf::RenderWindow(desktopMode, "NecroCrystal", sf::Style::Default);
 	fullScreenWindow = new sf::RenderWindow(fullScreenMode, "NecroCrystal", sf::Style::Fullscreen);
-	fullScreenWindow->setVisible(false);
+	desktopWindow->setVisible(false);
 	//desktopWindow->setFramerateLimit(60);
 	//fullScreenWindow->setFramerateLimit(60);
 
 	desktopWindow->setMouseCursorVisible(false);
 	fullScreenWindow->setMouseCursorVisible(false);
 
-	size = sf::Vector2i(desktopMode.width, desktopMode.height);
+	size = sf::Vector2i(fullScreenMode.width, fullScreenMode.height);
 
-	std::cout << fullScreenMode.width << ", " << fullScreenMode.height << std::endl;
 
 }
 

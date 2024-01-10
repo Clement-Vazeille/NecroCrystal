@@ -13,9 +13,11 @@ LoopManager::~LoopManager()
 
 void LoopManager::initialize(sf::Vector2i& windowDimensions)
 {
-	pauseLoop.initialize(windowDimensions);
-	clearLoop.initialize(windowDimensions);
-	looseLoop.initialize(windowDimensions);
+	textManager.Initialize(); //important to initialize GlobalUtility services before initializing Loops
+
+	pauseLoop.initialize(windowDimensions,textManager); 
+	clearLoop.initialize(windowDimensions,textManager);
+	looseLoop.initialize(windowDimensions,textManager);
 	gameLoop.initialize(windowDimensions); //TODO gameLoop prend en entrée un fichier map
 }
 
