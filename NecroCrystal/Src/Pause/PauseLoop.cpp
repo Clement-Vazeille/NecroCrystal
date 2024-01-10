@@ -1,7 +1,8 @@
 #include "PauseLoop.h"
 #include <iostream>
 
-PauseLoop::PauseLoop()
+PauseLoop::PauseLoop() :
+	pauseText(nullptr)
 {
 }
 
@@ -9,7 +10,7 @@ PauseLoop::~PauseLoop()
 {
 }
 
-void PauseLoop::initialize(sf::Vector2i& windowDimensions)
+void PauseLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)
 {
 	if (texture.loadFromFile("Assets/Menu/Pause.png"))
 	{
