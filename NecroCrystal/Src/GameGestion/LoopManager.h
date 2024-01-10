@@ -29,7 +29,7 @@ public:
 	LoopManager(sf::Vector2f windowSize);
 	~LoopManager();
 
-	void initialize(sf::Vector2i& windowDimensions);    //TODO mettre une maj ....
+	void initialize(sf::Vector2i& windowDimensions);    //TODO mettre une maj aux la fonction ....
 	void update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
 	void draw(sf::RenderWindow* window);
 };

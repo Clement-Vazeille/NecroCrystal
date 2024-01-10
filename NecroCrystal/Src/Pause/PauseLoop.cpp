@@ -1,5 +1,6 @@
 #include "PauseLoop.h"
 #include <iostream>
+#include <string>
 
 PauseLoop::PauseLoop() :
 	pauseText(nullptr)
@@ -22,15 +23,20 @@ void PauseLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManag
 	}
 	else
 		std::cout << "Pause texture failed to load" << std::endl;
+	std::string text = "Pause";
+	pauseText = textManager.MakeSentence(text);
 }
 
 void PauseLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
 	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
+
+	pauseText->Update(15.f*windowDimensions.x/1980.f, sf::Vector2f(windowDimensions.x*0.415f,windowDimensions.y*0.53f)); //TODO separate x and y scales
 }
 
 void PauseLoop::draw(sf::RenderWindow* window)
 {
 	window->draw(sprite);
+	pauseText->Draw(window);
 }
