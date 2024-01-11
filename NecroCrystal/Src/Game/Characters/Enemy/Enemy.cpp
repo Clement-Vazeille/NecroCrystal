@@ -2,7 +2,8 @@
 #include <iostream>
 
 Enemy::Enemy() :
-	healthAnimation(0,12,64,32),removedNotCountedHealth(0)
+    healthAnimation(0, 12, 64, 32), removedNotCountedHealth(0),
+    activated(false)
 {
 }
 
@@ -25,6 +26,7 @@ void Enemy::LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position)
 
 bool Enemy::SetHealth(int hp)
 {
+    activated = true;
     removedNotCountedHealth += health - hp;
 	health = hp;
 

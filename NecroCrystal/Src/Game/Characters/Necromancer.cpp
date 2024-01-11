@@ -80,7 +80,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     bool turned = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        change += sf::Vector2f(1, 0)*speed*deltaTime;
+        change += sf::Vector2f(1 * (float)windowDimensions.x / 1920.f, 0)*speed*deltaTime;
         moved = true;
         if (!faceRight)
             turned = true;
@@ -88,7 +88,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        change -= sf::Vector2f(1, 0)*speed*deltaTime;
+        change -= sf::Vector2f(1 * (float)windowDimensions.x /1920.f, 0)*speed*deltaTime;
         moved = true;
         if (faceRight && !turned)
         {
@@ -98,42 +98,23 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
-         change -= sf::Vector2f(0, 1) * speed * deltaTime;
+         change -= sf::Vector2f(0, 1 * (float)windowDimensions.y / 1080.f) * speed * deltaTime;
          moved = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        change += sf::Vector2f(0, 1) * speed * deltaTime;
+        change += sf::Vector2f(0, 1 * (float)windowDimensions.y / 1080.0f) * speed * deltaTime;
         moved = true;
     }
 
     //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
-    sf::Vector2f movement_x = sf::Vector2f(change.x * (float)windowDimensions.x / 1920.0f,0.0f);
-    sf::Vector2f movement_y = sf::Vector2f(0.0f, change.y * (float)windowDimensions.y / 1080.0f);
-    
-    hitbox.move(movement_x);
-    if (map.ColideWithWall(&hitbox))
-    {
-        hitbox.move(-movement_x);                 //because if we do it after it won't move
-        movement_x.x = 0.0f;
-    }
-    hitbox.move(-movement_x);
+    Math::CorrectMovement(change, hitbox, map);
 
-    hitbox.move(movement_y);
-    if (map.ColideWithWall(&hitbox))
-    {
-        hitbox.move(-movement_y);
-        movement_y.y = 0.0f;
-    }
-    hitbox.move(-movement_y);
-    //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
+    if (change.x != 0.0f && change.y != 0.0f)
+        change = change * 0.85f;
 
-    sf::Vector2f movement = movement_x + movement_y;
-    if (movement.x != 0.0f && movement.y != 0.0f)
-        movement = movement * 0.85f;
-
-    cameraService.Update(-movement.y,sf::Vector2f(windowDimensions));
-    cameraService.MoveSprite(sprites[0], movement);
+    cameraService.Update(-change.y,sf::Vector2f(windowDimensions));
+    cameraService.MoveSprite(sprites[0], change);
 
     if (turned)
         loopAnimation.Flip();

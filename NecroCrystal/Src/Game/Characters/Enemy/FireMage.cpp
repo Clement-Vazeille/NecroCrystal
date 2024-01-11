@@ -3,20 +3,24 @@
 #include <iostream>
 #include "../../Projectiles/FireBall.h"
 #include "../Necromancer.h"
+#include "../../Utilities/Math.h"
 
 FireMage::FireMage() : 
     loopAnimation(80,20,128,128),
-    fireBallTimer(700),fireBallRefreshTime(3200)
+    fireBallTimer(700),fireBallRefreshTime(3200),
+    newDirectionCooldown(1800),newDirectionTimer(1800),
+    fearDistance(200) // doit scale entre 200 et 700 selon les hp manquants
 {
     scale = 1;
     width = 64;
     height = 64;
-    speed = 0.32f;
+    speed = 0.13f;
     sprites = nullptr;
     spriteNumber = 2;
     faction = 2;
     health = 120;
     maxHealth = 120;
+    activatedDistance = 1000;
 }
 
 FireMage::~FireMage()
@@ -54,7 +58,24 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
 void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)
 {
-    sf::Vector2f movement = sf::Vector2f(0, 0);
+    sf::Vector2f movement = sf::Vector2f();
+    newDirectionTimer += deltaTime;
+    if (Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < activatedDistance)
+        activated = true;
+    if(activated)
+    {
+        if (newDirectionTimer > newDirectionCooldown)
+        {
+            newDirectionTimer = 0;
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            if (Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < fearDistance * (3.f - 2.f * (float)health / (float)maxHealth))
+                direction = -direction * 1.2f;
+        }
+        movement = Math::windowNormalizeVector(direction * speed * (2.5f - 1.5f * (float)health / (float)maxHealth) * deltaTime, windowDimensions);
+        //speed boosted when low hp
+        Math::CorrectMovement(movement, hitbox, map);
+    }
+
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
@@ -67,16 +88,19 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 
 Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
-    fireBallTimer += deltaTime;
-    if(fireBallTimer >= fireBallRefreshTime)
+    if(activated)
     {
-        fireBallTimer = 0;
-        Projectile* fireBall = new FireBall();
-        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f,sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
-        sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
-            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
-        fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
-        return fireBall;
+        fireBallTimer += deltaTime;
+        if (fireBallTimer >= fireBallRefreshTime)
+        {
+            fireBallTimer = 0;
+            Projectile* fireBall = new FireBall();
+            sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
+            sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
+                sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
+            fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
+            return fireBall;
+        }
     }
     return nullptr;
 }
