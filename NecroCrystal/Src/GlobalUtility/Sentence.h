@@ -16,6 +16,7 @@ public:
 	Sentence();
 
 	void Initialise(std::string string, sf::Texture& texture);
+	void ChangeText(std::string string); //reset position
 	void Update(float scale, sf::Vector2f position); //la position est en haut à gauche de la première lettre
 
 	void Draw(sf::RenderWindow* window) const;

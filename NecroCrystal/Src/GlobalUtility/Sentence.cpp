@@ -39,6 +39,15 @@ void Sentence::Initialise(std::string string, sf::Texture& texture)
 	}
 }
 
+void Sentence::ChangeText(std::string string)
+{
+	for (size_t i = 0; i < size; ++i)
+	{
+		sprites[i].setTextureRect(LetterToRect(string[i]));
+		sprites[i].setOrigin(0, sprites[i].getTextureRect().height);
+	}
+}
+
 void Sentence::Update(float scale, sf::Vector2f position) //la position est en bas à gauche de la première lettre
 {
 	if (size > 0)
