@@ -2,7 +2,8 @@
 #include <iostream>
 
 ClearLoop::ClearLoop() :
-	clearText(nullptr)
+	clearText(nullptr),
+	timerText(nullptr)
 {
 }
 
@@ -27,17 +28,23 @@ void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMana
 	clearText = textManager.MakeSentence(text);
 }
 
+void ClearLoop::setTimer(std::string timeText, TextManager& textManager)
+{
+	timerText = textManager.MakeSentence(timeText);
+}
+
 void ClearLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
 	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 
-	clearText->Update(8.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.415f, windowDimensions.y * 0.53f)); //TODO separate x and y scales
-
+	clearText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.45f)); //TODO separate x and y scales
+	timerText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.55f));
 }
 
 void ClearLoop::draw(sf::RenderWindow* window)
 {
 	window->draw(sprite);
 	clearText->Draw(window);
+	timerText->Draw(window);
 }

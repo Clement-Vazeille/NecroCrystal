@@ -5,6 +5,7 @@
 #include "../WinLoose/ClearLoop.h"
 #include "../WinLoose/LooseLoop.h"
 #include "../GlobalUtility/TextManager.h"
+#include "../GlobalUtility/Timer.h"
 class LoopManager
 {
 protected:
@@ -13,6 +14,7 @@ protected:
 	LooseLoop looseLoop;
 	GameLoop gameLoop;
 	TextManager textManager;
+	Timer timer;
 
 	int state;
 	// 0 for main menu

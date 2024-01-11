@@ -11,6 +11,8 @@
 #include "Utilities/CameraService.h"
 #include "Utilities/FrameRate.h"
 #include "Utilities/HitboxDisplay.h"
+#include "Utilities/GameTimer.h"
+#include"../GlobalUtility/TextManager.h"
 
 class GameLoop
 {
@@ -21,6 +23,7 @@ protected:
 	HitboxDisplay hitboxDisplay;
 	Map map;
 	CameraService cameraService;  
+	GameTimer gameTimer;
 
 	//TODO mettre une clock du temps de jeu
 	FrameRate frameRate;
@@ -29,8 +32,8 @@ public:
 	GameLoop(sf::Vector2f windowSize);
 	~GameLoop();
 
-	void initialize(sf::Vector2i& windowDimensions);
-	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
+	void initialize(sf::Vector2i& windowDimensions,TextManager& textManager);
+	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition, std::string timerString);
 	// 0 : R A S
 	// 1 : win
 	// 2 : necro is dead

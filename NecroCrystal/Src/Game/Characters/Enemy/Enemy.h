@@ -8,6 +8,9 @@ protected:
 	LoopAnimation healthAnimation;
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
+
+	bool activated;
+	float activatedDistance;
 public :
 	Enemy();
 	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);

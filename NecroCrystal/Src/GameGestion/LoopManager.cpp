@@ -18,7 +18,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	pauseLoop.initialize(windowDimensions,textManager); 
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
-	gameLoop.initialize(windowDimensions); //TODO gameLoop prend en entrée un fichier map
+	gameLoop.initialize(windowDimensions,textManager); //TODO gameLoop prend en entrée un fichier map
 }
 
 void LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
@@ -47,9 +47,13 @@ void LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		looseLoop.update(deltaTime, windowDimensions, mousePosition);
 	if(state == 4)
 	{
-		int gameState = gameLoop.update(deltaTime, windowDimensions, mousePosition); //0 if RAS
+		timer.Add(deltaTime);
+		int gameState = gameLoop.update(deltaTime, windowDimensions, mousePosition,timer.ToMiniString()); //0 if RAS
 		if (gameState == 1)//win for player
+		{
+			clearLoop.setTimer(timer.ToString(), textManager);
 			state = 2;
+		}
 		if (gameState == 2)//player is dead
 			state = 3;
 	}

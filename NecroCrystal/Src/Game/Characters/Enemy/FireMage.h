@@ -12,6 +12,12 @@ protected:
 	float fireBallTimer;
 	float fireBallRefreshTime;
 
+	float newDirectionTimer;
+	float newDirectionCooldown;
+	sf::Vector2f direction;
+
+	float fearDistance;
+
 public:
 	FireMage();
 	~FireMage();

@@ -12,10 +12,11 @@ GameLoop::~GameLoop()
     }
 }
 
-void GameLoop::initialize(sf::Vector2i& windowDimensions)
+void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)
 {
     projectileHandler.Load();
     frameRate.Load();
+    gameTimer.Initialize(textManager);
     map.Load(windowDimensions);
     mouseCursor.Load(windowDimensions);
     MapData* mapData = map.getData();
@@ -34,9 +35,10 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions)
     }
 }
 
-int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition)
+int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition,std::string timerString)
 {
     frameRate.Update(deltaTime);
+    gameTimer.Update(windowDimensions,timerString);
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map))
@@ -67,5 +69,7 @@ void GameLoop::draw(sf::RenderWindow* window)
     }
     projectileHandler.Draw(window,hitboxDisplay.getValue());
     frameRate.Draw(window);
+    gameTimer.Draw(window);
+
     mouseCursor.Draw(window);
 }
