@@ -13,7 +13,7 @@ ClearLoop::~ClearLoop()
 
 void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textManager)
 {
-	if (texture.loadFromFile("Assets/Menu/levelCleared.png"))
+	if (texture.loadFromFile("Assets/Menu/Menu.png"))
 	{
 		std::cout << "Level Cleared texture loaded successfully" << std::endl;
 		sprite.setTexture(texture);
