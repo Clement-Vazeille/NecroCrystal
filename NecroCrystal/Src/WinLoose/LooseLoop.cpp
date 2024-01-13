@@ -12,7 +12,7 @@ LooseLoop::~LooseLoop()
 
 void LooseLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textManager)
 {
-	if (texture.loadFromFile("Assets/Menu/gameOver.png"))
+	if (texture.loadFromFile("Assets/Menu/Menu.png"))
 	{
 		std::cout << "Game Over texture loaded successfully" << std::endl;
 		sprite.setTexture(texture);

@@ -7,7 +7,7 @@
 
 FireMage::FireMage() : 
     loopAnimation(80,20,128,128),
-    fireBallTimer(700),fireBallRefreshTime(3200),
+    fireBallTimer(700),fireBallRefreshTime(1900),  // devrait scale avec les hp ?
     newDirectionCooldown(1800),newDirectionTimer(1800),
     fearDistance(200) // doit scale entre 200 et 700 selon les hp manquants
 {
@@ -20,7 +20,7 @@ FireMage::FireMage() :
     faction = 2;
     health = 120;
     maxHealth = 120;
-    activatedDistance = 1000;
+    activatedDistance = 800;
 }
 
 FireMage::~FireMage()
@@ -60,7 +60,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
-    if (Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < activatedDistance)
+    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < activatedDistance)
         activated = true;
     if(activated)
     {

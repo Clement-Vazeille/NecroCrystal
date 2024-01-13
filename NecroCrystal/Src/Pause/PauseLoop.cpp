@@ -13,7 +13,7 @@ PauseLoop::~PauseLoop()
 
 void PauseLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)
 {
-	if (texture.loadFromFile("Assets/Menu/Pause.png"))
+	if (texture.loadFromFile("Assets/Menu/Menu.png"))
 	{
 		std::cout << "Pause texture loaded successfully" << std::endl;
 		sprite.setTexture(texture);
