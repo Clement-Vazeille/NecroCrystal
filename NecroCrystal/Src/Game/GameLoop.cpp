@@ -61,13 +61,16 @@ void GameLoop::draw(sf::RenderWindow* window)
 {
     map.Draw(window);
 
-    for (auto& character : characters)
+    for (auto character : characters)
     {
         character->Draw(window);
         if (hitboxDisplay.getValue())
             character->DrawHitbox(window);
     }
     projectileHandler.Draw(window,hitboxDisplay.getValue());
+
+    characters[0]->Draw(window); // put necro in front of enemies and projectile
+
     frameRate.Draw(window);
     gameTimer.Draw(window);
 

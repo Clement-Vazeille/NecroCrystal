@@ -23,6 +23,11 @@ float Math::Distance(sf::Vector2f direction)
     return std::sqrtf((direction.x * direction.x) + (direction.y * direction.y));
 }
 
+float Math::DistanceLat(sf::Vector2f direction)
+{
+    return std::sqrtf((0.4f*direction.x * direction.x) + (2.5f*direction.y * direction.y));
+}
+
 bool Math::SpriteCollision(sf::Sprite sprite1, sf::Sprite sprite2)
 {
 
