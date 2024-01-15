@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Characters\SkeletonHandler.cpp" />
     <ClCompile Include="Src\Game\Characters\Skeleton.cpp" />
     <ClCompile Include="Src\Game\Utilities\GameTimer.cpp" />
     <ClCompile Include="Src\GlobalUtility\Sentence.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Src\GlobalUtility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
     <ClInclude Include="Src\Game\Characters\Skeleton.h" />
     <ClInclude Include="Src\Game\Utilities\GameTimer.h" />
     <ClInclude Include="Src\GlobalUtility\Sentence.h" />

@@ -43,6 +43,20 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
     }
 }
 
+void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
+{
+    sprites = new sf::Sprite[spriteNumber];
+    sprites[0].setTexture(textureLoaded);
+
+    sprites[0].setTextureRect(sf::IntRect(0,0, width, height));
+
+    sprites[0].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+
+    hitbox.setSize(sf::Vector2f(0, 0));
+    hitbox.setPosition(sf::Vector2f(0, 0));
+}
+
 void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
 }
