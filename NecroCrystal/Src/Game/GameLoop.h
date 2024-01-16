@@ -4,6 +4,7 @@
 #include "Characters/Necromancer.h"
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/Enemy/FireMage.h"
+#include "Characters/SkeletonHandler.h"
 #include "PlayerElements/MouseCursor.h"
 #include "Projectiles/ProjectilesHandler.h"
 #include "World/Map.h"
@@ -24,8 +25,8 @@ protected:
 	Map map;
 	CameraService cameraService;  
 	GameTimer gameTimer;
+	SkeletonHandler skeltonHandler;
 
-	//TODO mettre une clock du temps de jeu
 	FrameRate frameRate;
 
 public:

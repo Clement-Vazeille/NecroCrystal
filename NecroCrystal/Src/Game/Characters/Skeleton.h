@@ -13,6 +13,10 @@ class Skeleton : public Character
 protected:
 	bool faceRight;
 
+	bool activated;
+	float activatedTimer;
+	float activationTime;
+
 public:
 	Skeleton();
 	~Skeleton();
@@ -24,5 +28,6 @@ public:
 
 	sf::Sprite& getSprite(void) const;
 	bool SetHealth(int hp);
+	bool IsActivated(void) const;
 };
 

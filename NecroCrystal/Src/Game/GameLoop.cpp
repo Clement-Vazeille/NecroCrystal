@@ -20,6 +20,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     map.Load(windowDimensions);
     mouseCursor.Load(windowDimensions);
     MapData* mapData = map.getData();
+    skeltonHandler.Load();
 
     Character* necromancer = new Necromancer;
     necromancer->Load(windowDimensions,mapData->necroSpawn);
@@ -41,8 +42,9 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     gameTimer.Update(windowDimensions,timerString);
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
-    if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map))
-        return 2;
+    skeltonHandler.UpdateSkeletons(cameraService, windowDimensions, deltaTime, map, characters);
+    if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler))
+        return 2; //means game over
     hitboxDisplay.Update(deltaTime);
 
     bool isLevelCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
@@ -53,13 +55,14 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
     if (isLevelCleared)
-        return 1;
+        return 1; // means wp gg
     return 0;
 }
 
 void GameLoop::draw(sf::RenderWindow* window)
 {
     map.Draw(window);
+    skeltonHandler.DrawSkeletons(window);
 
     for (auto character : characters)
     {

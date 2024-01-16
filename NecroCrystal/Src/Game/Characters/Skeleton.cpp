@@ -1,8 +1,9 @@
 #include "Skeleton.h"
 #include <iostream>
 
-Skeleton::Skeleton() : 
-	faceRight(true)
+Skeleton::Skeleton() :
+    faceRight(true),
+    activated(false), activatedTimer(0),activationTime(1000)
 {
     scale = 2;
     width = 64;
@@ -59,6 +60,16 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
 
 void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
+    sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    sf::Vector2f movement = sf::Vector2f();
+    cameraService.MoveSprite(sprites[0], movement);
+
+    if (!activated)
+    {
+        activatedTimer += deltaTime;
+        if (activatedTimer > activationTime)
+            activated = true;
+    }
 }
 
 Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
@@ -74,4 +85,9 @@ sf::Sprite& Skeleton::getSprite(void) const
 bool Skeleton::SetHealth(int hp)
 {
 	return false;
+}
+
+bool Skeleton::IsActivated(void) const
+{
+    return activated;
 }
