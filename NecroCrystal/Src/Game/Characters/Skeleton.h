@@ -12,6 +12,8 @@ class Skeleton : public Character
 {
 protected:
 	bool faceRight;
+	bool moving;
+	float stopDistance;
 
 	bool activated;
 	float activatedTimer;

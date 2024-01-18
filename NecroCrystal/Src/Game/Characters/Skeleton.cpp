@@ -3,7 +3,7 @@
 #include "../Utilities/Math.h"
 
 Skeleton::Skeleton() :
-    faceRight(true),
+    faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0),activationTime(1000),
     aD(50)
 {
@@ -55,8 +55,15 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     hitbox.setScale(sprites[0].getScale());
 
     cameraService.UpdateVector(target);
-    sf::Vector2f movement = Math::normalizeVector(target-sprites[0].getPosition())*speed*deltaTime;
-    Math::CorrectMovement(movement,hitbox, map);
+    sf::Vector2f movement = sf::Vector2f(0, 0);
+    if (moving)
+    {
+        movement = Math::normalizeVector(target - sprites[0].getPosition()) * speed * deltaTime;
+        Math::CorrectMovement(movement, hitbox, map);
+
+        if (Math::Distance(target - sprites[0].getPosition()) < stopDistance)
+            moving = false;
+    }
 
     cameraService.MoveSprite(sprites[0], movement);
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
@@ -82,6 +89,7 @@ void Skeleton::AttackAnimation(void)
 void Skeleton::StartDash(sf::Vector2f necroPosition)
 {
     target = necroPosition + (necroPosition - sprites[0].getPosition());
+    moving = true;
 }
 
 sf::Sprite& Skeleton::getSprite(void) const

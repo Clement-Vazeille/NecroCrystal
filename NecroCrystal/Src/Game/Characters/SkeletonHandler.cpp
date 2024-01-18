@@ -22,7 +22,8 @@ void SkeletonHandler::Load(void)
 		std::cout << "failed to load Skeleton texture";
 }
 
-void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f position)
+void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f position) //TODO les faire spawn un peu plus loin 
+//car sinon ils sont vite hyper stackés , les faires dash on spawn ???
 {
 	Skeleton* newSkeleton = new Skeleton();
 	newSkeleton->Load(windowDimensions,position,texture);

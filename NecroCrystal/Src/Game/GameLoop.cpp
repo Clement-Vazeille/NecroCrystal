@@ -1,7 +1,9 @@
 #include "GameLoop.h"
 
+#include "Characters/Enemy/Enemy.h"
 GameLoop::GameLoop(sf::Vector2f windowSize) : cameraService(windowSize)
 {
+    Enemy::enemyNumber = 0;
 }
 
 GameLoop::~GameLoop()
