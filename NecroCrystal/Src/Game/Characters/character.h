@@ -20,7 +20,7 @@ protected:
 	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
 	
 	int spriteNumber;
-	sf::Sprite* sprites;
+	sf::Sprite* sprites; //TODO Remplacer par un std Array
 	sf::RectangleShape hitbox;
 
 public:

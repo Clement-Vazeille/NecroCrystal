@@ -3,7 +3,7 @@
 #include "../Utilities/Math.h"
 
 SkeletonHandler::SkeletonHandler() :
-	skeletonRange(0.f)
+	skeletonRange(180.f)
 {
 }
 
@@ -30,6 +30,17 @@ void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f
 
 void SkeletonHandler::SkeletonAttack(Character* character)
 {
+	if (character->SetHealth(character->GetHealth()))
+		return;
+	for (auto skeleton : skeletons)
+	{
+		if (skeleton->IsActivated() && Math::Distance(skeleton->getSprite().getPosition() - character->getSprite().getPosition())<skeletonRange)
+		{
+			skeleton->AttackAnimation();
+			if (character->SetHealth(character->GetHealth() - skeleton->GetAD()))
+				return;
+		}
+	}
 }
 
 void SkeletonHandler::SkeletonDash(sf::Vector2f posititon)

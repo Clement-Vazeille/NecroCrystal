@@ -35,7 +35,7 @@ void ProjectilesHandler::Load()
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 
-    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler)
+    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler) //all damgages have to come from this function
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
@@ -71,7 +71,9 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
             && projectile->getFaction() != (*itChar)->getFaction())
         {
-            if ((*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage())) //activate if character is dead
+            (*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage());
+            skeletonHandler.SkeletonAttack((*itChar));
+            if ((*itChar)->SetHealth((*itChar)->GetHealth())) //activate if character is dead
             {
                 if (itChar == std::begin(characters))//check if it's the necromancer that died
                 {

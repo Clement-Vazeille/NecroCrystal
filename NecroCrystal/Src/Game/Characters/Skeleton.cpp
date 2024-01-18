@@ -3,7 +3,8 @@
 
 Skeleton::Skeleton() :
     faceRight(true),
-    activated(false), activatedTimer(0),activationTime(1000)
+    activated(false), activatedTimer(0),activationTime(1000),
+    aD(50)
 {
     scale = 2;
     width = 64;
@@ -77,6 +78,10 @@ Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectiles
 	return nullptr;
 }
 
+void Skeleton::AttackAnimation(void)
+{
+}
+
 sf::Sprite& Skeleton::getSprite(void) const
 {
     return sprites[0];
@@ -90,4 +95,9 @@ bool Skeleton::SetHealth(int hp)
 bool Skeleton::IsActivated(void) const
 {
     return activated;
+}
+
+const float Skeleton::GetAD(void) const
+{
+    return aD;
 }
