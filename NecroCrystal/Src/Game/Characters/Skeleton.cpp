@@ -1,5 +1,6 @@
 #include "Skeleton.h"
 #include <iostream>
+#include "../Utilities/Math.h"
 
 Skeleton::Skeleton() :
     faceRight(true),
@@ -12,7 +13,7 @@ Skeleton::Skeleton() :
     speed = 1.35f;
     sprites = nullptr;
     spriteNumber = 1;
-    faction = -1;  //TODO -1 = inciblable
+    faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots ont pas de hitbox
     health = 1;
     maxHealth = 1;
 }
@@ -24,25 +25,7 @@ Skeleton::~Skeleton()
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 {
-    if (texture.loadFromFile("Assets/Skeleton/Skeleton.png")) //c'est pas opti de load à chaque fois
-    {
-        sprites = new sf::Sprite[spriteNumber];
-        sprites[0].setTexture(texture);
-
-        int XNIndex = 0;
-        int YNIndex = 0;
-        sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
-
-        sprites[0].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-        sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
-
-        hitbox.setSize(sf::Vector2f(0,0));
-        hitbox.setPosition(sf::Vector2f(0, 0));
-    }
-    else
-    {
-        std::cout << "Necromancer image failed to load" << std::endl;
-    }
+    //Shouldn't be used, here because Skeleton is inherited from character
 }
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
@@ -51,19 +34,33 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
     sprites[0].setTexture(textureLoaded);
 
     sprites[0].setTextureRect(sf::IntRect(0,0, width, height));
+    hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
     sprites[0].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
 
-    hitbox.setSize(sf::Vector2f(0, 0));
-    hitbox.setPosition(sf::Vector2f(0, 0));
+    target = sprites[0].getPosition();
+
+    hitbox.setOutlineColor(sf::Color::Red);
+    hitbox.setOutlineThickness(-1);
+    hitbox.setFillColor(sf::Color::Transparent);
+
+    hitbox.setScale(sprites[0].getScale());
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
 void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-    sf::Vector2f movement = sf::Vector2f();
+    hitbox.setScale(sprites[0].getScale());
+
+    cameraService.UpdateVector(target);
+    sf::Vector2f movement = Math::normalizeVector(target-sprites[0].getPosition())*speed*deltaTime;
+    Math::CorrectMovement(movement,hitbox, map);
+
     cameraService.MoveSprite(sprites[0], movement);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+
 
     if (!activated)
     {
@@ -80,6 +77,11 @@ Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectiles
 
 void Skeleton::AttackAnimation(void)
 {
+}
+
+void Skeleton::StartDash(sf::Vector2f necroPosition)
+{
+    target = necroPosition + (necroPosition - sprites[0].getPosition());
 }
 
 sf::Sprite& Skeleton::getSprite(void) const

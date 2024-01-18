@@ -42,7 +42,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     gameTimer.Update(windowDimensions,timerString);
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
-    skeltonHandler.UpdateSkeletons(cameraService, windowDimensions, deltaTime, map, characters);
+    skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler))
         return 2; //means game over
     hitboxDisplay.Update(deltaTime);
@@ -62,7 +62,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
 void GameLoop::draw(sf::RenderWindow* window)
 {
     map.Draw(window);
-    skeltonHandler.DrawSkeletons(window);
+    skeltonHandler.DrawSkeletons(window, hitboxDisplay.getValue());
 
     for (auto character : characters)
     {

@@ -3,7 +3,8 @@
 #include "../Utilities/Math.h"
 
 SkeletonHandler::SkeletonHandler() :
-	skeletonRange(180.f)
+	skeletonRange(180.f),
+	skeletonDashTimer(0),skeletonDashCooldown(6000)
 {
 }
 
@@ -43,23 +44,39 @@ void SkeletonHandler::SkeletonAttack(Character* character)
 	}
 }
 
-void SkeletonHandler::SkeletonDash(sf::Vector2f posititon)
+void SkeletonHandler::SkeletonDash(sf::Vector2f posititon,float deltaTime)
 {
+	if (skeletonDashTimer < skeletonDashCooldown)
+		skeletonDashTimer += deltaTime;
+	if(skeletonDashTimer>skeletonDashCooldown && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		skeletonDashTimer = 0;
+		for (auto skeleton : skeletons)
+		{
+			if(skeleton->IsActivated())
+				skeleton->StartDash(posititon);
+		}
+	}
 }
 
-void SkeletonHandler::UpdateSkeletons(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
 	for (auto skeleton : skeletons)
 	{
 		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters);
 	}
+	this->SkeletonDash(characters.at(0)->getHitbox()->getPosition(), deltaTime);
 }
 
-void SkeletonHandler::DrawSkeletons(sf::RenderWindow* window) const
+void SkeletonHandler::DrawSkeletons(sf::RenderWindow* window,bool showHitbox) const
 {
 	for (auto skeleton : skeletons)
 	{
-		if(skeleton->IsActivated())
+		if (skeleton->IsActivated())
+		{
 			skeleton->Draw(window);
+			if (showHitbox)
+				skeleton->DrawHitbox(window);
+		}
 	}
 }

@@ -17,6 +17,8 @@ protected:
 	float activatedTimer;
 	float activationTime;
 
+	sf::Vector2f target; //if we want him to reach the target directly we could slow him just before he hit the target
+
 	float aD; //attackDamage
 
 public:
@@ -29,6 +31,7 @@ public:
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	void AttackAnimation(void);
+	void StartDash(sf::Vector2f mousePosition);
 
 	sf::Sprite& getSprite(void) const;
 	bool SetHealth(int hp);
