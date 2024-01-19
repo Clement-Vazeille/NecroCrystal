@@ -35,7 +35,7 @@ void ProjectilesHandler::Load()
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 
-    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler) //all damgages have to come from this function
+    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler) 
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {

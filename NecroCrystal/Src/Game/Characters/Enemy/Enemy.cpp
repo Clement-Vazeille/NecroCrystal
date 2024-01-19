@@ -41,3 +41,8 @@ bool Enemy::SetHealth(int hp)
 
 	return(health <= 0);
 }
+
+const int Enemy::GetSerial(void) const
+{
+    return serial;
+}

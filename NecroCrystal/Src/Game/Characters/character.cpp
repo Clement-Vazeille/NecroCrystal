@@ -18,6 +18,11 @@ bool Character::SetHealth(int hp)
 	return(health<=0);
 }
 
+const int Character::GetSerial(void) const
+{
+	return 0;
+}
+
 int Character::GetHealth(void) const
 {
 	return health;

@@ -5,7 +5,7 @@
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0),activationTime(1000),
-    aD(50)
+    aD(50),dashAD(40),damageDealt(0)
 {
     scale = 2;
     width = 64;
@@ -68,6 +68,27 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     cameraService.MoveSprite(sprites[0], movement);
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 
+    //------------------------------------Check collisions with enemies--------------------------------------------
+    if (moving)
+    {
+        for (auto itChar = std::begin(characters)+1; itChar != std::end(characters); itChar++)
+        {
+            if (hitbox.getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds()) && enemyDashed.count(((Enemy*)(*itChar))->GetSerial())==0
+                && 1 != (*itChar)->getFaction())
+            {
+                enemyDashed.insert(((Enemy*)(*itChar))->GetSerial());
+                damageDealt += dashAD;
+                if ((*itChar)->SetHealth((*itChar)->GetHealth() - dashAD)) //activate if character is dead
+                {
+                    delete(*itChar);
+                    characters.erase(itChar);
+                    itChar--;
+                }
+            }
+        }
+    }
+    //------------------------------------Check collisions with enemies--------------------------------------------
+    
 
     if (!activated)
     {
@@ -84,12 +105,14 @@ Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectiles
 
 void Skeleton::AttackAnimation(void)
 {
+    damageDealt += aD;
 }
 
 void Skeleton::StartDash(sf::Vector2f necroPosition)
 {
     target = necroPosition + (necroPosition - sprites[0].getPosition());
     moving = true;
+    enemyDashed.clear();
 }
 
 sf::Sprite& Skeleton::getSprite(void) const

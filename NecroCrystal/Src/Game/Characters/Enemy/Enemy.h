@@ -18,6 +18,7 @@ public :
 	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);
 	bool SetHealth(int hp);
 
+	const int GetSerial(void) const;
 	static int enemyNumber;
 };
 

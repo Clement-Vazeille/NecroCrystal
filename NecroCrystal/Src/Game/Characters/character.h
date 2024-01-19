@@ -13,7 +13,7 @@ protected:
 	int width;
 	int height;    //before applying the scale
 	float scale;
-	int health;
+	long health;
 	int maxHealth;
 	float speed;
 	int faction;  //pourrait se faire avec un enum
@@ -31,6 +31,7 @@ public:
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)=0;
 	virtual Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters) = 0;
 	virtual bool SetHealth(int hp); //renvoi true si le character meurt
+	virtual const int GetSerial(void) const; //for enemies
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;
 	void DrawHitbox(sf::RenderWindow* window) const;

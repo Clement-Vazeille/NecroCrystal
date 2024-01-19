@@ -1,6 +1,8 @@
 #pragma once
 #include "character.h"
 #include <SFML/Graphics.hpp>
+#include <unordered_set>
+
 #include "Enemy/FireMage.h"
 #include "../Utilities/CameraService.h"
 #include "Character.h"
@@ -15,13 +17,17 @@ protected:
 	bool moving;
 	float stopDistance;
 
+	std::unordered_set<int> enemyDashed; //contain all enemy hitted on current dash
 	bool activated;
 	float activatedTimer;
 	float activationTime;
 
 	sf::Vector2f target; //if we want him to reach the target directly we could slow him just before he hit the target
 
-	float aD; //attackDamage
+	long aD; //attackDamage
+	long dashAD; //Dash damages, < aD
+	long damageDealt;
+
 
 public:
 	Skeleton();
