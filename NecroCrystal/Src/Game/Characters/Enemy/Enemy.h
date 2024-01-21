@@ -11,9 +11,15 @@ protected:
 
 	bool activated;
 	float activatedDistance;
+
+	const int serial; //for skeletons who can only hit an enemy once per dash
 public :
 	Enemy();
 	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);
 	bool SetHealth(int hp);
+
+	const int GetSerial(void) const;
+	static int enemyNumber;
 };
 
+//int Enemy::enemyNumber = 0;

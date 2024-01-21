@@ -54,6 +54,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
 void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)
