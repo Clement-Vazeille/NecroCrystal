@@ -59,7 +59,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         sprites[1].setTexture(healthTexture);
 
         healthAnimation.Initialize(sprites[1]);
-        sprites[1].setScale(sf::Vector2f(2.5*scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
+        sprites[1].setScale(sf::Vector2f(2.5 * scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
         sprites[1].setPosition(sf::Vector2f(0,0));
     }
     else

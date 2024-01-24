@@ -33,7 +33,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMageSpriteSheet.png"))
     {
         sprites = new sf::Sprite[spriteNumber];
-        std::cout << "FireMage image loaded successfully" << std::endl;
+        //std::cout << "FireMage image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
         loopAnimation.Initialize(sprites[0]);
@@ -54,7 +54,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
-    std::cout << "fire Mage Serial is : " << serial << std::endl;
+    //std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
 void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)

@@ -8,13 +8,13 @@
 class Necromancer : public Character
 {
 protected:
-	LoopAnimation loopAnimation;
+	Animation loopAnimation;
 	float darkProjectileTimer;
 	float darkProjectileCastSpeed;
 	
 	bool faceRight;
 
-	LoopAnimation healthAnimation;
+	Animation healthAnimation;
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
 public:

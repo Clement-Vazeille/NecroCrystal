@@ -18,8 +18,10 @@ SkeletonHandler::~SkeletonHandler()
 
 void SkeletonHandler::Load(void)
 {
-	if (!texture.loadFromFile("Assets/Skeleton/Skeleton.png"))
-		std::cout << "failed to load Skeleton texture";
+	if (texture.loadFromFile("Assets/Skeleton/SkeletonSpriteSheet.png"))
+		std::cout << "Skeleton texture SpriteSheet loaded successfully" << std::endl;
+	else
+		std::cout << "failed to load Skeleton texture" << std::endl;
 }
 
 void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f position) //TODO les faire spawn un peu plus loin 

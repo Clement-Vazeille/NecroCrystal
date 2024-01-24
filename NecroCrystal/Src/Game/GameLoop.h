@@ -3,7 +3,6 @@
 #include "Characters/Character.h"
 #include "Characters/Necromancer.h"
 #include "Characters/Enemy/Enemy.h"
-#include "Characters/Enemy/FireMage.h"
 #include "Characters/SkeletonHandler.h"
 #include "PlayerElements/MouseCursor.h"
 #include "Projectiles/ProjectilesHandler.h"

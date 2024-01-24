@@ -14,7 +14,7 @@ void Enemy::LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position)
 {
     if (healthTexture.loadFromFile("Assets/OtherMages/hpBarEnemy.png"))
     {
-        std::cout << "HealthBar image loaded successfully" << std::endl;
+        //std::cout << "HealthBar image loaded successfully" << std::endl;
         sprites[1].setTexture(healthTexture);
 
         healthAnimation.Initialize(sprites[1]);
