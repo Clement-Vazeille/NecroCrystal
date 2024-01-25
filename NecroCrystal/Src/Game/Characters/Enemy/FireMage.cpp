@@ -18,8 +18,8 @@ FireMage::FireMage() :
     sprites = nullptr;
     spriteNumber = 2;
     faction = 2;
-    health = 120;
-    maxHealth = 120;
+    maxHealth = 200;
+    health = maxHealth;
     activatedDistance = 800;
 }
 

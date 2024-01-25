@@ -5,11 +5,11 @@
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
-    aD(50), dashAD(40), damageDealt(0), skeletonLevel(0),
+    aD(35), dashAD(20), damageDealt(0), skeletonLevel(0),
     skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(100,3,64,64,3,0),Animation(120,3,64,64,6,0) }),
     spearAnimations({ Animation(120,3,64,64,0,1),Animation(100,3,64,64,3,1),Animation(120,3,64,64,6,1) }),
     armorAnimations({ Animation(120,3,64,64,0,2),Animation(100,3,64,64,3,2),Animation(120,3,64,64,6,2) }),
-    currentAnimation(0), goldDamageRequirement(100)
+    currentAnimation(0), goldDamageRequirement(55)
 
 {
     scale = 2;
@@ -147,6 +147,8 @@ void Skeleton::DealDamage(int hitDammage)
         {
             animation.MoveOffsets(0, 2);
         }
+        aD += 25;
+        dashAD += 15;
     }
 }
 

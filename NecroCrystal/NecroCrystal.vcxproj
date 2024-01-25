@@ -168,6 +168,8 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
     <ClCompile Include="Src\GlobalUtility\TextManager.cpp" />
     <ClCompile Include="Src\GlobalUtility\Timer.cpp" />
+    <ClCompile Include="Src\Game\Effects\VFX.cpp" />
+    <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
@@ -200,6 +202,8 @@
     <ClInclude Include="Src\GameGestion\WindowManager.h" />
     <ClInclude Include="Src\GlobalUtility\TextManager.h" />
     <ClInclude Include="Src\GlobalUtility\Timer.h" />
+    <ClInclude Include="Src\Game\Effects\VFX.h" />
+    <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
