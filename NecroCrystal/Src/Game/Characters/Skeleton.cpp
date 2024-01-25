@@ -9,7 +9,7 @@ Skeleton::Skeleton() :
     skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(100,3,64,64,3,0),Animation(120,3,64,64,6,0) }),
     spearAnimations({ Animation(120,3,64,64,0,1),Animation(100,3,64,64,3,1),Animation(120,3,64,64,6,1) }),
     armorAnimations({ Animation(120,3,64,64,0,2),Animation(100,3,64,64,3,2),Animation(120,3,64,64,6,2) }),
-    currentAnimation(0)
+    currentAnimation(0), goldDamageRequirement(100)
 
 {
     scale = 2;
@@ -42,9 +42,9 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
     }
 
     //sprites[0].setTextureRect(sf::IntRect(0, 0, width, height));
-    skeletonAnimations.at(currentAnimation).Initialize(sprites[0]);
-    spearAnimations.at(currentAnimation).Initialize(sprites[1]);
-    armorAnimations.at(currentAnimation).Initialize(sprites[2]);
+    skeletonAnimations.at(currentAnimation).SetTextureRect(sprites[0]);
+    spearAnimations.at(currentAnimation).SetTextureRect(sprites[1]);
+    armorAnimations.at(currentAnimation).SetTextureRect(sprites[2]);
 
     hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
@@ -106,7 +106,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
                 && 1 != (*itChar)->getFaction())
             {
                 enemyDashed.insert(((Enemy*)(*itChar))->GetSerial());
-                damageDealt += dashAD;
+                this->DealDamage(dashAD);
                 if ((*itChar)->SetHealth((*itChar)->GetHealth() - dashAD)) //activate if character is dead
                 {
                     delete(*itChar);
@@ -132,9 +132,27 @@ Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectiles
 	return nullptr;
 }
 
+void Skeleton::DealDamage(int hitDammage)
+{
+    damageDealt += hitDammage;
+    if (skeletonLevel == 0 && damageDealt >= goldDamageRequirement)
+    {
+        std::cout << "gold transfo" << std::endl;
+        skeletonLevel++;
+        for (auto& animation : spearAnimations)
+        {
+            animation.MoveOffsets(0, 2);
+        }
+        for (auto& animation : armorAnimations)
+        {
+            animation.MoveOffsets(0, 2);
+        }
+    }
+}
+
 void Skeleton::AttackAnimation(void)
 {
-    damageDealt += aD;
+    this->DealDamage(aD);
     currentAnimation = 1;
 }
 

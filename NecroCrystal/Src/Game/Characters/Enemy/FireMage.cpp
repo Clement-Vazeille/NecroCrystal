@@ -36,7 +36,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         //std::cout << "FireMage image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
-        loopAnimation.Initialize(sprites[0]);
+        loopAnimation.SetTextureRect(sprites[0]);
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
         sprites[0].scale(sf::Vector2f(scale*(double)windowDimensions.x/1920.0, scale*(double)windowDimensions.y/1080.0));//multiplie la taille par scale (c'est 2)
         sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0,position.y* (double)windowDimensions.y / 1080.0));

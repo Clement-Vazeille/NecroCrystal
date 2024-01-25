@@ -1,4 +1,5 @@
 #include "Animation.h"
+#include <iostream>
 
 Animation::Animation(float refreshTimer, int frameNumber, int xFrameSize, int yFrameSize) :
 	refreshTimer(refreshTimer), frameNumber(frameNumber),
@@ -16,7 +17,7 @@ Animation::Animation(float refreshTimer, int frameNumber, int xFrameSize, int yF
 {
 }
 
-void Animation::Initialize(sf::Sprite& sprite)
+void Animation::SetTextureRect(sf::Sprite& sprite)
 {
 	if(!flipped)
 		sprite.setTextureRect(sf::IntRect(xFrameSize * (actualFrame+xOffset), yOffset*yFrameSize, xFrameSize, yFrameSize));
@@ -32,20 +33,14 @@ void Animation::Update(sf::Sprite& sprite,float deltaTime)
 		timer = 0; //on aurait pu faire timer-=refreshTimer pour avoir une moyenne = refreshTimer et pas un peu supérieur
 		actualFrame = (actualFrame + 1) % frameNumber;
 	}
-	if (!flipped)
-			sprite.setTextureRect(sf::IntRect(xFrameSize * (actualFrame+xOffset), yOffset * yFrameSize, xFrameSize, yFrameSize));
-	if (flipped)
-			sprite.setTextureRect(sf::IntRect(xFrameSize * (actualFrame + xOffset + 1), yOffset * yFrameSize, -xFrameSize, yFrameSize));
+	this->SetTextureRect(sprite);
 }
 
 void Animation::Reset(sf::Sprite& sprite)
 {
 	actualFrame = 0;
 	timer = refreshTimer-1; //after a reset the animation should switch directly
-	if (!flipped)
-		sprite.setTextureRect(sf::IntRect(xFrameSize * (actualFrame + xOffset), yOffset * yFrameSize, xFrameSize, yFrameSize));
-	if (flipped)
-		sprite.setTextureRect(sf::IntRect(xFrameSize * (actualFrame + 1 + xOffset), yOffset * yFrameSize, -xFrameSize, yFrameSize));
+	this->SetTextureRect(sprite);
 }
 
 void Animation::Flip(void)
@@ -55,6 +50,8 @@ void Animation::Flip(void)
 
 void Animation::MoveOffsets(int xChange, int yChange)
 {
+	std::cout << "changedOffset from " << yOffset;
 	xOffset += xChange;
 	yOffset += yChange;
+	std::cout << " to " << yOffset<< std::endl;
 }

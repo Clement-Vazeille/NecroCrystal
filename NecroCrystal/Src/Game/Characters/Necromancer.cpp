@@ -39,7 +39,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
         sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
-        loopAnimation.Initialize(sprites[0]);
+        loopAnimation.SetTextureRect(sprites[0]);
 
         hitbox.setOutlineColor(sf::Color::Red);
         hitbox.setOutlineThickness(-1);
@@ -58,7 +58,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         std::cout << "Necro HealthBar image loaded successfully" << std::endl;
         sprites[1].setTexture(healthTexture);
 
-        healthAnimation.Initialize(sprites[1]);
+        healthAnimation.SetTextureRect(sprites[1]);
         sprites[1].setScale(sf::Vector2f(2.5 * scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
         sprites[1].setPosition(sf::Vector2f(0,0));
     }

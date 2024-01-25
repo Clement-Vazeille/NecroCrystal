@@ -23,7 +23,7 @@ public:
 	Animation(float refreshTimer,int frameNumber,int xFrameSize,int yFrameSize);
 	Animation(float refreshTimer, int frameNumber, int xFrameSize, int yFrameSize,int xOffset,int yOffset);
 
-	void Initialize(sf::Sprite& sprite); //set Sprite to current frame and do currentFrame ++
+	void SetTextureRect(sf::Sprite& sprite); //set Sprite to current frame and do currentFrame ++
 	void Update(sf::Sprite& sprite, float deltaTime);
 	void Reset(sf::Sprite& sprite);
 	void Flip(void);

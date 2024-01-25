@@ -72,7 +72,8 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
             && projectile->getFaction() != (*itChar)->getFaction())
         {
             (*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage());
-            skeletonHandler.SkeletonAttack((*itChar));
+            if((*itChar)->getFaction()!=1)
+                skeletonHandler.SkeletonAttack((*itChar));
             if ((*itChar)->SetHealth((*itChar)->GetHealth())) //activate if character is dead
             {
                 if (itChar == std::begin(characters))//check if it's the necromancer that died

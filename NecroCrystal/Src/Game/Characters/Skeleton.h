@@ -37,7 +37,10 @@ protected:
 	int skeletonLevel; 
 	//0 = wooden
 	//1 = gold
+	int goldDamageRequirement;
 	//2 = purple (not possible actually)
+
+	void DealDamage(int damageDealt);
 
 public:
 	Skeleton();
