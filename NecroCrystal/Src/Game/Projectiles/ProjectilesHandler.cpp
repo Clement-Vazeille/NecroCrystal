@@ -35,7 +35,7 @@ void ProjectilesHandler::Load()
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 
-    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler) 
+    sf::Vector2i& windowDimensions,Map& map, SkeletonHandler& skeletonHandler, VFXHandler& vFXHandler)
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
@@ -51,7 +51,7 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler)) //activate if projectile hit
+        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler,vFXHandler)) //activate if projectile hit
         {
             delete(*it);
             projectiles.erase(it);
@@ -64,7 +64,7 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 }
 
 bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map, 
-    bool& isNecroDead, sf::Vector2i& windowDimensions, SkeletonHandler& skeletonHandler)
+    bool& isNecroDead, sf::Vector2i& windowDimensions, SkeletonHandler& skeletonHandler,VFXHandler& vFXHandler)
 {
     for (auto itChar = std::begin(characters); itChar != std::end(characters); itChar++)
     {
@@ -73,7 +73,7 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         {
             (*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage());
             if((*itChar)->getFaction()!=1)
-                skeletonHandler.SkeletonAttack((*itChar));
+                skeletonHandler.SkeletonAttack((*itChar),vFXHandler,windowDimensions);
             if ((*itChar)->SetHealth((*itChar)->GetHealth())) //activate if character is dead
             {
                 if (itChar == std::begin(characters))//check if it's the necromancer that died

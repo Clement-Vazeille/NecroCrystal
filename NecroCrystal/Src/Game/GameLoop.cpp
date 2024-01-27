@@ -38,7 +38,6 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
         }
     }
 
-    vFXHandler.SpawnVFX(windowDimensions, sf::Vector2f(1500, 600), sf::Vector2f(800, 600), 0);
 }
 
 int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition,std::string timerString)
@@ -48,7 +47,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
     skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters);
-    if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler))
+    if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler,vFXHandler))
         return 2; //means game over
     
     hitboxDisplay.Update(deltaTime);

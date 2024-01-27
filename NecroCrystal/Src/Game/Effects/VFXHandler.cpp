@@ -16,7 +16,7 @@ void VFXHandler::LoadTextures(void)
 	vFXsData.at(0).maxTimer=-1;
 	vFXsData.at(0).followTarget=true;
 	vFXsData.at(0).endOnTimer=false;
-	vFXsData.at(0).speed=0.2f;
+	vFXsData.at(0).speed=1.1f;
 	vFXsData.at(0).refreshTimer=150;
 	vFXsData.at(0).frameNumber=4;
 	vFXsData.at(0).xFrameSize=16;

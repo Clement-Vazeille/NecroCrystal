@@ -16,6 +16,9 @@ void VFX::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Vector
 	sprite.scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
 	sprite.setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
 	target = givenTarget; 
+	
+	if (target.x < position.x && followTarget)
+		animation.Flip();
 }
 
 void VFX::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
