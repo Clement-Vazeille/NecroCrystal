@@ -5,6 +5,7 @@
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/SkeletonHandler.h"
 #include "PlayerElements/MouseCursor.h"
+#include "Effects/VFXHandler.h"
 #include "Projectiles/ProjectilesHandler.h"
 #include "World/Map.h"
 #include "World/MapData.h"
@@ -25,6 +26,7 @@ protected:
 	CameraService cameraService;  
 	GameTimer gameTimer;
 	SkeletonHandler skeltonHandler;
+	VFXHandler vFXHandler;
 
 	FrameRate frameRate;
 

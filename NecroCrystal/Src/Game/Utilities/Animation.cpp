@@ -50,8 +50,6 @@ void Animation::Flip(void)
 
 void Animation::MoveOffsets(int xChange, int yChange)
 {
-	std::cout << "changedOffset from " << yOffset;
 	xOffset += xChange;
 	yOffset += yChange;
-	std::cout << " to " << yOffset<< std::endl;
 }

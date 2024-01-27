@@ -206,5 +206,8 @@
     <ClInclude Include="Src\Game\Effects\VFX.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Effects\VFXdata.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

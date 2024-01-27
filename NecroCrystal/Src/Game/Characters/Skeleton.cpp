@@ -137,7 +137,6 @@ void Skeleton::DealDamage(int hitDammage)
     damageDealt += hitDammage;
     if (skeletonLevel == 0 && damageDealt >= goldDamageRequirement)
     {
-        std::cout << "gold transfo" << std::endl;
         skeletonLevel++;
         for (auto& animation : spearAnimations)
         {

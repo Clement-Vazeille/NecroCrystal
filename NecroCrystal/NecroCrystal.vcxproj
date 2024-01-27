@@ -129,6 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
     <ClInclude Include="Src\Game\Characters\Skeleton.h" />
+    <ClInclude Include="Src\Game\Effects\VFXdata.h" />
     <ClInclude Include="Src\Game\Utilities\GameTimer.h" />
     <ClInclude Include="Src\GlobalUtility\Sentence.h" />
     <ClInclude Include="Src\WinLoose\LooseLoop.h" />
