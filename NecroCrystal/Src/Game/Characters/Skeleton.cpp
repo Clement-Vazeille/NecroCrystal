@@ -6,9 +6,10 @@ Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
     aD(35), dashAD(20), damageDealt(0), skeletonLevel(0),
-    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(100,3,64,64,3,0),Animation(120,3,64,64,6,0) }),
-    spearAnimations({ Animation(120,3,64,64,0,1),Animation(100,3,64,64,3,1),Animation(120,3,64,64,6,1) }),
-    armorAnimations({ Animation(120,3,64,64,0,2),Animation(100,3,64,64,3,2),Animation(120,3,64,64,6,2) }),
+    attackTimer(0), attackDuration(400),
+    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0) }),
+    spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1) }),
+    armorAnimations({ Animation(120,3,64,64,0,2),Animation(attackDuration / 3.f,3,64,64,3,2),Animation(120,3,64,64,6,2) }),
     currentAnimation(0), goldDamageRequirement(55)
 
 {
@@ -30,7 +31,7 @@ Skeleton::~Skeleton()
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 {
-    //Shouldn't be used, here because Skeleton is inherited from character
+    //Shouldn't be used, here because Skeleton is inherited from character  ^^
 }
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
@@ -70,6 +71,16 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     {
         sprites[i].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     }
+
+    if (currentAnimation == 1)
+    {
+        attackTimer += deltaTime;
+        if (attackTimer >= attackDuration)
+        {
+            currentAnimation = 0;
+        }
+    }
+
     skeletonAnimations.at(currentAnimation).Update(sprites[0], deltaTime);
     spearAnimations.at(currentAnimation).Update(sprites[1], deltaTime);
     armorAnimations.at(currentAnimation).Update(sprites[2], deltaTime);
@@ -151,10 +162,21 @@ void Skeleton::DealDamage(int hitDammage)
     }
 }
 
-void Skeleton::AttackAnimation(void)
+void Skeleton::AttackAnimation(sf::Vector2f enemy)
 {
     this->DealDamage(aD);
     currentAnimation = 1;
+    attackTimer = 0;
+    if (enemy.x < sprites[0].getPosition().x && faceRight) 
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
+    if (enemy.x > sprites[0].getPosition().x && !faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
 }
 
 void Skeleton::StartDash(sf::Vector2f necroPosition)
@@ -163,6 +185,16 @@ void Skeleton::StartDash(sf::Vector2f necroPosition)
     moving = true;
     currentAnimation = 2;
     enemyDashed.clear();
+    if (target.x < sprites[0].getPosition().x && faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
+    if (target.x > sprites[0].getPosition().x && !faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
 }
 
 sf::Sprite& Skeleton::getSprite(void) const
@@ -183,4 +215,20 @@ bool Skeleton::IsActivated(void) const
 const float Skeleton::GetAD(void) const
 {
     return aD;
+}
+
+void Skeleton::FlipSkeleton(void)
+{
+    for (auto& animation : skeletonAnimations)
+    {
+        animation.Flip();
+    }
+    for (auto& animation : spearAnimations)
+    {
+        animation.Flip();
+    }
+    for (auto& animation : armorAnimations)
+    {
+        animation.Flip();
+    }
 }

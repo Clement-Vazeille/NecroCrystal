@@ -24,6 +24,9 @@ protected:
 	float activatedTimer;
 	float activationTime;
 
+	float attackTimer;
+	float attackDuration;
+
 	sf::Vector2f target; //if we want him to reach the target directly we could slow him just before he hit the target
 
 	long aD; //attackDamage
@@ -41,6 +44,7 @@ protected:
 	//2 = purple (not possible actually)
 
 	void DealDamage(int damageDealt);
+	void FlipSkeleton(void);
 
 public:
 	Skeleton();
@@ -51,7 +55,7 @@ public:
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters);     //called once per frame
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
-	void AttackAnimation(void);
+	void AttackAnimation(sf::Vector2f target);
 	void StartDash(sf::Vector2f mousePosition);
 
 	sf::Sprite& getSprite(void) const;
