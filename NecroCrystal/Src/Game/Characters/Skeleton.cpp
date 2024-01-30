@@ -6,10 +6,10 @@ Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
     aD(35), dashAD(20), damageDealt(0), skeletonLevel(0),
-    attackTimer(0), attackDuration(400),
-    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0) }),
-    spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1) }),
-    armorAnimations({ Animation(120,3,64,64,0,2),Animation(attackDuration / 3.f,3,64,64,3,2),Animation(120,3,64,64,6,2) }),
+    attackTimer(0), attackDuration(400), spawnAnimationDuration(500),
+    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration/5.f,5,64,64,9,0) }),
+    spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1),Animation(spawnAnimationDuration / 5.f,5,64,64,9,1) }),
+    armorAnimations({ Animation(120,3,64,64,0,2),Animation(attackDuration / 3.f,3,64,64,3,2),Animation(120,3,64,64,6,2),Animation(spawnAnimationDuration / 5.f,5,64,64,9,2) }),
     currentAnimation(0), goldDamageRequirement(55)
 
 {
@@ -133,8 +133,14 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     if (!activated)
     {
         activatedTimer += deltaTime;
+        
         if (activatedTimer > activationTime)
+        {
             activated = true;
+            currentAnimation = 0;
+        }
+        else if (activatedTimer > activationTime - spawnAnimationDuration)
+            currentAnimation = 3;
     }
 }
 
@@ -210,6 +216,11 @@ bool Skeleton::SetHealth(int hp)
 bool Skeleton::IsActivated(void) const
 {
     return activated;
+}
+
+bool Skeleton::IsDrawn(void) const
+{
+    return this->IsActivated() || currentAnimation == 3;
 }
 
 const float Skeleton::GetAD(void) const

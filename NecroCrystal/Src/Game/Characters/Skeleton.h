@@ -23,6 +23,7 @@ protected:
 	bool activated;
 	float activatedTimer;
 	float activationTime;
+	float spawnAnimationDuration;
 
 	float attackTimer;
 	float attackDuration;
@@ -33,9 +34,9 @@ protected:
 	long dashAD; //Dash damages, < aD
 	long damageDealt;
 
-	std::array<Animation, 3> skeletonAnimations;
-	std::array<Animation, 3> spearAnimations;
-	std::array<Animation, 3> armorAnimations;
+	std::array<Animation, 4> skeletonAnimations;
+	std::array<Animation, 4> spearAnimations;
+	std::array<Animation, 4> armorAnimations;
 	int currentAnimation;
 	int skeletonLevel; 
 	//0 = wooden
@@ -61,6 +62,7 @@ public:
 	sf::Sprite& getSprite(void) const;
 	bool SetHealth(int hp);
 	bool IsActivated(void) const;
+	bool IsDrawn(void) const;
 	const float GetAD(void) const;
 };
 

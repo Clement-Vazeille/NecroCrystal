@@ -79,7 +79,7 @@ void SkeletonHandler::DrawSkeletons(sf::RenderWindow* window,bool showHitbox) co
 {
 	for (auto& skeleton : skeletons)
 	{
-		if (skeleton->IsActivated())
+		if (skeleton->IsDrawn())
 		{
 			skeleton->Draw(window);
 			if (showHitbox)
