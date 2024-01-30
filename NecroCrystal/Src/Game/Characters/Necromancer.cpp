@@ -39,7 +39,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
         sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
-        loopAnimation.Initialize(sprites[0]);
+        loopAnimation.SetTextureRect(sprites[0]);
 
         hitbox.setOutlineColor(sf::Color::Red);
         hitbox.setOutlineThickness(-1);
@@ -58,8 +58,8 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         std::cout << "Necro HealthBar image loaded successfully" << std::endl;
         sprites[1].setTexture(healthTexture);
 
-        healthAnimation.Initialize(sprites[1]);
-        sprites[1].setScale(sf::Vector2f(2.5*scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
+        healthAnimation.SetTextureRect(sprites[1]);
+        sprites[1].setScale(sf::Vector2f(2.5 * scale *  (double)windowDimensions.x / 1920.0, 2.5*scale * (double)windowDimensions.y / 1080.0));
         sprites[1].setPosition(sf::Vector2f(0,0));
     }
     else
@@ -135,8 +135,10 @@ Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectil
         darkProjectileTimer = 0;
 
         Projectile* darkProjectile = new DarkProjectile();
-        sf::Vector2f spellPosition = (sprites[0].getPosition() + 2.0f *
-            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f));
+        sf::Vector2f spellPosition = sprites[0].getPosition() +
+            sf::Vector2f(sprites[0].getGlobalBounds().width*0.05f, sprites[0].getGlobalBounds().height*0.16f);
+        if (faceRight)
+            spellPosition = spellPosition + sf::Vector2f(sprites[0].getGlobalBounds().width * 0.60f, 0);
         darkProjectile->Load(projectilesTextures[0], spellPosition, mousePosition, windowDimensions);
         return darkProjectile;
     }

@@ -1,14 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../../Utilities/CameraService.h"
-#include "../../Utilities/LoopAnimation.h"
+#include "../../Utilities/Animation.h"
 #include "Enemy.h"
 #include "../../World/Map.h"
 
 class FireMage : public Enemy
 {
 protected:
-	LoopAnimation loopAnimation;
+	Animation loopAnimation;
 	float fireBallTimer;
 	float fireBallRefreshTime;
 

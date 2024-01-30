@@ -4,16 +4,22 @@
 
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
-    activated(false), activatedTimer(0),activationTime(1000),
-    aD(50),dashAD(40),damageDealt(0)
+    activated(false), activatedTimer(0), activationTime(1000),
+    aD(35), dashAD(20), damageDealt(0), skeletonLevel(0),
+    attackTimer(0), attackDuration(400), spawnAnimationDuration(500),
+    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration/5.f,5,64,64,9,0) }),
+    spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1),Animation(spawnAnimationDuration / 5.f,5,64,64,9,1) }),
+    armorAnimations({ Animation(120,3,64,64,0,2),Animation(attackDuration / 3.f,3,64,64,3,2),Animation(120,3,64,64,6,2),Animation(spawnAnimationDuration / 5.f,5,64,64,9,2) }),
+    currentAnimation(0), goldDamageRequirement(55)
+
 {
     scale = 2;
     width = 64;
     height = 64;
     speed = 1.35f;
     sprites = nullptr;
-    spriteNumber = 1;
-    faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots ont pas de hitbox
+    spriteNumber = 3;
+    faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots sont jamais check dans les colisions (pas dans characters)
     health = 1;
     maxHealth = 1;
 }
@@ -25,19 +31,29 @@ Skeleton::~Skeleton()
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 {
-    //Shouldn't be used, here because Skeleton is inherited from character
+    //Shouldn't be used, here because Skeleton is inherited from character  ^^
 }
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
 {
     sprites = new sf::Sprite[spriteNumber];
-    sprites[0].setTexture(textureLoaded);
+    for (int i = 0; i < spriteNumber; i++)
+    {
+        sprites[i].setTexture(textureLoaded);
+    }
 
-    sprites[0].setTextureRect(sf::IntRect(0,0, width, height));
+    //sprites[0].setTextureRect(sf::IntRect(0, 0, width, height));
+    skeletonAnimations.at(currentAnimation).SetTextureRect(sprites[0]);
+    spearAnimations.at(currentAnimation).SetTextureRect(sprites[1]);
+    armorAnimations.at(currentAnimation).SetTextureRect(sprites[2]);
+
     hitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
-    sprites[0].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-    sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+    for(int i=0;i<spriteNumber;i++)
+    {
+        sprites[i].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+        sprites[i].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+    }
 
     target = sprites[0].getPosition();
 
@@ -51,7 +67,24 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
 
 void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
-    sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    for (int i = 0; i < spriteNumber; i++)
+    {
+        sprites[i].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
+    }
+
+    if (currentAnimation == 1)
+    {
+        attackTimer += deltaTime;
+        if (attackTimer >= attackDuration)
+        {
+            currentAnimation = 0;
+        }
+    }
+
+    skeletonAnimations.at(currentAnimation).Update(sprites[0], deltaTime);
+    spearAnimations.at(currentAnimation).Update(sprites[1], deltaTime);
+    armorAnimations.at(currentAnimation).Update(sprites[2], deltaTime);
+
     hitbox.setScale(sprites[0].getScale());
 
     cameraService.UpdateVector(target);
@@ -62,14 +95,21 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         Math::CorrectMovement(movement, hitbox, map);
 
         if (Math::Distance(target - sprites[0].getPosition()) < stopDistance)
+        {
             moving = false;
+            currentAnimation = 0;
+        }
     }
 
-    cameraService.MoveSprite(sprites[0], movement);
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    for (int i = 0; i < spriteNumber; i++)
+    {
+        cameraService.MoveSprite(sprites[i], movement);
+    }
+    //hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setPosition(sprites[0].getPosition());
 
     //------------------------------------Check collisions with enemies--------------------------------------------
-    if (moving)
+    if(moving)
     {
         for (auto itChar = std::begin(characters)+1; itChar != std::end(characters); itChar++)
         {
@@ -77,7 +117,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
                 && 1 != (*itChar)->getFaction())
             {
                 enemyDashed.insert(((Enemy*)(*itChar))->GetSerial());
-                damageDealt += dashAD;
+                this->DealDamage(dashAD);
                 if ((*itChar)->SetHealth((*itChar)->GetHealth() - dashAD)) //activate if character is dead
                 {
                     delete(*itChar);
@@ -93,8 +133,14 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     if (!activated)
     {
         activatedTimer += deltaTime;
+        
         if (activatedTimer > activationTime)
+        {
             activated = true;
+            currentAnimation = 0;
+        }
+        else if (activatedTimer > activationTime - spawnAnimationDuration)
+            currentAnimation = 3;
     }
 }
 
@@ -103,16 +149,58 @@ Projectile* Skeleton::LaunchProjectile(float deltaTime, sf::Texture* projectiles
 	return nullptr;
 }
 
-void Skeleton::AttackAnimation(void)
+void Skeleton::DealDamage(int hitDammage)
 {
-    damageDealt += aD;
+    damageDealt += hitDammage;
+    if (skeletonLevel == 0 && damageDealt >= goldDamageRequirement)
+    {
+        skeletonLevel++;
+        for (auto& animation : spearAnimations)
+        {
+            animation.MoveOffsets(0, 2);
+        }
+        for (auto& animation : armorAnimations)
+        {
+            animation.MoveOffsets(0, 2);
+        }
+        aD += 25;
+        dashAD += 15;
+    }
+}
+
+void Skeleton::AttackAnimation(sf::Vector2f enemy)
+{
+    this->DealDamage(aD);
+    currentAnimation = 1;
+    attackTimer = 0;
+    if (enemy.x < sprites[0].getPosition().x && faceRight) 
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
+    if (enemy.x > sprites[0].getPosition().x && !faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
 }
 
 void Skeleton::StartDash(sf::Vector2f necroPosition)
 {
     target = necroPosition + (necroPosition - sprites[0].getPosition());
     moving = true;
+    currentAnimation = 2;
     enemyDashed.clear();
+    if (target.x < sprites[0].getPosition().x && faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
+    if (target.x > sprites[0].getPosition().x && !faceRight)
+    {
+        this->FlipSkeleton();
+        faceRight = !faceRight;
+    }
 }
 
 sf::Sprite& Skeleton::getSprite(void) const
@@ -130,7 +218,28 @@ bool Skeleton::IsActivated(void) const
     return activated;
 }
 
+bool Skeleton::IsDrawn(void) const
+{
+    return this->IsActivated() || currentAnimation == 3;
+}
+
 const float Skeleton::GetAD(void) const
 {
     return aD;
+}
+
+void Skeleton::FlipSkeleton(void)
+{
+    for (auto& animation : skeletonAnimations)
+    {
+        animation.Flip();
+    }
+    for (auto& animation : spearAnimations)
+    {
+        animation.Flip();
+    }
+    for (auto& animation : armorAnimations)
+    {
+        animation.Flip();
+    }
 }

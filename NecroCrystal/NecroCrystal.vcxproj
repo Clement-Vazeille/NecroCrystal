@@ -129,6 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +149,7 @@
     <ClCompile Include="Src\Pause\PauseLoop.cpp" />
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
-    <ClCompile Include="Src\Game\Utilities\LoopAnimation.cpp" />
+    <ClCompile Include="Src\Game\Utilities\Animation.cpp" />
     <ClCompile Include="Src\Game\PlayerElements\MouseCursor.cpp" />
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp" />
     <ClCompile Include="Src\Game\GameLoop.cpp" />
@@ -168,10 +169,13 @@
     <ClCompile Include="Src\GameGestion\WindowManager.cpp" />
     <ClCompile Include="Src\GlobalUtility\TextManager.cpp" />
     <ClCompile Include="Src\GlobalUtility\Timer.cpp" />
+    <ClCompile Include="Src\Game\Effects\VFX.cpp" />
+    <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
     <ClInclude Include="Src\Game\Characters\Skeleton.h" />
+    <ClInclude Include="Src\Game\Effects\VFXdata.h" />
     <ClInclude Include="Src\Game\Utilities\GameTimer.h" />
     <ClInclude Include="Src\GlobalUtility\Sentence.h" />
     <ClInclude Include="Src\WinLoose\LooseLoop.h" />
@@ -179,7 +183,7 @@
     <ClInclude Include="Src\Pause\PauseLoop.h" />
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
     <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
-    <ClInclude Include="Src\Game\Utilities\LoopAnimation.h" />
+    <ClInclude Include="Src\Game\Utilities\Animation.h" />
     <ClInclude Include="Src\Game\PlayerElements\MouseCursor.h" />
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h" />
     <ClInclude Include="Src\Game\GameLoop.h" />
@@ -200,6 +204,8 @@
     <ClInclude Include="Src\GameGestion\WindowManager.h" />
     <ClInclude Include="Src\GlobalUtility\TextManager.h" />
     <ClInclude Include="Src\GlobalUtility\Timer.h" />
+    <ClInclude Include="Src\Game\Effects\VFX.h" />
+    <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

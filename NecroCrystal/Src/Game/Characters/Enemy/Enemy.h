@@ -1,11 +1,11 @@
 #pragma once
 #include "../Character.h"
-#include "../../Utilities/LoopAnimation.h"
+#include "../../Utilities/Animation.h"
 
 class Enemy : public Character
 {
 protected: 
-	LoopAnimation healthAnimation;
+	Animation healthAnimation;
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
 

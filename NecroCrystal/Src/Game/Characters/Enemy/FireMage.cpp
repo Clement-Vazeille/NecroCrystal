@@ -18,8 +18,8 @@ FireMage::FireMage() :
     sprites = nullptr;
     spriteNumber = 2;
     faction = 2;
-    health = 120;
-    maxHealth = 120;
+    maxHealth = 200;
+    health = maxHealth;
     activatedDistance = 800;
 }
 
@@ -33,10 +33,10 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMageSpriteSheet.png"))
     {
         sprites = new sf::Sprite[spriteNumber];
-        std::cout << "FireMage image loaded successfully" << std::endl;
+        //std::cout << "FireMage image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
-        loopAnimation.Initialize(sprites[0]);
+        loopAnimation.SetTextureRect(sprites[0]);
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
         sprites[0].scale(sf::Vector2f(scale*(double)windowDimensions.x/1920.0, scale*(double)windowDimensions.y/1080.0));//multiplie la taille par scale (c'est 2)
         sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0,position.y* (double)windowDimensions.y / 1080.0));
@@ -54,7 +54,7 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
-    std::cout << "fire Mage Serial is : " << serial << std::endl;
+    //std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
 void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)
