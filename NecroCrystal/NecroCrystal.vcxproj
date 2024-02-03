@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GlobalUtility\Bouton.cpp" />
     <ClCompile Include="Src\Game\Characters\SkeletonHandler.cpp" />
     <ClCompile Include="Src\Game\Characters\Skeleton.cpp" />
     <ClCompile Include="Src\Game\Utilities\GameTimer.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\GlobalUtility\Bouton.h" />
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
     <ClInclude Include="Src\Game\Characters\Skeleton.h" />
     <ClInclude Include="Src\Game\Effects\VFXdata.h" />
