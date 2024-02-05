@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Sentence.h"
+#include "../GlobalUtility/Bouton.h"
 
 class PauseLoop
 {
 protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
+	Bouton quitGameButton;
 
 	Sentence* pauseText;
 public:

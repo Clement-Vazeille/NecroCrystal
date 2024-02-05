@@ -4,7 +4,7 @@
 #include <iostream>
 
 Necromancer::Necromancer() : 
-    darkProjectileTimer(0), darkProjectileCastSpeed(600),
+    darkProjectileTimer(0), darkProjectileCastSpeed(520),
     loopAnimation(120, 7, 64, 64),faceRight(true),
     healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0)
 {

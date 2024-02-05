@@ -60,7 +60,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);
-    vFXHandler.DeleteExpiredVFX();
+    vFXHandler.DeleteExpiredVFX(windowDimensions);
     if (isLevelCleared)
         return 1; // means wp gg
     return 0;

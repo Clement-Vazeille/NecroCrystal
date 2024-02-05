@@ -14,9 +14,9 @@ protected:
 public:
 	Bouton();
 	~Bouton();
-	void Initialise(Sentence* sentence, sf::Vector2f hitboxPosition, sf::Vector2f hitboxSize, sf::Vector2f windowDimensions,
+	void Initialise(Sentence* sentence, sf::Vector2f hitboxPosition, sf::Vector2f hitboxSize, sf::Vector2i windowDimensions,
 		sf::Vector2f textPosistionRatio );
-	bool Update(float textScale, sf::Vector2f windowDimensions, sf::Vector2f mousePosition); //true if button is clicked, false if it isn't
+	bool Update(float textScale, sf::Vector2i windowDimensions, sf::Vector2f mousePosition); //true if button is clicked, false if it isn't
 
 	void Draw(sf::RenderWindow* window) const;
 };

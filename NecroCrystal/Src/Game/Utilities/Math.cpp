@@ -18,13 +18,17 @@ sf::Vector2f Math::normalizeVector(sf::Vector2f direction)
 	return new_direction;
 }
 
-float Math::Distance(sf::Vector2f direction)
+float Math::Distance(sf::Vector2f direction, sf::Vector2i& windowDimensions)
 {
+    direction.x = direction.x * (1920.f / (float)windowDimensions.x);
+    direction.y = direction.y * (1080.f / (float)windowDimensions.y);
     return std::sqrtf((direction.x * direction.x) + (direction.y * direction.y));
 }
 
-float Math::DistanceLat(sf::Vector2f direction)
+float Math::DistanceLat(sf::Vector2f direction, sf::Vector2i& windowDimensions)
 {
+    direction.x = direction.x * (1920.f / (float)windowDimensions.x);
+    direction.y = direction.y * (1080.f / (float)windowDimensions.y);
     return std::sqrtf((0.4f*direction.x * direction.x) + (2.5f*direction.y * direction.y));
 }
 

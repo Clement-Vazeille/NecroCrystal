@@ -18,7 +18,7 @@ FireMage::FireMage() :
     sprites = nullptr;
     spriteNumber = 2;
     faction = 2;
-    maxHealth = 200;
+    maxHealth = 180;
     health = maxHealth;
     activatedDistance = 800;
 }
@@ -61,7 +61,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
-    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < activatedDistance)
+    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions) < activatedDistance)
         activated = true;
     if(activated)
     {
@@ -69,7 +69,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         {
             newDirectionTimer = 0;
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
-            if (Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition()) < fearDistance * (3.f - 2.f * (float)health / (float)maxHealth))
+            if (Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions) < fearDistance * (3.f - 2.f * (float)health / (float)maxHealth))
                 direction = -direction * 1.2f;
         }
         movement = Math::windowNormalizeVector(direction * speed * (2.5f - 1.5f * (float)health / (float)maxHealth) * deltaTime, windowDimensions);

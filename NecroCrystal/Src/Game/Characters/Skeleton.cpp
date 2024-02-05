@@ -52,7 +52,7 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
     for(int i=0;i<spriteNumber;i++)
     {
         sprites[i].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-        sprites[i].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+        sprites[i].setPosition(position);
     }
 
     target = sprites[0].getPosition();
@@ -94,7 +94,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         movement = Math::normalizeVector(target - sprites[0].getPosition()) * speed * deltaTime;
         Math::CorrectMovement(movement, hitbox, map);
 
-        if (Math::Distance(target - sprites[0].getPosition()) < stopDistance)
+        if (Math::Distance(target - sprites[0].getPosition(),windowDimensions) < stopDistance)
         {
             moving = false;
             currentAnimation = 0;
