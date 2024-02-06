@@ -4,7 +4,6 @@
 #include "Characters/Necromancer.h"
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/SkeletonHandler.h"
-#include "PlayerElements/MouseCursor.h"
 #include "Effects/VFXHandler.h"
 #include "Projectiles/ProjectilesHandler.h"
 #include "World/Map.h"
@@ -19,7 +18,6 @@ class GameLoop
 {
 protected:
 	std::vector<Character*> characters; //characters[0] is always supposed to be the necromancer
-	MouseCursor mouseCursor;
 	ProjectilesHandler projectileHandler;
 	HitboxDisplay hitboxDisplay;
 	Map map;

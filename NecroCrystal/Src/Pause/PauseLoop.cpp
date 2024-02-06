@@ -31,13 +31,13 @@ void PauseLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManag
 		sf::Vector2f(windowDimensions.x * 0.15f, windowDimensions.y * 0.12f),windowDimensions,sf::Vector2f(0.1f,0.1f));
 }
 
-void PauseLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
+bool PauseLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
 	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 
 	pauseText->Update(15.f*windowDimensions.x/1980.f, sf::Vector2f(windowDimensions.x*0.415f,windowDimensions.y*0.53f)); //TODO separate x and y scales
-	quitGameButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions,mousePosition);
+	return quitGameButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions,mousePosition);
 }
 
 void PauseLoop::draw(sf::RenderWindow* window)

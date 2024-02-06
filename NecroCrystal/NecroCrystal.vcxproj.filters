@@ -63,7 +63,7 @@
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\PlayerElements\MouseCursor.cpp">
+    <ClCompile Include="Src\GameGestion\MouseCursor.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\Animation.cpp">
@@ -164,7 +164,7 @@
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\PlayerElements\MouseCursor.h">
+    <ClInclude Include="Src\GameGestion\MouseCursor.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\Animation.h">

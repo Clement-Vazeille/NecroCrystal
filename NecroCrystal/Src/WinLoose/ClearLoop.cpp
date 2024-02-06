@@ -26,6 +26,11 @@ void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMana
 
 	std::string text = "Stage Cleared";
 	clearText = textManager.MakeSentence(text);
+
+	std::string buttontext = "Quit";
+	quitGameButton.Initialise(textManager.MakeSentence(buttontext), sf::Vector2f(windowDimensions.x * 0.43f, windowDimensions.y * 0.60f),
+		sf::Vector2f(windowDimensions.x * 0.15f, windowDimensions.y * 0.12f), windowDimensions, sf::Vector2f(0.1f, 0.1f));
+
 }
 
 void ClearLoop::setTimer(std::string timeText, TextManager& textManager)
@@ -33,13 +38,18 @@ void ClearLoop::setTimer(std::string timeText, TextManager& textManager)
 	timerText = textManager.MakeSentence(timeText);
 }
 
-void ClearLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
+int ClearLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
 	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 
 	clearText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.45f)); //TODO separate x and y scales
 	timerText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.55f));
+
+	if (quitGameButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+		return 1;
+
+	return 0;
 }
 
 void ClearLoop::draw(sf::RenderWindow* window)
@@ -47,4 +57,6 @@ void ClearLoop::draw(sf::RenderWindow* window)
 	window->draw(sprite);
 	clearText->Draw(window);
 	timerText->Draw(window);
+
+	quitGameButton.Draw(window);
 }

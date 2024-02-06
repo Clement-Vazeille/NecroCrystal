@@ -17,7 +17,7 @@ public:
 	~PauseLoop();
 
 	void initialize(sf::Vector2i& windowDimensions, TextManager& textManager);
-	void update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
+	bool update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition); // true to quit game
 	void draw(sf::RenderWindow* window);
 };
 

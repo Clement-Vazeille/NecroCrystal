@@ -151,7 +151,7 @@
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
     <ClCompile Include="Src\Game\Utilities\Animation.cpp" />
-    <ClCompile Include="Src\Game\PlayerElements\MouseCursor.cpp" />
+    <ClCompile Include="Src\GameGestion\MouseCursor.cpp" />
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp" />
     <ClCompile Include="Src\Game\GameLoop.cpp" />
     <ClCompile Include="Src\Game\Projectiles\Projectile.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
     <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
     <ClInclude Include="Src\Game\Utilities\Animation.h" />
-    <ClInclude Include="Src\Game\PlayerElements\MouseCursor.h" />
+    <ClInclude Include="Src\GameGestion\MouseCursor.h" />
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h" />
     <ClInclude Include="Src\Game\GameLoop.h" />
     <ClInclude Include="Src\Game\Projectiles\Projectile.h" />

@@ -30,7 +30,7 @@ bool Bouton::Update(float textScale, sf::Vector2i windowDimensions, sf::Vector2f
 		hitbox.getPosition().y + (hitbox.getSize().y * (1.f-textPosistionRatio.y))));
 	hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x*windowDimensions.x/1920.f, hitbox.getPosition().y * windowDimensions.y / 1080.f));
 	hitbox.setScale(sf::Vector2f(hitbox.getScale().x * windowDimensions.x / 1920.f, hitbox.getScale().y * windowDimensions.y / 1080.f));
-	return(hitbox.getGlobalBounds().contains(mousePosition));
+	return(hitbox.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left));
 }
 
 

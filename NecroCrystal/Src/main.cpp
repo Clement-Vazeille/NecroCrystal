@@ -37,7 +37,8 @@ int main()
         mousePosition.x = mousePosition.x * (float)windowManager.size.x / 1920.0f; //TODO : remplacer ça par les sizes en fullscreen
         mousePosition.y = mousePosition.y * (float)windowManager.size.y / 1080.0f;
 
-        loopManager.update(deltaTime,windowManager.size,mousePosition);
+        if(loopManager.update(deltaTime,windowManager.size,mousePosition))
+            window->close();
         //------------------------UPDATE---------------------------------------
 
         //-------------------------DRAW---------------------------------------

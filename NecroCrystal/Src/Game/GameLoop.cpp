@@ -20,7 +20,6 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     frameRate.Load();
     gameTimer.Initialize(textManager);
     map.Load(windowDimensions);
-    mouseCursor.Load(windowDimensions);
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();
@@ -44,7 +43,6 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
 {
     frameRate.Update(deltaTime);
     gameTimer.Update(windowDimensions,timerString);
-    mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
     skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler,vFXHandler))
@@ -85,5 +83,4 @@ void GameLoop::draw(sf::RenderWindow* window)
     frameRate.Draw(window);
     gameTimer.Draw(window);
 
-    mouseCursor.Draw(window);
 }

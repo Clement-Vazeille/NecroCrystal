@@ -6,6 +6,8 @@
 #include "../WinLoose/LooseLoop.h"
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Timer.h"
+#include "MouseCursor.h"
+
 class LoopManager
 {
 protected:
@@ -15,6 +17,7 @@ protected:
 	GameLoop gameLoop;
 	TextManager textManager;
 	Timer timer;
+	MouseCursor mouseCursor;
 
 	int state;
 	// 0 for main menu
@@ -32,7 +35,7 @@ public:
 	~LoopManager();
 
 	void initialize(sf::Vector2i& windowDimensions);    //TODO mettre une maj aux la fonction ....
-	void update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition);
+	bool update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition); //true if game is closed
 	void draw(sf::RenderWindow* window);
 };
 
