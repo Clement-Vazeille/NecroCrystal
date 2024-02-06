@@ -18,6 +18,7 @@ public:
 
 public:
 	WindowManager();
+	~WindowManager();
 
 	void Load();
 	void Update(double deltaTime);

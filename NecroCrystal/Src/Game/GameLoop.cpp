@@ -8,9 +8,9 @@ GameLoop::GameLoop(sf::Vector2f windowSize) : cameraService(windowSize)
 
 GameLoop::~GameLoop()
 {
-    for (auto it = std::begin(characters); it != std::end(characters); it++)
+    for (auto& character : characters)
     {
-        delete(*it);
+        delete character;
     }
 }
 

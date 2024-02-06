@@ -145,9 +145,9 @@
     <ClCompile Include="Src\Game\Characters\Skeleton.cpp" />
     <ClCompile Include="Src\Game\Utilities\GameTimer.cpp" />
     <ClCompile Include="Src\GlobalUtility\Sentence.cpp" />
-    <ClCompile Include="Src\WinLoose\LooseLoop.cpp" />
-    <ClCompile Include="Src\WinLoose\ClearLoop.cpp" />
-    <ClCompile Include="Src\Pause\PauseLoop.cpp" />
+    <ClCompile Include="Src\BasicLoops\LooseLoop.cpp" />
+    <ClCompile Include="Src\BasicLoops\ClearLoop.cpp" />
+    <ClCompile Include="Src\BasicLoops\PauseLoop.cpp" />
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
     <ClCompile Include="Src\Game\Utilities\Animation.cpp" />
@@ -180,9 +180,9 @@
     <ClInclude Include="Src\Game\Effects\VFXdata.h" />
     <ClInclude Include="Src\Game\Utilities\GameTimer.h" />
     <ClInclude Include="Src\GlobalUtility\Sentence.h" />
-    <ClInclude Include="Src\WinLoose\LooseLoop.h" />
-    <ClInclude Include="Src\WinLoose\ClearLoop.h" />
-    <ClInclude Include="Src\Pause\PauseLoop.h" />
+    <ClInclude Include="Src\BasicLoops\LooseLoop.h" />
+    <ClInclude Include="Src\BasicLoops\ClearLoop.h" />
+    <ClInclude Include="Src\BasicLoops\PauseLoop.h" />
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
     <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
     <ClInclude Include="Src\Game\Utilities\Animation.h" />

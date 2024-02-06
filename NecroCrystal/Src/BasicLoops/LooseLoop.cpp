@@ -8,6 +8,8 @@ LooseLoop::LooseLoop() :
 
 LooseLoop::~LooseLoop()
 {
+	if (loseText != nullptr)
+		delete loseText;
 }
 
 void LooseLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textManager)

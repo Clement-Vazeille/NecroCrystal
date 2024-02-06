@@ -9,6 +9,8 @@ PauseLoop::PauseLoop() :
 
 PauseLoop::~PauseLoop()
 {
+	if(pauseText != nullptr)
+		delete(pauseText);
 }
 
 void PauseLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)

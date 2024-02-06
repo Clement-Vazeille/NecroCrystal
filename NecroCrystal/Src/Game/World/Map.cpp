@@ -10,6 +10,14 @@ Map::Map():
 
 Map::~Map()
 {
+    if (tiles != nullptr)
+        delete tiles;
+
+    for (size_t y = 0; y < mapData.mapHeight; y++)
+    {
+        //delete mapSprites[y];
+    }
+    delete mapSprites;
 }
 
 void Map::Load(sf::Vector2i mapDimensions)

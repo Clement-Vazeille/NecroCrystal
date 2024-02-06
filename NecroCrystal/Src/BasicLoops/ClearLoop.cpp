@@ -9,6 +9,10 @@ ClearLoop::ClearLoop() :
 
 ClearLoop::~ClearLoop()
 {
+	if (clearText != nullptr)
+		delete clearText;
+	if (timerText != nullptr)
+		delete timerText;
 }
 
 void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textManager)

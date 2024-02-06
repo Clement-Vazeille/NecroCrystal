@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../Game/GameLoop.h"
-#include "../Pause/PauseLoop.h"
-#include "../WinLoose/ClearLoop.h"
-#include "../WinLoose/LooseLoop.h"
+#include "../BasicLoops/PauseLoop.h"
+#include "../BasicLoops/ClearLoop.h"
+#include "../BasicLoops/LooseLoop.h"
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Timer.h"
 #include "MouseCursor.h"

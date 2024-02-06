@@ -21,6 +21,7 @@ protected:
 		bool& isNecroDead, sf::Vector2i& windowDimensions,SkeletonHandler& skeletonHandler,VFXHandler& vFXHandler);
 public:
 	ProjectilesHandler();
+	~ProjectilesHandler();
 
 	void Load();
 	bool Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, 
