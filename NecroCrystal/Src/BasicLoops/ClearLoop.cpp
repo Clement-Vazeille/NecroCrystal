@@ -22,7 +22,7 @@ void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMana
 		std::cout << "Level Cleared texture loaded successfully" << std::endl;
 		sprite.setTexture(texture);
 		sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
-		sprite.setScale(2.5f * windowDimensions.x / 1920.f, 2.5f * windowDimensions.y / 1080.f);
+		sprite.setScale(2.5f * windowDimensions.x / 1920.f, 3.f * windowDimensions.y / 1080.f);
 		sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
 	}
 	else

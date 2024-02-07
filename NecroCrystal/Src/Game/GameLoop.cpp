@@ -1,7 +1,7 @@
 #include "GameLoop.h"
 
 #include "Characters/Enemy/Enemy.h"
-GameLoop::GameLoop(sf::Vector2f windowSize) : cameraService(windowSize)
+GameLoop::GameLoop(sf::Vector2i windowSize) : cameraService(windowSize)
 {
     Enemy::enemyNumber = 0;
 }
@@ -14,12 +14,12 @@ GameLoop::~GameLoop()
     }
 }
 
-void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)
+void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager,std::string& mapFileName)
 {
     projectileHandler.Load();
     frameRate.Load();
     gameTimer.Initialize(textManager);
-    map.Load(windowDimensions);
+    map.Load(windowDimensions,mapFileName);
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();

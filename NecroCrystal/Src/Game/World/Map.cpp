@@ -26,9 +26,9 @@ Map::~Map()
 
 }
 
-void Map::Load(sf::Vector2i mapDimensions)
+void Map::Load(sf::Vector2i mapDimensions,std::string& mapFileName)
 {
-    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map", mapData);
+    MapLoader::Load(mapFileName, mapData);
     if (tileSheetTexture.loadFromFile(mapData.tileSheet))
     {
         std::cout << "NecroDungeon tileSheet texture loaded successfully" << std::endl;

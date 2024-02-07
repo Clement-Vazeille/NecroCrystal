@@ -29,10 +29,10 @@ protected:
 	FrameRate frameRate;
 
 public:
-	GameLoop(sf::Vector2f windowSize);
+	GameLoop(sf::Vector2i windowSize);
 	~GameLoop();
 
-	void initialize(sf::Vector2i& windowDimensions,TextManager& textManager);
+	void initialize(sf::Vector2i& windowDimensions,TextManager& textManager, std::string& mapFileName);
 	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition, std::string timerString);
 	// 0 : R A S
 	// 1 : win

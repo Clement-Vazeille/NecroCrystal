@@ -14,7 +14,7 @@ protected:
 	PauseLoop pauseLoop;
 	ClearLoop clearLoop;
 	LooseLoop looseLoop;
-	GameLoop gameLoop;
+	GameLoop* gameLoop;
 	TextManager textManager;
 	Timer timer;
 	MouseCursor mouseCursor;
@@ -24,12 +24,17 @@ protected:
 	// 1 for pause
 	// 2 for win
 	// 3 for lose
-	// 4 for level 1
+	// 4 for ingame
+
+	int actualLevel;
+	std::array<std::string, 1> levelsMapFiles;
 
 	//l'upadate de main menu, pause et win est un bool sur si on doit quitté cet écran
 
 	float pauseTimer;
 	float pauseCooldown;
+
+	void LoadLevel(sf::Vector2i&); //load the actual level
 public:
 	LoopManager(sf::Vector2f windowSize);
 	~LoopManager();

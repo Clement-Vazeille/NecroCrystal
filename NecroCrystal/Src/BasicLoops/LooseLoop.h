@@ -8,6 +8,7 @@ class LooseLoop
 protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
+	Bouton retryButton;
 	Bouton quitGameButton;
 
 	Sentence* loseText;
