@@ -18,7 +18,7 @@ private:
 	MapData mapData;
 	
 
-	sf::Sprite** mapSprites;
+	std::vector<std::vector<sf::Sprite>> mapSprites;
 
 	sf::RectangleShape* wallHitbox;
 public:

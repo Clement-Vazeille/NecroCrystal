@@ -2,8 +2,7 @@
 
 Character::Character() : 
 	width(0),height(0),scale(0),
-	speed(0),faction(0),health(0),maxHealth(0),
-	sprites(nullptr),spriteNumber(0)
+	speed(0),faction(0),health(0),maxHealth(0),spriteNumber(0)
 {
 }
 
@@ -42,7 +41,7 @@ void Character::DrawHitbox(sf::RenderWindow* window) const
 	window->draw(hitbox);
 }
 
-sf::Sprite& Character::getSprite(void) const   //devrait techniquement plus être utilisé
+const sf::Sprite& Character::getSprite(void) const   //devrait techniquement plus être utilisé
 {
 	return sprites[0];
 }

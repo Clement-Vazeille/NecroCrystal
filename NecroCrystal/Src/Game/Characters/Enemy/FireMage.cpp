@@ -15,8 +15,8 @@ FireMage::FireMage() :
     width = 64;
     height = 64;
     speed = 0.13f;
-    sprites = nullptr;
     spriteNumber = 2;
+    sprites.resize(spriteNumber);
     faction = 2;
     maxHealth = 180;
     health = maxHealth;
@@ -25,14 +25,12 @@ FireMage::FireMage() :
 
 FireMage::~FireMage()
 {
-    Character::~Character();
 }
 
 void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 {
     if (texture.loadFromFile("Assets/OtherMages/FireMage/fireMageSpriteSheet.png"))
     {
-        sprites = new sf::Sprite[spriteNumber];
         //std::cout << "FireMage image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
@@ -106,7 +104,7 @@ Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectiles
     return nullptr;
 }
 
-sf::Sprite& FireMage::getSprite(void) const
+const sf::Sprite& FireMage::getSprite(void) const
 {
-    return sprites[0];
+    return sprites.at(0);
 }

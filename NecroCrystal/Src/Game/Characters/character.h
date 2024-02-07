@@ -20,12 +20,12 @@ protected:
 	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
 	
 	int spriteNumber;
-	sf::Sprite* sprites; //TODO Remplacer par un std Array
+	std::vector<sf::Sprite> sprites;
 	sf::RectangleShape hitbox;
 
 public:
 	Character();
-	~Character();
+	virtual ~Character();
 
 	virtual void Load(sf::Vector2i& windowDimensions,sf::Vector2f position)=0;
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)=0;
@@ -36,7 +36,7 @@ public:
 	void Draw(sf::RenderWindow* window) const;
 	void DrawHitbox(sf::RenderWindow* window) const;
 
-	sf::Sprite& getSprite(void) const;
+	const sf::Sprite& getSprite(void) const;
 	int getFaction(void) const;
 
 	sf::RectangleShape* getHitbox(void);

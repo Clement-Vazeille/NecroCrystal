@@ -17,8 +17,8 @@ Skeleton::Skeleton() :
     width = 64;
     height = 64;
     speed = 1.35f;
-    sprites = nullptr;
     spriteNumber = 3;
+    sprites.resize(spriteNumber);
     faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots sont jamais check dans les colisions (pas dans characters)
     health = 1;
     maxHealth = 1;
@@ -26,7 +26,6 @@ Skeleton::Skeleton() :
 
 Skeleton::~Skeleton()
 {
-    Character::~Character();
 }
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
@@ -36,7 +35,6 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
 {
-    sprites = new sf::Sprite[spriteNumber];
     for (int i = 0; i < spriteNumber; i++)
     {
         sprites[i].setTexture(textureLoaded);
@@ -203,7 +201,7 @@ void Skeleton::StartDash(sf::Vector2f necroPosition)
     }
 }
 
-sf::Sprite& Skeleton::getSprite(void) const
+const sf::Sprite& Skeleton::getSprite(void) const
 {
     return sprites[0];
 }
