@@ -43,6 +43,11 @@ void ClearLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMana
 
 void ClearLoop::setTimer(std::string timeText, TextManager& textManager)
 {
+	if (timerText != nullptr)
+	{
+		delete timerText;
+	}
+
 	timerText = textManager.MakeSentence(timeText);
 }
 

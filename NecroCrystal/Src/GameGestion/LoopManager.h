@@ -5,6 +5,7 @@
 #include "../BasicLoops/ClearLoop.h"
 #include "../BasicLoops/LooseLoop.h"
 #include "../BasicLoops/MainMenuLoop.h"
+#include "../BasicLoops/VictoryLoop.h"
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Timer.h"
 #include "MouseCursor.h"
@@ -15,6 +16,7 @@ protected:
 	PauseLoop pauseLoop;
 	ClearLoop clearLoop;
 	LooseLoop looseLoop;
+	VictoryLoop victoryLoop;
 	MainMenuLoop mainMenuLoop;
 	GameLoop* gameLoop;
 	TextManager textManager;
@@ -24,9 +26,10 @@ protected:
 	int state;
 	// 0 for main menu
 	// 1 for pause
-	// 2 for win
+	// 2 for stage clear
 	// 3 for lose
 	// 4 for ingame
+	// 5 for finnish screan
 
 	int actualLevel;
 	std::array<std::string, 2> levelsMapFiles;
@@ -43,6 +46,7 @@ public:
 
 	void initialize(sf::Vector2i& windowDimensions);    //TODO mettre une maj aux la fonction ....
 	bool update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition); //true if game is closed
+	//TODO : make that loop can only be changed once per frame
 	void draw(sf::RenderWindow* window);
 };
 

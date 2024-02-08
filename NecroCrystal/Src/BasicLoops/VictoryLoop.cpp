@@ -23,21 +23,25 @@ void VictoryLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMa
 		sprite.setPosition(0,0);
 	}
 
-	std::string text = "Stage Cleared";
+	std::string text = "Victory";
 	victoryText = textManager.MakeSentence(text);
 
 	std::string continueButtonText = "Main Menu";
-	restartButton.Initialise(textManager.MakeSentence(continueButtonText), sf::Vector2f(windowDimensions.x * 0.38f, windowDimensions.y * 0.50f),
-		sf::Vector2f(windowDimensions.x * 0.26f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.05f, 0.1f));
+	restartButton.Initialise(textManager.MakeSentence(continueButtonText), sf::Vector2f(windowDimensions.x * 0.62f, windowDimensions.y * 0.50f),
+		sf::Vector2f(windowDimensions.x * 0.30f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.05f, 0.1f));
 
 	std::string quitButtonText = "Quit";
-	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.44f, windowDimensions.y * 0.63f),
+	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.67f, windowDimensions.y * 0.65f),
 		sf::Vector2f(windowDimensions.x * 0.13f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.1f, 0.1f));
 
 }
 
 void VictoryLoop::setTimer(std::string timeText, TextManager& textManager)
 {
+	if (timerText != nullptr)
+	{
+		delete timerText;
+	}
 	timerText = textManager.MakeSentence(timeText);
 }
 
@@ -46,8 +50,8 @@ int VictoryLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vec
 	sprite.setScale(2.f * windowDimensions.x / 1920.f, 2.f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(0,0);
 
-	victoryText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.37f)); //TODO separate x and y scales
-	timerText->Update(7.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.39f, windowDimensions.y * 0.45f));
+	victoryText->Update(30.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.18f, windowDimensions.y * 0.26f)); //TODO separate x and y scales
+	timerText->Update(12.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.60f, windowDimensions.y * 0.40f));
 
 	if (quitGameButton.Update(12.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;

@@ -34,6 +34,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	pauseLoop.initialize(windowDimensions,textManager);
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
+	victoryLoop.initialize(windowDimensions, textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
 	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
@@ -74,14 +75,15 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		if (loopState == 2) //2 mean player continue
 		{
 			actualLevel++;
-			if(actualLevel<=levelsMapFiles.size())
+			if(actualLevel<levelsMapFiles.size())
 			{
 				this->LoadLevel(windowDimensions);
 				state = 4;
 			}
 			else
 			{
-				return true;
+				victoryLoop.setTimer(timer.ToString(), textManager);
+				state = 5;
 			}
 		}
 
@@ -114,10 +116,21 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		int loopState = mainMenuLoop.update(deltaTime, windowDimensions, mousePosition);
 		if (loopState == 1) //1 mean player leave the game
 			return true;
-		if (loopState == 2) //2 mean player retry the level
+		if (loopState == 2) //2 mean player launch game
 		{
 			this->LoadLevel(windowDimensions);
 			state = 4;
+		}
+	}
+	if (state == 5)
+	{
+		int loopState = victoryLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //1 mean player leave the game
+			return true;
+		if (loopState == 2) //2 mean player go to main menu
+		{
+			actualLevel = 0;
+			state = 0;
 		}
 	}
 
@@ -143,6 +156,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 	if (state == 3)
 	{
 		looseLoop.draw(window);
+	}
+	if (state == 5)
+	{
+		victoryLoop.draw(window);
 	}
 
 	mouseCursor.Draw(window);
