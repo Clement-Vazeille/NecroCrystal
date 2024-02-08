@@ -14,7 +14,7 @@ void VFX::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Vector
 	sprite.setTexture(texture);
 	animation.SetTextureRect(sprite);
 	sprite.scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-	sprite.setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+	sprite.setPosition(position);
 	target = givenTarget; 
 	
 	if (target.x < position.x && followTarget)
@@ -40,10 +40,10 @@ void VFX::Draw(sf::RenderWindow* window) const
 	window->draw(sprite);
 }
 
-bool VFX::ShouldBeDeleted(void) const
+bool VFX::ShouldBeDeleted(sf::Vector2i& windowDimensions) const
 {
 	float epsilonDistance = 2.f;
-	if(Math::Distance(target - sprite.getPosition()) < epsilonDistance && followTarget)
+	if(Math::Distance(target - sprite.getPosition(),windowDimensions) < epsilonDistance && followTarget)
 		return true;
 	if (timer >= maxTimer && endOnTimer)
 		return true;

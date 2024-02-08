@@ -4,7 +4,7 @@
 #include <iostream>
 
 Necromancer::Necromancer() : 
-    darkProjectileTimer(0), darkProjectileCastSpeed(600),
+    darkProjectileTimer(0), darkProjectileCastSpeed(520),
     loopAnimation(120, 7, 64, 64),faceRight(true),
     healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0)
 {
@@ -12,8 +12,8 @@ Necromancer::Necromancer() :
     width = 64;
     height = 64;
     speed = 0.35f;
-    sprites = nullptr;
     spriteNumber = 2;
+    sprites.resize(spriteNumber);
     faction = 1;
     health =100;
     maxHealth = 100;
@@ -21,7 +21,6 @@ Necromancer::Necromancer() :
 
 Necromancer::~Necromancer()
 {
-    Character::~Character();
 }
 
 void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
@@ -29,7 +28,6 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     if (texture.loadFromFile("Assets/Player/Textures/necromancerWalking.png"))
     {
         std::cout << "Necromancer image loaded successfully" << std::endl;
-        sprites = new sf::Sprite[spriteNumber];
         sprites[0].setTexture(texture);
 
         int XNIndex = 0;
@@ -146,7 +144,7 @@ Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectil
 }
 
 
-sf::Sprite& Necromancer::getSprite(void) const
+const sf::Sprite& Necromancer::getSprite(void) const
 {
     return sprites[0];
 }

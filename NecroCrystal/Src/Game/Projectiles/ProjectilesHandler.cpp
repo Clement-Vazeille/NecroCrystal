@@ -10,6 +10,19 @@ ProjectilesHandler::ProjectilesHandler() :
 {
 }
 
+ProjectilesHandler::~ProjectilesHandler()
+{
+    
+    for (auto& projectile : projectiles)
+    {
+        delete projectile;
+    }
+
+    //if (projectilesTextures != nullptr)
+    //    delete projectilesTextures;
+    //TODO: make that delete work
+}
+
 void ProjectilesHandler::Load()
 {
     projectilesTextures = new sf::Texture[2];

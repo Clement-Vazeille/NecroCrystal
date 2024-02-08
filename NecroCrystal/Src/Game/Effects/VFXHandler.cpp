@@ -38,9 +38,9 @@ void VFXHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimens
 	}
 }
 
-void VFXHandler::DeleteExpiredVFX()
+void VFXHandler::DeleteExpiredVFX(sf::Vector2i& windowDimensions)
 {
-	std::erase_if(vFXs, [&](VFX& vFX) {return vFX.ShouldBeDeleted(); });
+	std::erase_if(vFXs, [&](VFX& vFX) {return vFX.ShouldBeDeleted(windowDimensions); });
 }
 
 void VFXHandler::DrawVFX(sf::RenderWindow* window) const

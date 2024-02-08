@@ -1,26 +1,25 @@
 #include "GameLoop.h"
 
 #include "Characters/Enemy/Enemy.h"
-GameLoop::GameLoop(sf::Vector2f windowSize) : cameraService(windowSize)
+GameLoop::GameLoop(sf::Vector2i windowSize) : cameraService(windowSize)
 {
     Enemy::enemyNumber = 0;
 }
 
 GameLoop::~GameLoop()
 {
-    for (auto it = std::begin(characters); it != std::end(characters); it++)
+    for (auto& character : characters)
     {
-        delete(*it);
+        delete character;
     }
 }
 
-void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager)
+void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManager,std::string& mapFileName)
 {
     projectileHandler.Load();
     frameRate.Load();
     gameTimer.Initialize(textManager);
-    map.Load(windowDimensions);
-    mouseCursor.Load(windowDimensions);
+    map.Load(windowDimensions,mapFileName);
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();
@@ -44,7 +43,6 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
 {
     frameRate.Update(deltaTime);
     gameTimer.Update(windowDimensions,timerString);
-    mouseCursor.Update(mousePosition, windowDimensions);
     map.Update(deltaTime, cameraService,windowDimensions);
     skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler,vFXHandler))
@@ -60,7 +58,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);
-    vFXHandler.DeleteExpiredVFX();
+    vFXHandler.DeleteExpiredVFX(windowDimensions);
     if (isLevelCleared)
         return 1; // means wp gg
     return 0;
@@ -85,5 +83,4 @@ void GameLoop::draw(sf::RenderWindow* window)
     frameRate.Draw(window);
     gameTimer.Draw(window);
 
-    mouseCursor.Draw(window);
 }

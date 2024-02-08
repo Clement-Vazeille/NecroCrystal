@@ -59,7 +59,7 @@ public:
 	void AttackAnimation(sf::Vector2f target);
 	void StartDash(sf::Vector2f mousePosition);
 
-	sf::Sprite& getSprite(void) const;
+	const sf::Sprite& getSprite(void) const;
 	bool SetHealth(int hp);
 	bool IsActivated(void) const;
 	bool IsDrawn(void) const;

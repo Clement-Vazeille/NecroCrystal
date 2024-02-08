@@ -7,7 +7,7 @@ DarkProjectile::DarkProjectile()
 	speed = 0.5f;
 	faction = 1;
 	scale = 2.5f;
-	damage = 10;
+	damage = 13;
 }
 
 void DarkProjectile::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)

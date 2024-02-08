@@ -13,7 +13,7 @@ private:
 	sf::Vector2f windowSizeMem;
 	sf::Vector2f windowSizeChangeRatio;
 public:
-	CameraService(sf::Vector2f windowSize);
+	CameraService(sf::Vector2i windowSize);
 
 	void MoveSprite(sf::Sprite& sprite, sf::Vector2f& movement);
 	void SetSprite(sf::Sprite& sprite, sf::Vector2f& position);

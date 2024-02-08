@@ -9,6 +9,12 @@ WindowManager::WindowManager() :
 {
 }
 
+WindowManager::~WindowManager()
+{
+	if (fullScreenWindow != nullptr)
+		delete fullScreenWindow;
+}
+
 void WindowManager::Load()
 {
 	fullScreenMode = sf::VideoMode::getFullscreenModes()[0];

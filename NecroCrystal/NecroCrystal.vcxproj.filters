@@ -63,7 +63,7 @@
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\PlayerElements\MouseCursor.cpp">
+    <ClCompile Include="Src\GameGestion\MouseCursor.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\Animation.cpp">
@@ -75,13 +75,13 @@
     <ClCompile Include="Src\GameGestion\LoopManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Pause\PauseLoop.cpp">
+    <ClCompile Include="Src\BasicLoops\PauseLoop.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\WinLoose\ClearLoop.cpp">
+    <ClCompile Include="Src\BasicLoops\ClearLoop.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\WinLoose\LooseLoop.cpp">
+    <ClCompile Include="Src\BasicLoops\LooseLoop.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\GlobalUtility\TextManager.cpp">
@@ -106,6 +106,15 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Effects\VFX.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GlobalUtility\Bouton.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BasicLoops\MainMenuLoop.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,7 +170,7 @@
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\PlayerElements\MouseCursor.h">
+    <ClInclude Include="Src\GameGestion\MouseCursor.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\Animation.h">
@@ -173,13 +182,13 @@
     <ClInclude Include="Src\GameGestion\LoopManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Pause\PauseLoop.h">
+    <ClInclude Include="Src\BasicLoops\PauseLoop.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\WinLoose\ClearLoop.h">
+    <ClInclude Include="Src\BasicLoops\ClearLoop.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\WinLoose\LooseLoop.h">
+    <ClInclude Include="Src\BasicLoops\LooseLoop.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\GlobalUtility\TextManager.h">
@@ -207,6 +216,15 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Effects\VFXdata.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GlobalUtility\Bouton.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\BasicLoops\MainMenuLoop.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\BasicLoops\VictoryLoop.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

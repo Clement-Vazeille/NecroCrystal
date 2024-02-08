@@ -24,6 +24,6 @@ public:
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Vector2f givenTarget,sf::Texture& texture);
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime);
 	void Draw(sf::RenderWindow* window) const;
-	bool ShouldBeDeleted(void) const;
+	bool ShouldBeDeleted(sf::Vector2i& windowDimensions) const;
 };
 

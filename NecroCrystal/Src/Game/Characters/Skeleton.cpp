@@ -17,8 +17,8 @@ Skeleton::Skeleton() :
     width = 64;
     height = 64;
     speed = 1.35f;
-    sprites = nullptr;
     spriteNumber = 3;
+    sprites.resize(spriteNumber);
     faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots sont jamais check dans les colisions (pas dans characters)
     health = 1;
     maxHealth = 1;
@@ -26,7 +26,6 @@ Skeleton::Skeleton() :
 
 Skeleton::~Skeleton()
 {
-    Character::~Character();
 }
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
@@ -36,7 +35,6 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 
 void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& textureLoaded)
 {
-    sprites = new sf::Sprite[spriteNumber];
     for (int i = 0; i < spriteNumber; i++)
     {
         sprites[i].setTexture(textureLoaded);
@@ -52,7 +50,7 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
     for(int i=0;i<spriteNumber;i++)
     {
         sprites[i].scale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
-        sprites[i].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
+        sprites[i].setPosition(position);
     }
 
     target = sprites[0].getPosition();
@@ -94,7 +92,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         movement = Math::normalizeVector(target - sprites[0].getPosition()) * speed * deltaTime;
         Math::CorrectMovement(movement, hitbox, map);
 
-        if (Math::Distance(target - sprites[0].getPosition()) < stopDistance)
+        if (Math::Distance(target - sprites[0].getPosition(),windowDimensions) < stopDistance)
         {
             moving = false;
             currentAnimation = 0;
@@ -203,7 +201,7 @@ void Skeleton::StartDash(sf::Vector2f necroPosition)
     }
 }
 
-sf::Sprite& Skeleton::getSprite(void) const
+const sf::Sprite& Skeleton::getSprite(void) const
 {
     return sprites[0];
 }

@@ -4,7 +4,6 @@
 #include "Characters/Necromancer.h"
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/SkeletonHandler.h"
-#include "PlayerElements/MouseCursor.h"
 #include "Effects/VFXHandler.h"
 #include "Projectiles/ProjectilesHandler.h"
 #include "World/Map.h"
@@ -19,7 +18,6 @@ class GameLoop
 {
 protected:
 	std::vector<Character*> characters; //characters[0] is always supposed to be the necromancer
-	MouseCursor mouseCursor;
 	ProjectilesHandler projectileHandler;
 	HitboxDisplay hitboxDisplay;
 	Map map;
@@ -31,10 +29,10 @@ protected:
 	FrameRate frameRate;
 
 public:
-	GameLoop(sf::Vector2f windowSize);
+	GameLoop(sf::Vector2i windowSize);
 	~GameLoop();
 
-	void initialize(sf::Vector2i& windowDimensions,TextManager& textManager);
+	void initialize(sf::Vector2i& windowDimensions,TextManager& textManager, std::string& mapFileName);
 	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition, std::string timerString);
 	// 0 : R A S
 	// 1 : win

@@ -1,10 +1,10 @@
 #include "CameraService.h"
 
-CameraService::CameraService(sf::Vector2f windowSize):
+CameraService::CameraService(sf::Vector2i windowSize):
 	diff(0),cameraPosition(0), 
 	windowSizeChangeRatio(sf::Vector2f(0.0f,0.0f))
 {
-	windowSizeMem = windowSize;
+	windowSizeMem = sf::Vector2f(windowSize);
 }
 
 void CameraService::MoveSprite(sf::Sprite& sprite, sf::Vector2f& movement) //change for the camera and screen window position

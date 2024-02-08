@@ -4,17 +4,31 @@
 
 Map::Map():
     totalTilesX(0),totalTilesY(0),
-    tiles(nullptr),mapSprites(nullptr),wallHitbox(nullptr)
+    tiles(nullptr),wallHitbox(nullptr)
 {
 }
 
 Map::~Map()
 {
+    if (tiles != nullptr)
+        delete tiles;
+
+    delete mapData.wallHitboxPositions;
+    delete mapData.wallHitboxSizes;
+    delete mapData.enemyPositions;
+    delete mapData.enemyTypes;
+
+    for (size_t i = 0; i < mapData.mapHeight; i++)
+    {
+        delete mapData.tiles[i];
+    }
+    delete mapData.tiles;
+
 }
 
-void Map::Load(sf::Vector2i mapDimensions)
+void Map::Load(sf::Vector2i mapDimensions,std::string& mapFileName)
 {
-    MapLoader::Load("Assets/World/NecroDungeon/NecroDungeon.map", mapData);
+    MapLoader::Load(mapFileName, mapData);
     if (tileSheetTexture.loadFromFile(mapData.tileSheet))
     {
         std::cout << "NecroDungeon tileSheet texture loaded successfully" << std::endl;
@@ -42,23 +56,23 @@ void Map::Load(sf::Vector2i mapDimensions)
         std::cout << "NecroDungeon tileSheet texture failed to load" << std::endl;
     }
 
-    mapSprites = new sf::Sprite*[mapData.mapHeight];
+    mapSprites.resize(mapData.mapHeight);
     for (size_t y = 0; y < mapData.mapHeight; y++)
     {
-        mapSprites[y] = new sf::Sprite[mapData.mapWidth];
+        mapSprites.at(y).resize(mapData.mapWidth);
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
             int tileIndex = mapData.tiles[y][x];
-            mapSprites[y][x].setTexture(tileSheetTexture);
-            mapSprites[y][x].setTextureRect(sf::IntRect(
+            mapSprites.at(y).at(x).setTexture(tileSheetTexture);
+            mapSprites.at(y).at(x).setTextureRect(sf::IntRect(
                 tiles[tileIndex].position.x,
                 tiles[tileIndex].position.y,
                 mapData.tileWidth,
                 mapData.tileHeight
             ));
-            mapSprites[y][x].setPosition(sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX* ((double)mapDimensions.x / 1920.0), 
+            mapSprites.at(y).at(x).setPosition(sf::Vector2f(x * mapData.tileWidth * (int)mapData.scaleX* ((double)mapDimensions.x / 1920.0),
                 y * mapData.tileHeight * (int)mapData.scaleY* ((double)mapDimensions.y / 1080.0)));
-            mapSprites[y][x].setScale(mapData.scaleX * ((double)mapDimensions.x/1920.0), mapData.scaleY * ((double)mapDimensions.y/1080.0));
+            mapSprites.at(y).at(x).setScale(mapData.scaleX * ((double)mapDimensions.x/1920.0), mapData.scaleY * ((double)mapDimensions.y/1080.0));
         }
     }
 
@@ -83,8 +97,8 @@ void Map::Update(float deltaTime, CameraService& cameraService, sf::Vector2i map
         {
             sf::Vector2f position = sf::Vector2f(x * mapData.tileWidth * mapData.scaleX * ((double)mapDimensions.x / 1920.0),
                 y * mapData.tileHeight * (int)mapData.scaleY * ((double)mapDimensions.y / 1080.0));
-            cameraService.SetSprite(mapSprites[y][x], position);
-            mapSprites[y][x].setScale(mapData.scaleX * ((float)mapDimensions.x / 1920.0f), mapData.scaleY * ((float)mapDimensions.y / 1080.0f));
+            cameraService.SetSprite(mapSprites.at(y).at(x), position);
+            mapSprites.at(y).at(x).setScale(mapData.scaleX * ((float)mapDimensions.x / 1920.0f), mapData.scaleY * ((float)mapDimensions.y / 1080.0f));
         }
     }
     for (size_t i = 0; i < mapData.hitboxNumber; i++)
@@ -102,7 +116,7 @@ void Map::Draw(sf::RenderWindow* window)
     {
         for (size_t x = 0; x < mapData.mapWidth; x++)
         {
-            window->draw(mapSprites[y][x]);
+            window->draw(mapSprites.at(y).at(x));
         }
     }
     //for (size_t i = 0; i < mapData.hitboxNumber; i++)

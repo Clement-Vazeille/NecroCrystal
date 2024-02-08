@@ -38,7 +38,7 @@ void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler
 		return;
 	for (auto& skeleton : skeletons)
 	{
-		if (skeleton->IsActivated() && Math::Distance(skeleton->getSprite().getPosition() - character->getSprite().getPosition())<skeletonRange)
+		if (skeleton->IsActivated() && Math::Distance(skeleton->getSprite().getPosition() - character->getSprite().getPosition(),windowDimensions)<skeletonRange)
 		{
 			skeleton->AttackAnimation(character->getSprite().getGlobalBounds().getPosition());
 			sf::Vector2f projStart = skeleton->getSprite().getPosition()+sf::Vector2f(0,skeleton->getSprite().getGlobalBounds().getSize().y*0.4);
