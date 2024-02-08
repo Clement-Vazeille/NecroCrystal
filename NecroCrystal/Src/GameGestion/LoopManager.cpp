@@ -12,7 +12,7 @@ void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 }
 
 LoopManager::LoopManager(sf::Vector2f windowSize) :
-	gameLoop(nullptr), state(4),
+	gameLoop(nullptr), state(0),
 	pauseTimer(0),pauseCooldown(800),
 	actualLevel(0)
 {
@@ -30,6 +30,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 {
 	textManager.Initialize(); //important to initialize GlobalUtility services before initializing Loops
 
+	mainMenuLoop.initialize(windowDimensions, textManager);
 	pauseLoop.initialize(windowDimensions,textManager);
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
@@ -94,6 +95,17 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		if (gameState == 2)//player is dead
 			state = 3;
 	}
+	if (state == 0)
+	{
+		int loopState = mainMenuLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //1 mean player leave the game
+			return true;
+		if (loopState == 2) //2 mean player retry the level
+		{
+			this->LoadLevel(windowDimensions);
+			state = 4;
+		}
+	}
 
 	return false;
 }
@@ -102,6 +114,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 {
 	if (state == 1|| state == 2 || state == 3 || state == 4)
 		gameLoop->draw(window);
+	if (state == 0)
+	{
+		mainMenuLoop.draw(window);
+	}
 	if (state == 1)
 	{
 		pauseLoop.draw(window);
