@@ -27,12 +27,12 @@ void VictoryLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textMa
 	victoryText = textManager.MakeSentence(text);
 
 	std::string continueButtonText = "Main Menu";
-	restartButton.Initialise(textManager.MakeSentence(continueButtonText), sf::Vector2f(windowDimensions.x * 0.62f, windowDimensions.y * 0.50f),
-		sf::Vector2f(windowDimensions.x * 0.30f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.05f, 0.1f));
+	restartButton.Initialise(textManager.MakeSentence(continueButtonText), sf::Vector2f(windowDimensions.x * 0.67f, windowDimensions.y * 0.50f),
+		sf::Vector2f(windowDimensions.x * 0.25f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.05f, 0.1f));
 
 	std::string quitButtonText = "Quit";
-	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.67f, windowDimensions.y * 0.65f),
-		sf::Vector2f(windowDimensions.x * 0.13f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.1f, 0.1f));
+	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.70f, windowDimensions.y * 0.65f),
+		sf::Vector2f(windowDimensions.x * 0.12f, windowDimensions.y * 0.1f), windowDimensions, sf::Vector2f(0.1f, 0.1f));
 
 }
 
@@ -50,12 +50,12 @@ int VictoryLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vec
 	sprite.setScale(2.f * windowDimensions.x / 1920.f, 2.f * windowDimensions.y / 1080.f); //TODO variable scale
 	sprite.setPosition(0,0);
 
-	victoryText->Update(30.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.18f, windowDimensions.y * 0.26f)); //TODO separate x and y scales
-	timerText->Update(12.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.60f, windowDimensions.y * 0.40f));
+	victoryText->Update(30.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.18f, windowDimensions.y * 0.27f)); //TODO separate x and y scales
+	timerText->Update(12.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.58f, windowDimensions.y * 0.41f));
 
-	if (quitGameButton.Update(12.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	if (quitGameButton.Update(10.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;
-	if (restartButton.Update(12.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	if (restartButton.Update(10.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 2;
 
 	return 0;

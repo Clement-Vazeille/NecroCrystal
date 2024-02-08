@@ -12,9 +12,23 @@ void Timer::Add(float deltaTime)
 	seconds += ((int)miliseconds) / 1000;
 	miliseconds -= (((int)miliseconds) / 1000)*1000;  //remove thousands
 
-	if (minutes < 100)
-		minutes += seconds / 60;
+	
+	minutes += seconds / 60;
 	seconds = seconds % 60;
+
+	if (minutes >= 100)
+	{
+		seconds = 59;
+		miliseconds = 999;
+		minutes = 99;
+	}
+}
+
+void Timer::Reset(void)
+{
+	miliseconds = 0;
+	seconds = 0;
+	minutes = 0;
 }
 
 std::string Timer::ToString(void) const

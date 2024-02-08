@@ -10,6 +10,7 @@ public:
 	Timer();
 
 	void Add(float deltaTime);
+	void Reset(void);
 	std::string ToString(void) const;
 	std::string ToMiniString(void) const;
 

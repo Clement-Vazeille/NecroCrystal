@@ -129,6 +129,7 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			return true;
 		if (loopState == 2) //2 mean player go to main menu
 		{
+			timer.Reset();
 			actualLevel = 0;
 			state = 0;
 		}
