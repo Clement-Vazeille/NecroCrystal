@@ -173,6 +173,7 @@
     <ClCompile Include="Src\GlobalUtility\Timer.cpp" />
     <ClCompile Include="Src\Game\Effects\VFX.cpp" />
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
+    <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\BasicLoops\MainMenuLoop.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Src\GlobalUtility\Timer.h" />
     <ClInclude Include="Src\Game\Effects\VFX.h" />
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
+    <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
