@@ -36,6 +36,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	looseLoop.initialize(windowDimensions,textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
+	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
 	this->LoadLevel(windowDimensions);
 	
 	mouseCursor.Load(windowDimensions);
@@ -70,6 +71,19 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		int loopState = clearLoop.update(deltaTime, windowDimensions, mousePosition);
 		if (loopState == 1) //1 mean player leave the game
 			return true;
+		if (loopState == 2) //2 mean player continue
+		{
+			actualLevel++;
+			if(actualLevel<=levelsMapFiles.size())
+			{
+				this->LoadLevel(windowDimensions);
+				state = 4;
+			}
+			else
+			{
+				return true;
+			}
+		}
 
 	}
 	if(state == 3)

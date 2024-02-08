@@ -29,7 +29,7 @@ protected:
 	// 4 for ingame
 
 	int actualLevel;
-	std::array<std::string, 1> levelsMapFiles;
+	std::array<std::string, 2> levelsMapFiles;
 
 	//l'upadate de main menu, pause et win est un bool sur si on doit quitté cet écran
 

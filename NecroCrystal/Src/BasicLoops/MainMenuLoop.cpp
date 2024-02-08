@@ -14,37 +14,36 @@ MainMenuLoop::~MainMenuLoop()
 void MainMenuLoop::initialize(sf::Vector2i& windowDimensions, TextManager& textManager)
 {
 
-	if (texture.loadFromFile("Assets/Menu/Menu.png")) //TODO : Make a real scene
+	if (texture.loadFromFile("Assets/Menu/MainMenu.png")) //TODO : Make a real scene
 	{
 		sprite.setTexture(texture);
-		sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
-		sprite.setScale(2.5f * windowDimensions.x / 1920.f, 3.f * windowDimensions.y / 1080.f);
-		sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
+		sprite.setScale(2.f * windowDimensions.x / 1920.f, 2.f * windowDimensions.y / 1080.f);
+		sprite.setPosition(0,0);
 	}
 
 	std::string text = "NecroCrystal";
 	necroCrystalText = textManager.MakeSentence(text);
 
 	std::string retryButtonText("Start Game");
-	startButton.Initialise(textManager.MakeSentence(retryButtonText), sf::Vector2f(windowDimensions.x * 0.40f, windowDimensions.y * 0.45f),
-		sf::Vector2f(windowDimensions.x * 0.21f, windowDimensions.y * 0.12f), windowDimensions, sf::Vector2f(0.1f, 0.08f));
+	startButton.Initialise(textManager.MakeSentence(retryButtonText), sf::Vector2f(windowDimensions.x * 0.55f, windowDimensions.y * 0.40f),
+		sf::Vector2f(windowDimensions.x * 0.36f, windowDimensions.y * 0.12f), windowDimensions, sf::Vector2f(0.07f, 0.08f));
 
 	std::string quitButtonText = "Quit Game";
-	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.43f, windowDimensions.y * 0.62f),
-		sf::Vector2f(windowDimensions.x * 0.16f, windowDimensions.y * 0.12f), windowDimensions, sf::Vector2f(0.1f, 0.1f));
+	quitGameButton.Initialise(textManager.MakeSentence(quitButtonText), sf::Vector2f(windowDimensions.x * 0.55f, windowDimensions.y * 0.67f),
+		sf::Vector2f(windowDimensions.x * 0.32f, windowDimensions.y * 0.12f), windowDimensions, sf::Vector2f(0.07f, 0.1f));
 }
 
 int MainMenuLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition)
 {
-	sprite.setScale(2.5f * windowDimensions.x / 1920.f, 3.f * windowDimensions.y / 1080.f); //TODO variable scale
-	sprite.setPosition(windowDimensions.x / 2.f, windowDimensions.y / 2.f);
+	sprite.setScale(2.f * windowDimensions.x / 1920.f, 2.f * windowDimensions.y / 1080.f); //TODO variable scale
+	sprite.setPosition(0,0);
 
-	necroCrystalText->Update(10.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.4f, windowDimensions.y * 0.38f)); //TODO separate x and y scales
+	necroCrystalText->Update(25.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.08f, windowDimensions.y * 0.27f)); //TODO separate x and y scales
 
-	if (startButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	if (startButton.Update(13.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 2;
 
-	if (quitGameButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	if (quitGameButton.Update(13.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;
 
 	return 0;

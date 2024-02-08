@@ -8,7 +8,9 @@ class ClearLoop
 protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
+
 	Bouton quitGameButton;
+	Bouton continueButton;
 
 	Sentence* clearText;
 	Sentence* timerText;
