@@ -1,6 +1,8 @@
 #include "GameLoop.h"
+#include <iostream>
 
 #include "Characters/Enemy/Enemy.h"
+#include "Characters/Enemy/MeleeMage.h"
 GameLoop::GameLoop(sf::Vector2i windowSize) : cameraService(windowSize)
 {
     Enemy::enemyNumber = 0;
@@ -19,7 +21,9 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     projectileHandler.Load();
     frameRate.Load();
     gameTimer.Initialize(textManager);
+    std::cout << "balise 1" << std::endl;
     map.Load(windowDimensions,mapFileName);
+    std::cout << "balise 2" << std::endl;
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();
@@ -29,11 +33,18 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     characters.push_back(necromancer);
     for (size_t i = 0; i < mapData->enemyNumber; i++)
     {
+        //std::cout << "enemy pushed" << std::endl;
         if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
         {
             Character* fireMage = new FireMage;
             fireMage->Load(windowDimensions, mapData->enemyPositions[i]);
             characters.push_back(fireMage);
+        }
+        if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
+        {
+            Character* meleeMage = new MeleeMage;
+            meleeMage->Load(windowDimensions, mapData->enemyPositions[i]);
+            characters.push_back(meleeMage);
         }
     }
 

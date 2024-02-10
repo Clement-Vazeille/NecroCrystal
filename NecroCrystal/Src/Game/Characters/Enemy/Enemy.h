@@ -9,6 +9,9 @@ protected:
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
 
+	float healthBarScaleX;
+	float healthBarScaleY;
+
 	bool activated;
 	float activatedDistance;
 
@@ -16,7 +19,9 @@ protected:
 public :
 	Enemy();
 	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);
+	
 	bool SetHealth(int hp);
+	void Activate(void);
 
 	const int GetSerial(void) const;
 	static int enemyNumber;

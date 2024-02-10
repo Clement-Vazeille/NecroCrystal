@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Characters\Enemy\MeleeMage.cpp" />
     <ClCompile Include="Src\BasicLoops\MainMenuLoop.cpp" />
     <ClCompile Include="Src\GlobalUtility\Bouton.cpp" />
     <ClCompile Include="Src\Game\Characters\SkeletonHandler.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h" />
     <ClInclude Include="Src\BasicLoops\MainMenuLoop.h" />
     <ClInclude Include="Src\GlobalUtility\Bouton.h" />
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />

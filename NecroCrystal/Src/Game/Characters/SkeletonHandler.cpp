@@ -4,7 +4,7 @@
 
 SkeletonHandler::SkeletonHandler() :
 	skeletonRange(260.f),
-	skeletonDashTimer(0),skeletonDashCooldown(6000)
+	skeletonDashTimer(0),skeletonDashCooldown(4000)
 {
 }
 

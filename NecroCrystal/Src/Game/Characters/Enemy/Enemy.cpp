@@ -5,7 +5,8 @@ int Enemy::enemyNumber;
 
 Enemy::Enemy() :
     healthAnimation(0, 12, 64, 32), removedNotCountedHealth(0),
-    activated(false), serial(Enemy::enemyNumber++)
+    activated(false), serial(Enemy::enemyNumber++),
+    healthBarScaleX(2.f),healthBarScaleY(1.5f)
 {
 }
 
@@ -44,4 +45,9 @@ bool Enemy::SetHealth(int hp)
 const int Enemy::GetSerial(void) const
 {
     return serial;
+}
+
+void Enemy::Activate(void)
+{
+    activated = true;
 }

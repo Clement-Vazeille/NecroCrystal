@@ -15,10 +15,10 @@ FireMage::FireMage() :
     width = 64;
     height = 64;
     speed = 0.13f;
-    spriteNumber = 2;
+    spriteNumber = 2; //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
-    maxHealth = 180;
+    maxHealth = 140;
     health = maxHealth;
     activatedDistance = 800;
 }
@@ -78,7 +78,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
-    sprites[1].setScale(sf::Vector2f(2 * scale * (double)windowDimensions.x / 1920.0, 1.5 * scale * (double)windowDimensions.y / 1080.0));
+    sprites[1].setScale(sf::Vector2f(healthBarScaleX * (double)windowDimensions.x / 1920.0, healthBarScaleY * (double)windowDimensions.y / 1080.0));
     loopAnimation.Update(sprites[0],deltaTime);
 
     hitbox.setScale(sprites[0].getScale());
