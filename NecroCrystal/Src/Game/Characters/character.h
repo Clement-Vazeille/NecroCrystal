@@ -39,6 +39,8 @@ public:
 	const sf::Sprite& getSprite(void) const;
 	int getFaction(void) const;
 
+	virtual void Activate(void);
+
 	sf::RectangleShape* getHitbox(void);
 };
 

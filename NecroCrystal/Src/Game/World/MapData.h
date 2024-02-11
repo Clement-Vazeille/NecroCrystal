@@ -28,4 +28,7 @@ struct MapData
 	int enemyNumber = 0;
 	sf::Vector2f* enemyPositions = nullptr;
 	int* enemyTypes = nullptr; //0 for fireMage, 1 for mele mage, 2 crazy fire mage, 3 captain mage, 4 boss
+
+	int waveNumber = 0;
+	int* waveEnemyIndex = nullptr;
 };

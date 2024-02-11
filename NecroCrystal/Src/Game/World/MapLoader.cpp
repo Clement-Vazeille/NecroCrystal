@@ -140,6 +140,23 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 						mapData.enemyTypes[i] = std::stoi(line.substr(start, end - start));
 					}
 				}
+				else if (variable == "waves")
+				{
+					int waveNumber = std::stoi(value);
+					mapData.waveNumber = waveNumber;
+					mapData.waveEnemyIndex = new int[waveNumber];
+					std::getline(file, line);
+					int start = 0;
+					int end = 0;
+					for (int i = 0; i < waveNumber; i++)
+					{
+						
+						end = line.find(',', start);
+						mapData.waveEnemyIndex[i] = std::stoi(line.substr(start, end - start));
+
+						start = end + 1;
+					}
+				}
 			}
 
 		}

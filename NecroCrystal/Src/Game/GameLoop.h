@@ -28,6 +28,8 @@ protected:
 
 	FrameRate frameRate;
 
+	int currentWave;
+	void LoadWave(MapData* mapData, sf::Vector2i& windowDimensions);
 public:
 	GameLoop(sf::Vector2i windowSize);
 	~GameLoop();

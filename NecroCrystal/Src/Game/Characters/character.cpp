@@ -51,6 +51,10 @@ int Character::getFaction(void) const
 	return faction;
 }
 
+void Character::Activate(void)
+{
+}
+
 sf::RectangleShape* Character::getHitbox(void)
 {
 	return &hitbox;

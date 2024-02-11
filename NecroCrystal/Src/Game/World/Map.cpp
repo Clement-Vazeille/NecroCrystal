@@ -17,6 +17,7 @@ Map::~Map()
     delete mapData.wallHitboxSizes;
     delete mapData.enemyPositions;
     delete mapData.enemyTypes;
+    delete mapData.waveEnemyIndex;
 
     for (size_t i = 0; i < mapData.mapHeight; i++)
     {

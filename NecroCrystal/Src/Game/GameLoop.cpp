@@ -3,7 +3,36 @@
 
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/Enemy/MeleeMage.h"
-GameLoop::GameLoop(sf::Vector2i windowSize) : cameraService(windowSize)
+
+void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
+{
+    int endEnemy = mapData->enemyNumber;
+    if (currentWave + 1 < mapData->waveNumber)
+        endEnemy = mapData->waveEnemyIndex[currentWave + 1]; //if it is not the last wave we go till just before beginning of next wave
+
+    for (size_t i = mapData->waveEnemyIndex[currentWave]; i < endEnemy; i++)
+    {
+        if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
+        {
+            Character* enemy = new FireMage;
+            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
+            if (mapData->waveNumber > 1)
+                enemy->Activate();
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
+        {
+            Character* enemy = new MeleeMage;
+            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
+            if (mapData->waveNumber > 1)
+                enemy->Activate();
+            characters.push_back(enemy);
+        }
+    }
+}
+
+GameLoop::GameLoop(sf::Vector2i windowSize) : 
+    cameraService(windowSize),currentWave(0)
 {
     Enemy::enemyNumber = 0;
 }
@@ -31,23 +60,8 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     Character* necromancer = new Necromancer;
     necromancer->Load(windowDimensions,mapData->necroSpawn);
     characters.push_back(necromancer);
-    for (size_t i = 0; i < mapData->enemyNumber; i++)
-    {
-        //std::cout << "enemy pushed" << std::endl;
-        if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
-        {
-            Character* fireMage = new FireMage;
-            fireMage->Load(windowDimensions, mapData->enemyPositions[i]);
-            characters.push_back(fireMage);
-        }
-        if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
-        {
-            Character* meleeMage = new MeleeMage;
-            meleeMage->Load(windowDimensions, mapData->enemyPositions[i]);
-            characters.push_back(meleeMage);
-        }
-    }
-
+    
+    this->LoadWave(mapData, windowDimensions);
 }
 
 int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f& mousePosition,std::string timerString)
@@ -61,17 +75,24 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     
     hitboxDisplay.Update(deltaTime);
 
-    bool isLevelCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
+    bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
         if ((*it)->getFaction() != 1) //faction 1 is the necromancer faction
-            isLevelCleared = false;
+            isWaveCleared = false;
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
     }
+
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);
     vFXHandler.DeleteExpiredVFX(windowDimensions);
-    if (isLevelCleared)
-        return 1; // means wp gg
+
+    if (isWaveCleared)
+    {
+        currentWave++;
+        if (currentWave >= map.getData()->waveNumber)
+            return 1; //means level cleared
+        this->LoadWave(map.getData(), windowDimensions);
+    }
     return 0;
 }
 
