@@ -19,6 +19,8 @@ protected:
 	int faction;  //pourrait se faire avec un enum
 	//0 pour neutre/invincible, 1 pour avec le nécro, 2 pour méchant
 	
+	float damageMultiplier;
+
 	int spriteNumber;
 	std::vector<sf::Sprite> sprites;
 	sf::RectangleShape hitbox;
@@ -30,7 +32,7 @@ public:
 	virtual void Load(sf::Vector2i& windowDimensions,sf::Vector2f position)=0;
 	virtual void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)=0;
 	virtual Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters) = 0;
-	virtual bool SetHealth(int hp); //renvoi true si le character meurt
+	virtual bool TakeDamage(int hp); //renvoi true si le character meurt
 	virtual const int GetSerial(void) const; //for enemies
 	int GetHealth(void) const;
 	void Draw(sf::RenderWindow* window) const;

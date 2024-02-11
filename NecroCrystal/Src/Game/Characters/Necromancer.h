@@ -26,6 +26,6 @@ public:
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	const sf::Sprite& getSprite(void) const;
-	bool SetHealth(int hp);
+	bool TakeDamage(int hp);
 };
 

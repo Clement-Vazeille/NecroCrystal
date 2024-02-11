@@ -20,7 +20,7 @@ public :
 	Enemy();
 	void LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position);
 	
-	bool SetHealth(int hp);
+	bool TakeDamage(int hp);
 	void Activate(void);
 
 	const int GetSerial(void) const;

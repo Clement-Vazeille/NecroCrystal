@@ -60,7 +60,7 @@ public:
 	void StartDash(sf::Vector2f mousePosition);
 
 	const sf::Sprite& getSprite(void) const;
-	bool SetHealth(int hp);
+	bool TakeDamage(int hp);
 	bool IsActivated(void) const;
 	bool IsDrawn(void) const;
 	const float GetAD(void) const;

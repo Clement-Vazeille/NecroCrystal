@@ -6,13 +6,24 @@
 #include "../../World/Map.h"
 class MeleeMage : public Enemy
 {
-
 protected:
 	Animation loopAnimation;
 
 	float newActionTimer;
 	float newActionCooldown;
 	sf::Vector2f direction;
+
+	float dashSpeedBoost;
+	float protectSpeedBoost;
+	bool canLaunchAttack;
+
+	enum Action {
+		Marcher,
+		Attaquer,
+		Proteger
+	};
+	Action currentAction;
+	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters);
 
 public:
 	MeleeMage();

@@ -34,7 +34,7 @@ void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f
 
 void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler,sf::Vector2i& windowDimensions)
 {
-	if (character->SetHealth(character->GetHealth()))
+	if (character->TakeDamage(0))
 		return;
 	for (auto& skeleton : skeletons)
 	{
@@ -45,7 +45,7 @@ void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler
 			//if skeleton is facing left, projectile face left
 			vFXHandler.SpawnVFX(windowDimensions,projStart, 
 				character->getSprite().getPosition()+(character->getSprite().getGlobalBounds().getSize()/2.f), 0);
-			if (character->SetHealth(character->GetHealth() - skeleton->GetAD()))
+			if (character->TakeDamage(skeleton->GetAD()))
 				return;
 		}
 	}

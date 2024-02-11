@@ -84,10 +84,10 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
             && projectile->getFaction() != (*itChar)->getFaction())
         {
-            (*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage());
+            (*itChar)->TakeDamage(projectile->getDamage());
             if((*itChar)->getFaction()!=1)
                 skeletonHandler.SkeletonAttack((*itChar),vFXHandler,windowDimensions);
-            if ((*itChar)->SetHealth((*itChar)->GetHealth())) //activate if character is dead
+            if ((*itChar)->TakeDamage(0)) //activate if character is dead
             {
                 if (itChar == std::begin(characters))//check if it's the necromancer that died
                 {

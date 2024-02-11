@@ -116,7 +116,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
             {
                 enemyDashed.insert(((Enemy*)(*itChar))->GetSerial());
                 this->DealDamage(dashAD);
-                if ((*itChar)->SetHealth((*itChar)->GetHealth() - dashAD)) //activate if character is dead
+                if ((*itChar)->TakeDamage(dashAD)) //activate if character is dead
                 {
                     delete(*itChar);
                     characters.erase(itChar);
@@ -206,7 +206,7 @@ const sf::Sprite& Skeleton::getSprite(void) const
     return sprites[0];
 }
 
-bool Skeleton::SetHealth(int hp)
+bool Skeleton::TakeDamage(int hp)
 {
 	return false;
 }

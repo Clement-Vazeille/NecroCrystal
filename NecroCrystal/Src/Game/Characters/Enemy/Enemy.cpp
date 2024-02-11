@@ -27,11 +27,11 @@ void Enemy::LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position)
     }
 }
 
-bool Enemy::SetHealth(int hp)
+bool Enemy::TakeDamage(int damage)
 {
     activated = true;
-    removedNotCountedHealth += health - hp;
-	health = hp;
+    removedNotCountedHealth += damage*damageMultiplier;
+	health -= damage*damageMultiplier;
 
     while (removedNotCountedHealth / (double)maxHealth >= 1.0 / 12.0)    //update the sprite of the health bar
     {

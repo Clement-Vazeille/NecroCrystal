@@ -149,10 +149,10 @@ const sf::Sprite& Necromancer::getSprite(void) const
     return sprites[0];
 }
 
-bool Necromancer::SetHealth(int hp)
+bool Necromancer::TakeDamage(int damage)
 {
-    removedNotCountedHealth += health - hp;
-    health = hp;
+    removedNotCountedHealth += damage*damageMultiplier;
+    health -= damage*damageMultiplier;
 
     while (removedNotCountedHealth / (double)maxHealth >= 1.0 / 16.0)    //update the sprite of the health bar
     {
