@@ -53,9 +53,9 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 }
 
 MeleeMage::MeleeMage() :
-    loopAnimation(80, 2, 88, 64),
+    loopAnimation(80, 1, 88, 64),
     newActionCooldown(2500), newActionTimer(2250),
-    currentAction(Marcher),canLaunchAttack(false),
+    currentAction(Attaquer),canLaunchAttack(false),
     dashSpeedBoost(2.5f),protectSpeedBoost(0.5f)
 {
     scale = 2;
@@ -65,7 +65,7 @@ MeleeMage::MeleeMage() :
     spriteNumber = 2;  //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
-    maxHealth = 250;
+    maxHealth = 300;
     health = maxHealth;
     activatedDistance = 800;
 }
