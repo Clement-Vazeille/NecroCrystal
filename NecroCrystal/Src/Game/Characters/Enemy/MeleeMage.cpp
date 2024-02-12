@@ -53,7 +53,7 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 }
 
 MeleeMage::MeleeMage() :
-    loopAnimation(80, 2, 64, 64),
+    loopAnimation(80, 2, 88, 64),
     newActionCooldown(2500), newActionTimer(2250),
     currentAction(Marcher),canLaunchAttack(false),
     dashSpeedBoost(2.5f),protectSpeedBoost(0.5f)
