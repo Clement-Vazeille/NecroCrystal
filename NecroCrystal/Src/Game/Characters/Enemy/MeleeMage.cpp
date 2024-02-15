@@ -52,11 +52,17 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
     }
 }
 
+void MeleeMage::Flip(void)
+{
+    loopAnimation.Flip();
+}
+
 MeleeMage::MeleeMage() :
     loopAnimation(80, 1, 88, 64),
     newActionCooldown(2500), newActionTimer(2250),
-    currentAction(Attaquer),canLaunchAttack(false),
-    dashSpeedBoost(2.5f),protectSpeedBoost(0.5f)
+    currentAction(Attaquer), canLaunchAttack(false),
+    dashSpeedBoost(2.5f), protectSpeedBoost(0.5f),
+    isFacingRight(true)
 {
     scale = 2;
     width = 64;
@@ -153,6 +159,16 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 
+    if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+    {
+        isFacingRight = false;
+        this->Flip();
+    }
+    if (characters[0]->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+    {
+        isFacingRight = true;
+        this->Flip();
+    }
 }
 
 Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)

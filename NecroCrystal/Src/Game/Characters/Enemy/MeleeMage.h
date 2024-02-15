@@ -16,6 +16,7 @@ protected:
 	float dashSpeedBoost;
 	float protectSpeedBoost;
 	bool canLaunchAttack;
+	bool isFacingRight;
 
 	enum Action {
 		Marcher,
@@ -24,6 +25,7 @@ protected:
 	};
 	Action currentAction;
 	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters);
+	void Flip(void);
 
 public:
 	MeleeMage();
