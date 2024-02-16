@@ -15,7 +15,24 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
         //Proteger: avance lentement en se protégeant avec son épée, débat subis /2 (variable dammage multiplier), lock la direction, 
         //          plus probable si low hp
 
-        //currentAction = Marcher;
+        int randomIntChoixAction = 31;//nombre choisis entre 0 et 100
+        int barreDefMax = 10 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
+
+        float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions);
+        float distProche = 200;
+        float distMoyen = 100;
+
+        int barreAttMin = 90;
+        if (distToNecro < distMoyen)
+            barreAttMin = 65;
+        if (distToNecro < distProche)
+            barreAttMin = 25;
+
+        currentAction = Marcher;
+        if (randomIntChoixAction < barreDefMax)
+            currentAction = Proteger;
+        if (randomIntChoixAction > barreAttMin)
+            currentAction = Attaquer;
 
         switch (currentAction)
         {
