@@ -25,7 +25,7 @@ ProjectilesHandler::~ProjectilesHandler()
 
 void ProjectilesHandler::Load()
 {
-    projectilesTextures = new sf::Texture[2];
+    projectilesTextures = new sf::Texture[3];
 
     if (projectilesTextures[0].loadFromFile("Assets/Projectiles/darkProjectile.png"))
     {
@@ -45,6 +45,14 @@ void ProjectilesHandler::Load()
         std::cout << "fireProjectile image failed to load" << std::endl;
     }
 
+    if (projectilesTextures[2].loadFromFile("Assets/Projectiles/meleMageProjectile.png"))
+    {
+        std::cout << "fireProjectile image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "fireProjectile image failed to load" << std::endl;
+    }
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 

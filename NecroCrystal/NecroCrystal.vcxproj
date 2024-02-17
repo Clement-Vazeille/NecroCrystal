@@ -175,6 +175,7 @@
     <ClCompile Include="Src\Game\Effects\VFX.cpp" />
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Src\Game\Effects\VFX.h" />
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
     <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
+    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

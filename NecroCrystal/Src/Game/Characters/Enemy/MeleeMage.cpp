@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
+#include "../../Projectiles/SwordSlash.h"
 
 void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
 {
@@ -19,8 +20,8 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
         int barreDefMax = 10 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
 
         float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions);
-        float distProche = 200;
-        float distMoyen = 100;
+        float distProche = 450;
+        float distMoyen = 220;
 
         int barreAttMin = 90;
         if (distToNecro < distMoyen)
@@ -44,7 +45,7 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 
         case Attaquer:
         {
-            newActionTimer = (int) ((float)newActionCooldown * 0.68f);
+            newActionTimer = (int) ((float)newActionCooldown * 0.40f);
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             damageMultiplier = 1.2f;
 
@@ -76,7 +77,7 @@ void MeleeMage::Flip(void)
 
 MeleeMage::MeleeMage() :
     loopAnimation(80, 1, 88, 64),
-    newActionCooldown(2500), newActionTimer(2250),
+    newActionCooldown(1600), newActionTimer(1600),
     currentAction(Attaquer), canLaunchAttack(false),
     dashSpeedBoost(2.5f), protectSpeedBoost(0.5f),
     isFacingRight(true)
@@ -193,6 +194,12 @@ Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectile
     if (activated && canLaunchAttack)
     {
         canLaunchAttack = false;
+        Projectile* swordSlash = new SwordSlash();
+        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
+        sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
+            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
+        swordSlash->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions);
+        return swordSlash;
     }
 	return nullptr;
 }
