@@ -22,6 +22,7 @@ public:
 	void Draw(sf::RenderWindow* window,bool drawHitbox) const;
 	int getFaction(void) const;
 	int getDamage(void) const;
+	virtual bool ShouldBeDestroyed(void) const;
 	sf::RectangleShape* getHitbox(void);
 };
 

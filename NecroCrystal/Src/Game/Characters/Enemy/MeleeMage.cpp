@@ -16,7 +16,7 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
         //Proteger: avance lentement en se protégeant avec son épée, débat subis /2 (variable dammage multiplier), lock la direction, 
         //          plus probable si low hp
 
-        int randomIntChoixAction = 31;//nombre choisis entre 0 et 100
+        int randomIntChoixAction = 95;//nombre choisis entre 0 et 100
         int barreDefMax = 10 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
 
         float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions);
@@ -45,6 +45,17 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 
         case Attaquer:
         {
+            if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+            {
+                isFacingRight = false;
+                this->Flip();
+            }
+            if (characters[0]->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+            {
+                isFacingRight = true;
+                this->Flip();
+            }
+
             newActionTimer = (int) ((float)newActionCooldown * 0.40f);
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             damageMultiplier = 1.2f;
@@ -116,7 +127,7 @@ void MeleeMage::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
         std::cout << "Melee Mage image failed to load" << std::endl;
     }
 
-    this->LoadHealthBar(windowDimensions, position);
+    this->LoadHealthBar(windowDimensions, position+sf::Vector2f(20.f,0));
 
     hitbox.setOutlineColor(sf::Color::Red);
     hitbox.setOutlineThickness(-1);
@@ -134,6 +145,17 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     sprites[1].setScale(sf::Vector2f(healthBarScaleX * (double)windowDimensions.x / 1920.0, healthBarScaleY * (double)windowDimensions.y / 1080.0));
     if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions) < activatedDistance)
         activated = true;
+    
+    if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight &&currentAction != Attaquer) //mage turn to left
+    {
+        isFacingRight = false;
+        this->Flip();
+    }
+    if (characters[0]->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight && currentAction != Attaquer) //mage turn to right
+    {
+        isFacingRight = true;
+        this->Flip();
+    }
 
     this->SelectNewAction(windowDimensions, deltaTime, map, characters);
     //movement part
@@ -177,16 +199,6 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     hitbox.setScale(sprites[0].getScale());
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 
-    if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
-    {
-        isFacingRight = false;
-        this->Flip();
-    }
-    if (characters[0]->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
-    {
-        isFacingRight = true;
-        this->Flip();
-    }
 }
 
 Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
@@ -195,10 +207,20 @@ Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectile
     {
         canLaunchAttack = false;
         Projectile* swordSlash = new SwordSlash();
-        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
-        sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
-            sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
-        swordSlash->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions);
+        sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y *0.05f));
+        sf::Vector2f spellTarget = direction;
+        //((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
+            //sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
+        if (isFacingRight)
+        {
+            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x *0.8f, 0);
+            ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,false);
+        }
+        else
+        {
+            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 0.15f, 0);
+            ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,true);
+        }
         return swordSlash;
     }
 	return nullptr;

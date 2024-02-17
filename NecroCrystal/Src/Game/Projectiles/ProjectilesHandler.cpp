@@ -72,7 +72,8 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler,vFXHandler)) //activate if projectile hit
+        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler,vFXHandler)//activate if projectile hit
+            ||(*it)->ShouldBeDestroyed()) 
         {
             delete(*it);
             projectiles.erase(it);

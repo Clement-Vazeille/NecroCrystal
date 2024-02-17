@@ -40,6 +40,11 @@ int Projectile::getDamage(void) const
 	return damage;
 }
 
+bool Projectile::ShouldBeDestroyed(void) const
+{
+	return false;
+}
+
 sf::RectangleShape* Projectile::getHitbox(void)
 {
 	return &hitbox;
