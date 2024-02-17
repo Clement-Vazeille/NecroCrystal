@@ -4,7 +4,7 @@
 #include "../../Utilities/Math.h"
 #include "../../Projectiles/SwordSlash.h"
 
-void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
     newActionTimer += deltaTime;
     if (newActionTimer >= newActionCooldown)
@@ -16,18 +16,18 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
         //Proteger: avance lentement en se protégeant avec son épée, débat subis /2 (variable dammage multiplier), lock la direction, 
         //          plus probable si low hp
 
-        int randomIntChoixAction = 95;//nombre choisis entre 0 et 100
-        int barreDefMax = 10 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
+        int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
+        int barreDefMax = 15 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
 
-        float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions);
+        float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions);
         float distProche = 450;
         float distMoyen = 220;
 
-        int barreAttMin = 90;
+        int barreAttMin = 80;
         if (distToNecro < distMoyen)
-            barreAttMin = 65;
+            barreAttMin = 60;
         if (distToNecro < distProche)
-            barreAttMin = 25;
+            barreAttMin = 35;
 
         currentAction = Marcher;
         if (randomIntChoixAction < barreDefMax)
@@ -133,11 +133,13 @@ void MeleeMage::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
     hitbox.setOutlineThickness(-1);
     hitbox.setFillColor(sf::Color::Transparent);
 
-    hitbox.setScale(sprites[0].getScale());
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setScale(sprites[0].getScale().x*0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition()+
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width*0.25,0),windowDimensions) );
 }
 
-void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, 
+    std::vector<Character*>& characters,RandomLSFR& randomLSFR)
 {
 
     sf::Vector2f movement = sf::Vector2f();
@@ -157,7 +159,7 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
         this->Flip();
     }
 
-    this->SelectNewAction(windowDimensions, deltaTime, map, characters);
+    this->SelectNewAction(windowDimensions, deltaTime, map, characters,randomLSFR);
     //movement part
     if (activated)
     {
@@ -196,8 +198,9 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     
     loopAnimation.Update(sprites[0], deltaTime);
 
-    hitbox.setScale(sprites[0].getScale());
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 
 }
 

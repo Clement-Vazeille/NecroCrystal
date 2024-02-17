@@ -66,11 +66,11 @@ void SkeletonHandler::SkeletonDash(sf::Vector2f posititon,float deltaTime)
 	}
 }
 
-void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
 	for (auto& skeleton : skeletons)
 	{
-		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters);
+		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
 	}
 	this->SkeletonDash(characters.at(0)->getHitbox()->getPosition(), deltaTime);
 }

@@ -11,6 +11,6 @@ public:
 
 	void Initialize(TextManager& textManager);
 	void Update(sf::Vector2i& windowDimensions, std::string string);
-	void Draw(sf::RenderWindow* window);
+	void Draw(sf::RenderWindow* window);    
 };
 

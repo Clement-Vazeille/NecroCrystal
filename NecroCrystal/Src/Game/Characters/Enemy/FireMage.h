@@ -23,7 +23,7 @@ public:
 	~FireMage();
 
 	void Load(sf::Vector2i& windowDimensions,sf::Vector2f position);
-	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map,std::vector<Character*>& characters);
+	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map,std::vector<Character*>& characters, RandomLSFR& randomLSFR);
 
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 

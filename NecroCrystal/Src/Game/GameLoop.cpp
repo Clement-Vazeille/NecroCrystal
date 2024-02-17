@@ -69,7 +69,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     frameRate.Update(deltaTime);
     gameTimer.Update(windowDimensions,timerString);
     map.Update(deltaTime, cameraService,windowDimensions);
-    skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters);
+    skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters,randomLSFR);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler,vFXHandler))
         return 2; //means game over
     
@@ -80,7 +80,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     {
         if ((*it)->getFaction() != 1) //faction 1 is the necromancer faction
             isWaveCleared = false;
-        (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters);
+        (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
     }
 
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);

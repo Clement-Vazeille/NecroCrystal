@@ -8,7 +8,7 @@ SwordSlash::SwordSlash() :
 	speed = 0.625f; //vitesse vers le bas
 	faction = 2;
 	scale = 4.f;
-	damage = 25;
+	damage = 20;
 }
 
 void SwordSlash::Load(sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellDirection, sf::Vector2i& windowDimensions,bool flipped)

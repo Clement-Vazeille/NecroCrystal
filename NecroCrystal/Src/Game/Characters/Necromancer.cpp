@@ -43,8 +43,9 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         hitbox.setOutlineThickness(-1);
         hitbox.setFillColor(sf::Color::Transparent);
 
-        hitbox.setScale(sprites[0].getScale());
-        hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+        hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+        hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+            Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
     }
     else
     {
@@ -66,11 +67,11 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     }
 }
 
-void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));
-    hitbox.setScale(sprites[0].getScale());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
 
     sf::Vector2f position = sprites[0].getPosition();
     sf::Vector2f change = sf::Vector2f(0.0f, 0.0f);
@@ -121,7 +122,8 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     else
         loopAnimation.Reset(sprites[0]);
 
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 }
 
 Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
