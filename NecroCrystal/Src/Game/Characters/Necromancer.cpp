@@ -81,7 +81,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     {
         change += sf::Vector2f(1 * (float)windowDimensions.x / 1920.f, 0)*speed*deltaTime;
         moved = true;
-        if (!faceRight)
+        if (!faceRight) //TODO : remove the fizzling when both left and right movement are applied
             turned = true;
         faceRight = true;
     }
@@ -89,9 +89,9 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     {
         change -= sf::Vector2f(1 * (float)windowDimensions.x /1920.f, 0)*speed*deltaTime;
         moved = true;
-        if (faceRight && !turned)
+        if (faceRight)
         {
-            turned = true;
+            turned = !turned;
             faceRight = false;
         }
     }

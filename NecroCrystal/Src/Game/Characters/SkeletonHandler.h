@@ -11,8 +11,7 @@ private:
 
 	float skeletonRange;
 
-	float skeletonDashTimer; //I should made a class for Timer Cooldown
-	float skeletonDashCooldown;
+	bool isRightClickClicked; 
 public:
 	SkeletonHandler();
 	~SkeletonHandler();

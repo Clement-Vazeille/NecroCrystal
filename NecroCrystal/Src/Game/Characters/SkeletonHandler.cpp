@@ -3,8 +3,7 @@
 #include "../Utilities/Math.h"
 
 SkeletonHandler::SkeletonHandler() :
-	skeletonRange(260.f),
-	skeletonDashTimer(0),skeletonDashCooldown(4000)
+	skeletonRange(260.f),isRightClickClicked(false)
 {
 }
 
@@ -53,16 +52,19 @@ void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler
 
 void SkeletonHandler::SkeletonDash(sf::Vector2f posititon,float deltaTime)
 {
-	if (skeletonDashTimer < skeletonDashCooldown)
-		skeletonDashTimer += deltaTime;
-	if(skeletonDashTimer>skeletonDashCooldown && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	
+	if(!isRightClickClicked && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
-		skeletonDashTimer = 0;
+		isRightClickClicked = true;
 		for (auto& skeleton : skeletons)
 		{
 			if(skeleton->IsActivated())
 				skeleton->StartDash(posititon);
 		}
+	}
+	if (isRightClickClicked && !sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		isRightClickClicked = false;
 	}
 }
 

@@ -6,7 +6,7 @@
 #include "../Utilities/Math.h"
 
 ProjectilesHandler::ProjectilesHandler() : 
-    projectilesTextures(nullptr),textureNumber(2)
+    projectilesTextures(nullptr),textureNumber(3)
 {
 }
 
@@ -25,7 +25,7 @@ ProjectilesHandler::~ProjectilesHandler()
 
 void ProjectilesHandler::Load()
 {
-    projectilesTextures = new sf::Texture[3];
+    projectilesTextures = new sf::Texture[textureNumber];
 
     if (projectilesTextures[0].loadFromFile("Assets/Projectiles/darkProjectile.png"))
     {
