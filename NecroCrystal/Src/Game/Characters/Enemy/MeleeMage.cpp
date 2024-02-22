@@ -45,6 +45,7 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 
         case Attaquer:
         {
+            animations.at(currentAction).Reset(sprites[0]);
             if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
             {
                 isFacingRight = false;
@@ -56,7 +57,7 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
                 this->Flip();
             }
 
-            newActionTimer = (int) ((float)newActionCooldown * 0.40f);
+            newActionTimer = newActionCooldown - attackDuration;
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             damageMultiplier = 1.2f;
 
@@ -83,15 +84,19 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
 
 void MeleeMage::Flip(void)
 {
-    loopAnimation.Flip();
+    for (auto& animation : animations)
+    {
+        animation.Flip();
+    }
 }
 
 MeleeMage::MeleeMage() :
-    loopAnimation(80, 1, 88, 64),
     newActionCooldown(1600), newActionTimer(1600),
     currentAction(Attaquer), canLaunchAttack(false),
     dashSpeedBoost(2.5f), protectSpeedBoost(0.5f),
-    isFacingRight(true)
+    isFacingRight(true),
+    attackDuration(newActionCooldown*0.6f),
+    animations({ Animation(120,4,88,64,0,0),Animation(240,4,88,64,4,0),Animation(120,4,88,64,8,0) })
 {
     scale = 2;
     width = 64;
@@ -117,7 +122,7 @@ void MeleeMage::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
         //std::cout << "FireMage image loaded successfully" << std::endl;
         sprites[0].setTexture(texture);
 
-        loopAnimation.SetTextureRect(sprites[0]);
+        animations.at(currentAction).SetTextureRect(sprites[0]);
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
         sprites[0].scale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));//multiplie la taille par scale (c'est 2)
         sprites[0].setPosition(sf::Vector2f(position.x * (double)windowDimensions.x / 1920.0, position.y * (double)windowDimensions.y / 1080.0));
@@ -196,7 +201,7 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     
-    loopAnimation.Update(sprites[0], deltaTime);
+    animations.at(currentAction).Update(sprites[0], deltaTime);
 
     hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <array>
 #include "../../Utilities/CameraService.h"
 #include "../../Utilities/Animation.h"
 #include "Enemy.h"
@@ -7,10 +8,11 @@
 class MeleeMage : public Enemy
 {
 protected:
-	Animation loopAnimation;
+	std::array<Animation, 3> animations;
 
 	float newActionTimer;
 	float newActionCooldown;
+	float attackDuration;
 	sf::Vector2f direction;
 
 	float dashSpeedBoost;
@@ -18,10 +20,11 @@ protected:
 	bool canLaunchAttack;
 	bool isFacingRight;
 
+
 	enum Action {
-		Marcher,
-		Attaquer,
-		Proteger
+		Marcher=0,
+		Attaquer=1,
+		Proteger=2
 	};
 	Action currentAction;
 	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
