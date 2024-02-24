@@ -3,8 +3,7 @@
 #include "../Utilities/Math.h"
 
 SkeletonHandler::SkeletonHandler() :
-	skeletonRange(260.f),
-	skeletonDashTimer(0),skeletonDashCooldown(6000)
+	skeletonRange(260.f),isRightClickClicked(false)
 {
 }
 
@@ -34,7 +33,7 @@ void SkeletonHandler::SpawnSkeleton(sf::Vector2i& windowDimensions, sf::Vector2f
 
 void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler,sf::Vector2i& windowDimensions)
 {
-	if (character->SetHealth(character->GetHealth()))
+	if (character->TakeDamage(0))
 		return;
 	for (auto& skeleton : skeletons)
 	{
@@ -45,7 +44,7 @@ void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler
 			//if skeleton is facing left, projectile face left
 			vFXHandler.SpawnVFX(windowDimensions,projStart, 
 				character->getSprite().getPosition()+(character->getSprite().getGlobalBounds().getSize()/2.f), 0);
-			if (character->SetHealth(character->GetHealth() - skeleton->GetAD()))
+			if (character->TakeDamage(skeleton->GetAD()))
 				return;
 		}
 	}
@@ -53,24 +52,27 @@ void SkeletonHandler::SkeletonAttack(Character* character,VFXHandler& vFXHandler
 
 void SkeletonHandler::SkeletonDash(sf::Vector2f posititon,float deltaTime)
 {
-	if (skeletonDashTimer < skeletonDashCooldown)
-		skeletonDashTimer += deltaTime;
-	if(skeletonDashTimer>skeletonDashCooldown && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	
+	if(!isRightClickClicked && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
-		skeletonDashTimer = 0;
+		isRightClickClicked = true;
 		for (auto& skeleton : skeletons)
 		{
 			if(skeleton->IsActivated())
 				skeleton->StartDash(posititon);
 		}
 	}
+	if (isRightClickClicked && !sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		isRightClickClicked = false;
+	}
 }
 
-void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
 	for (auto& skeleton : skeletons)
 	{
-		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters);
+		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
 	}
 	this->SkeletonDash(characters.at(0)->getHitbox()->getPosition(), deltaTime);
 }

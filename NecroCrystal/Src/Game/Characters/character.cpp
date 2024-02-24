@@ -1,8 +1,9 @@
 #include "character.h"
 
-Character::Character() : 
-	width(0),height(0),scale(0),
-	speed(0),faction(0),health(0),maxHealth(0),spriteNumber(0)
+Character::Character() :
+	width(0), height(0), scale(0),
+	speed(0), faction(0), health(0), maxHealth(0), spriteNumber(0),
+	damageMultiplier(1.f)
 {
 }
 
@@ -11,9 +12,9 @@ Character::~Character()
 	//delete(sprites); //fait crash le programme ????
 }
 
-bool Character::SetHealth(int hp)
+bool Character::TakeDamage(int damage)
 {
-	health = hp;
+	health -= damage*damageMultiplier;
 	return(health<=0);
 }
 
@@ -49,6 +50,10 @@ const sf::Sprite& Character::getSprite(void) const   //devrait techniquement plu
 int Character::getFaction(void) const
 {
 	return faction;
+}
+
+void Character::Activate(void)
+{
 }
 
 sf::RectangleShape* Character::getHitbox(void)

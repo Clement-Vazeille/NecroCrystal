@@ -6,7 +6,7 @@
 #include "../Utilities/Math.h"
 
 ProjectilesHandler::ProjectilesHandler() : 
-    projectilesTextures(nullptr),textureNumber(2)
+    projectilesTextures(nullptr),textureNumber(3)
 {
 }
 
@@ -25,7 +25,7 @@ ProjectilesHandler::~ProjectilesHandler()
 
 void ProjectilesHandler::Load()
 {
-    projectilesTextures = new sf::Texture[2];
+    projectilesTextures = new sf::Texture[textureNumber];
 
     if (projectilesTextures[0].loadFromFile("Assets/Projectiles/darkProjectile.png"))
     {
@@ -45,6 +45,14 @@ void ProjectilesHandler::Load()
         std::cout << "fireProjectile image failed to load" << std::endl;
     }
 
+    if (projectilesTextures[2].loadFromFile("Assets/Projectiles/meleMageProjectile.png"))
+    {
+        std::cout << "fireProjectile image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "fireProjectile image failed to load" << std::endl;
+    }
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 
@@ -64,7 +72,8 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
     {
         (*it)->Update(cameraService, windowDimensions, deltaTime);
 
-        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler,vFXHandler)) //activate if projectile hit
+        if (this->ProjectileCollisionChecker(*it, characters, map,isNecroDead,windowDimensions,skeletonHandler,vFXHandler)//activate if projectile hit
+            ||(*it)->ShouldBeDestroyed()) 
         {
             delete(*it);
             projectiles.erase(it);
@@ -84,10 +93,10 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
             && projectile->getFaction() != (*itChar)->getFaction())
         {
-            (*itChar)->SetHealth((*itChar)->GetHealth() - projectile->getDamage());
+            (*itChar)->TakeDamage(projectile->getDamage());
             if((*itChar)->getFaction()!=1)
                 skeletonHandler.SkeletonAttack((*itChar),vFXHandler,windowDimensions);
-            if ((*itChar)->SetHealth((*itChar)->GetHealth())) //activate if character is dead
+            if ((*itChar)->TakeDamage(0)) //activate if character is dead
             {
                 if (itChar == std::begin(characters))//check if it's the necromancer that died
                 {

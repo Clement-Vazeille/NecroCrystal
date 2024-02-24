@@ -140,7 +140,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Characters\Enemy\MeleeMage.cpp" />
     <ClCompile Include="Src\BasicLoops\MainMenuLoop.cpp" />
+    <ClCompile Include="Src\Game\Utilities\RandomLSFR.cpp" />
     <ClCompile Include="Src\GlobalUtility\Bouton.cpp" />
     <ClCompile Include="Src\Game\Characters\SkeletonHandler.cpp" />
     <ClCompile Include="Src\Game\Characters\Skeleton.cpp" />
@@ -174,9 +176,12 @@
     <ClCompile Include="Src\Game\Effects\VFX.cpp" />
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h" />
     <ClInclude Include="Src\BasicLoops\MainMenuLoop.h" />
+    <ClInclude Include="Src\Game\Utilities\RandomLSFR.h" />
     <ClInclude Include="Src\GlobalUtility\Bouton.h" />
     <ClInclude Include="Src\Game\Characters\SkeletonHandler.h" />
     <ClInclude Include="Src\Game\Characters\Skeleton.h" />
@@ -212,6 +217,7 @@
     <ClInclude Include="Src\Game\Effects\VFX.h" />
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
     <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
+    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,6 +12,7 @@
 #include "Utilities/FrameRate.h"
 #include "Utilities/HitboxDisplay.h"
 #include "Utilities/GameTimer.h"
+#include "Utilities/RandomLSFR.h"
 #include"../GlobalUtility/TextManager.h"
 
 class GameLoop
@@ -28,6 +29,9 @@ protected:
 
 	FrameRate frameRate;
 
+	RandomLSFR randomLSFR;
+	int currentWave;
+	void LoadWave(MapData* mapData, sf::Vector2i& windowDimensions);
 public:
 	GameLoop(sf::Vector2i windowSize);
 	~GameLoop();

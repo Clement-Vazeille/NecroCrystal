@@ -15,10 +15,10 @@ FireMage::FireMage() :
     width = 64;
     height = 64;
     speed = 0.13f;
-    spriteNumber = 2;
+    spriteNumber = 2; //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
-    maxHealth = 180;
+    maxHealth = 140;
     health = maxHealth;
     activatedDistance = 800;
 }
@@ -50,12 +50,13 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     hitbox.setOutlineThickness(-1);
     hitbox.setFillColor(sf::Color::Transparent);
 
-    hitbox.setScale(sprites[0].getScale());
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
     //std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
@@ -78,11 +79,12 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
-    sprites[1].setScale(sf::Vector2f(2 * scale * (double)windowDimensions.x / 1920.0, 1.5 * scale * (double)windowDimensions.y / 1080.0));
+    sprites[1].setScale(sf::Vector2f(healthBarScaleX * (double)windowDimensions.x / 1920.0, healthBarScaleY * (double)windowDimensions.y / 1080.0));
     loopAnimation.Update(sprites[0],deltaTime);
 
-    hitbox.setScale(sprites[0].getScale());
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 }
 
 Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)

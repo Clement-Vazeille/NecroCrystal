@@ -5,7 +5,8 @@ int Enemy::enemyNumber;
 
 Enemy::Enemy() :
     healthAnimation(0, 12, 64, 32), removedNotCountedHealth(0),
-    activated(false), serial(Enemy::enemyNumber++)
+    activated(false), serial(Enemy::enemyNumber++),
+    healthBarScaleX(2.f),healthBarScaleY(1.5f)
 {
 }
 
@@ -26,11 +27,11 @@ void Enemy::LoadHealthBar(sf::Vector2i& windowDimensions, sf::Vector2f position)
     }
 }
 
-bool Enemy::SetHealth(int hp)
+bool Enemy::TakeDamage(int damage)
 {
     activated = true;
-    removedNotCountedHealth += health - hp;
-	health = hp;
+    removedNotCountedHealth += damage*damageMultiplier;
+	health -= damage*damageMultiplier;
 
     while (removedNotCountedHealth / (double)maxHealth >= 1.0 / 12.0)    //update the sprite of the health bar
     {
@@ -44,4 +45,9 @@ bool Enemy::SetHealth(int hp)
 const int Enemy::GetSerial(void) const
 {
     return serial;
+}
+
+void Enemy::Activate(void)
+{
+    activated = true;
 }

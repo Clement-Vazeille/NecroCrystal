@@ -5,7 +5,7 @@
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
-    aD(35), dashAD(20), damageDealt(0), skeletonLevel(0),
+    aD(35), dashAD(15), damageDealt(0), skeletonLevel(0),
     attackTimer(0), attackDuration(400), spawnAnimationDuration(500),
     skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration/5.f,5,64,64,9,0) }),
     spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1),Animation(spawnAnimationDuration / 5.f,5,64,64,9,1) }),
@@ -59,11 +59,12 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
     hitbox.setOutlineThickness(-1);
     hitbox.setFillColor(sf::Color::Transparent);
 
-    hitbox.setScale(sprites[0].getScale());
-    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 }
 
-void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters)
+void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
     for (int i = 0; i < spriteNumber; i++)
     {
@@ -83,7 +84,6 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     spearAnimations.at(currentAnimation).Update(sprites[1], deltaTime);
     armorAnimations.at(currentAnimation).Update(sprites[2], deltaTime);
 
-    hitbox.setScale(sprites[0].getScale());
 
     cameraService.UpdateVector(target);
     sf::Vector2f movement = sf::Vector2f(0, 0);
@@ -104,7 +104,9 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         cameraService.MoveSprite(sprites[i], movement);
     }
     //hitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
-    hitbox.setPosition(sprites[0].getPosition());
+    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 
     //------------------------------------Check collisions with enemies--------------------------------------------
     if(moving)
@@ -116,7 +118,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
             {
                 enemyDashed.insert(((Enemy*)(*itChar))->GetSerial());
                 this->DealDamage(dashAD);
-                if ((*itChar)->SetHealth((*itChar)->GetHealth() - dashAD)) //activate if character is dead
+                if ((*itChar)->TakeDamage(dashAD)) //activate if character is dead
                 {
                     delete(*itChar);
                     characters.erase(itChar);
@@ -162,7 +164,7 @@ void Skeleton::DealDamage(int hitDammage)
             animation.MoveOffsets(0, 2);
         }
         aD += 25;
-        dashAD += 15;
+        dashAD += 10;
     }
 }
 
@@ -206,7 +208,7 @@ const sf::Sprite& Skeleton::getSprite(void) const
     return sprites[0];
 }
 
-bool Skeleton::SetHealth(int hp)
+bool Skeleton::TakeDamage(int hp)
 {
 	return false;
 }

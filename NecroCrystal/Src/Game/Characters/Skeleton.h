@@ -53,14 +53,14 @@ public:
 
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position);   //never call this, inherited from character polymorphism
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& texture); //for when is called by SkeletonHandler
-	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters);     //called once per frame
+	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);     //called once per frame
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	void AttackAnimation(sf::Vector2f target);
 	void StartDash(sf::Vector2f mousePosition);
 
 	const sf::Sprite& getSprite(void) const;
-	bool SetHealth(int hp);
+	bool TakeDamage(int hp);
 	bool IsActivated(void) const;
 	bool IsDrawn(void) const;
 	const float GetAD(void) const;
