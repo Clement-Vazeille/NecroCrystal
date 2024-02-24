@@ -2,8 +2,8 @@
 #include "../Utilities/Math.h"
 
 SwordSlash::SwordSlash() :
-	loopAnimation(100, 5, 16, 8),descendingSpeed(0.08f),
-	lifeSpan(960),liveTimer(0)
+	lifeSpan(960),liveTimer(0),
+	loopAnimation(960.f/5.f, 5, 8, 16),descendingSpeed(0.09f)
 {
 	speed = 0.625f; //vitesse vers le bas
 	faction = 2;
