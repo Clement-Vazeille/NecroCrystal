@@ -5,7 +5,7 @@
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
-    aD(35), dashAD(15), damageDealt(0), skeletonLevel(0),
+    aD(35), dashAD(10), damageDealt(0), skeletonLevel(0),
     attackTimer(0), attackDuration(400), spawnAnimationDuration(500),
     skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration/5.f,5,64,64,9,0) }),
     spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1),Animation(spawnAnimationDuration / 5.f,5,64,64,9,1) }),

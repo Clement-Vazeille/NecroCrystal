@@ -91,7 +91,7 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
     for (auto itChar = std::begin(characters); itChar != std::end(characters); itChar++)
     {
         if (projectile->getHitbox()->getGlobalBounds().intersects((*itChar)->getHitbox()->getGlobalBounds())
-            && projectile->getFaction() != (*itChar)->getFaction())
+            && projectile->getFaction() != (*itChar)->getFaction() && (*itChar)->getFaction() != -1)
         {
             (*itChar)->TakeDamage(projectile->getDamage());
             if((*itChar)->getFaction()!=1)

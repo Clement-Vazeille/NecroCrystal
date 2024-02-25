@@ -3,10 +3,33 @@
 #include "../Projectiles/DarkProjectile.h"
 #include <iostream>
 
-Necromancer::Necromancer() : 
+void Necromancer::NecroZoneUpdate()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && !necroZone)
+    {
+        faction = -1;
+        speed = speed * 2.f;
+        necroZone = true;
+    }
+    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && necroZone)
+    {
+        faction = 1;
+        speed = speed * 0.5f;
+        necroZone = false;
+
+        darkProjectileTimer = 0;
+    }
+    if (necroZone)
+    {
+        //display visible particules
+    }
+}
+
+Necromancer::Necromancer() :
     darkProjectileTimer(0), darkProjectileCastSpeed(520),
     loopAnimation(120, 7, 64, 64),faceRight(true),
-    healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0)
+    healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0),
+    necroZone(false)
 {
     scale = 2;
     width = 64;
@@ -69,6 +92,8 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
 
 void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
+    this->NecroZoneUpdate();
+
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));
     hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
@@ -128,19 +153,22 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 
 Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
-    darkProjectileTimer += deltaTime;
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && darkProjectileTimer > darkProjectileCastSpeed) //darkSpell Creator
+    if(!necroZone)
     {
-        darkProjectileTimer = 0;
+        darkProjectileTimer += deltaTime;
 
-        Projectile* darkProjectile = new DarkProjectile();
-        sf::Vector2f spellPosition = sprites[0].getPosition() +
-            sf::Vector2f(sprites[0].getGlobalBounds().width*0.05f, sprites[0].getGlobalBounds().height*0.16f);
-        if (faceRight)
-            spellPosition = spellPosition + sf::Vector2f(sprites[0].getGlobalBounds().width * 0.60f, 0);
-        darkProjectile->Load(projectilesTextures[0], spellPosition, mousePosition, windowDimensions);
-        return darkProjectile;
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && darkProjectileTimer > darkProjectileCastSpeed) //darkSpell Creator
+        {
+            darkProjectileTimer = 0;
+
+            Projectile* darkProjectile = new DarkProjectile();
+            sf::Vector2f spellPosition = sprites[0].getPosition() +
+                sf::Vector2f(sprites[0].getGlobalBounds().width * 0.05f, sprites[0].getGlobalBounds().height * 0.16f);
+            if (faceRight)
+                spellPosition = spellPosition + sf::Vector2f(sprites[0].getGlobalBounds().width * 0.60f, 0);
+            darkProjectile->Load(projectilesTextures[0], spellPosition, mousePosition, windowDimensions);
+            return darkProjectile;
+        }
     }
     return nullptr;
 }
@@ -163,4 +191,9 @@ bool Necromancer::TakeDamage(int damage)
     }
 
     return(health <= 0);
+}
+
+bool Necromancer::isInNecroZone(void) const
+{
+    return necroZone ;
 }

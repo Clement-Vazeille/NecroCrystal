@@ -1,6 +1,7 @@
 #include "SkeletonHandler.h"
 #include <iostream>
 #include "../Utilities/Math.h"
+#include "../Characters/Necromancer.h"
 
 SkeletonHandler::SkeletonHandler() :
 	skeletonRange(260.f),isRightClickClicked(false)
@@ -74,7 +75,9 @@ void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowD
 	{
 		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
 	}
-	this->SkeletonDash(characters.at(0)->getHitbox()->getPosition(), deltaTime);
+
+	if(!((Necromancer*) characters.at(0))->isInNecroZone())
+		this->SkeletonDash(characters.at(0)->getHitbox()->getPosition(), deltaTime);
 }
 
 void SkeletonHandler::DrawSkeletons(sf::RenderWindow* window,bool showHitbox) const

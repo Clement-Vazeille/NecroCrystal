@@ -14,9 +14,13 @@ protected:
 	
 	bool faceRight;
 
+	bool necroZone;
+
 	Animation healthAnimation;
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
+
+	void NecroZoneUpdate();
 public:
 	Necromancer();
 	~Necromancer();
@@ -27,5 +31,7 @@ public:
 
 	const sf::Sprite& getSprite(void) const;
 	bool TakeDamage(int hp);
+
+	bool isInNecroZone(void) const;
 };
 

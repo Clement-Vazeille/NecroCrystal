@@ -74,7 +74,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        if ((*it)->getFaction() != 1) //faction 1 is the necromancer faction
+        if ((*it)->getFaction() != 1 && (*it)->getFaction() != -1) //faction 1 is the necromancer faction
             isWaveCleared = false;
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
     }
