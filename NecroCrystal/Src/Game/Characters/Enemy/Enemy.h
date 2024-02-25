@@ -13,7 +13,8 @@ protected:
 	float healthBarScaleY;
 
 	bool activated;
-	float activatedDistance;
+	float activationTime;
+	float activationTimer;
 
 	const int serial; //for skeletons who can only hit an enemy once per dash
 public :

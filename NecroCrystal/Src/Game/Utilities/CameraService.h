@@ -20,6 +20,8 @@ public:
 	void SetRectangle(sf::RectangleShape& sprite, sf::Vector2f& position);
 	void UpdateVector(sf::Vector2f& vector);
 
+	sf::Vector2f SetVector(sf::Vector2f vector);
+
 	void Update(float new_diff, sf::Vector2f windowSize);
 };
 

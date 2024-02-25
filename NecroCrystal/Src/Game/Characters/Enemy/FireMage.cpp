@@ -20,7 +20,7 @@ FireMage::FireMage() :
     faction = 2;
     maxHealth = 140;
     health = maxHealth;
-    activatedDistance = 800;
+    activationTime = 800;
 }
 
 FireMage::~FireMage()
@@ -60,8 +60,14 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
-    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions) < activatedDistance)
-        activated = true;
+
+    if (!activated)
+    {
+        activationTimer += deltaTime;
+        if(activationTimer>activationTime)
+            activated = true;
+    }
+
     if(activated)
     {
         if (newDirectionTimer > newDirectionCooldown)

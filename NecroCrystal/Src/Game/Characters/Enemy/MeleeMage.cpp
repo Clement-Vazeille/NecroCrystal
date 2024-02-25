@@ -107,7 +107,7 @@ MeleeMage::MeleeMage() :
     faction = 2;
     maxHealth = 300;
     health = maxHealth;
-    activatedDistance = 800;
+    activationTime = 1200;
 }
 
 MeleeMage::~MeleeMage()
@@ -150,8 +150,13 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     sf::Vector2f movement = sf::Vector2f();
     sprites[0].setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
     sprites[1].setScale(sf::Vector2f(healthBarScaleX * (double)windowDimensions.x / 1920.0, healthBarScaleY * (double)windowDimensions.y / 1080.0));
-    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions) < activatedDistance)
-        activated = true;
+    
+    if (!activated)
+    {
+        activationTimer += deltaTime;
+        if (activationTimer > activationTime)
+            activated = true;
+    }
     
     if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight &&currentAction != Attaquer) //mage turn to left
     {
@@ -196,12 +201,14 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
         break;
         }
         Math::CorrectMovement(movement, hitbox, map);
+
+        animations.at(currentAction).Update(sprites[0], deltaTime);
     }
 
     cameraService.MoveSprite(sprites[0], movement);
     cameraService.MoveSprite(sprites[1], movement);
     
-    animations.at(currentAction).Update(sprites[0], deltaTime);
+    
 
     hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +

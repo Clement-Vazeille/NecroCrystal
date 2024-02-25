@@ -23,6 +23,11 @@ void CameraService::SetRectangle(sf::RectangleShape& rect, sf::Vector2f& positio
 	rect.setPosition(position + sf::Vector2f(0, cameraPosition));
 }
 
+sf::Vector2f CameraService::SetVector(sf::Vector2f vector)
+{
+	return vector = vector + sf::Vector2f(0, cameraPosition);
+}
+
 void CameraService::UpdateVector(sf::Vector2f& vect)
 {
 	vect.y = vect.y + diff;

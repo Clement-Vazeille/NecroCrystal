@@ -9,7 +9,6 @@ Character::Character() :
 
 Character::~Character()
 {
-	//delete(sprites); //fait crash le programme ????
 }
 
 bool Character::TakeDamage(int damage)

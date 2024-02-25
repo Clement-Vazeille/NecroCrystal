@@ -6,7 +6,8 @@ int Enemy::enemyNumber;
 Enemy::Enemy() :
     healthAnimation(0, 12, 64, 32), removedNotCountedHealth(0),
     activated(false), serial(Enemy::enemyNumber++),
-    healthBarScaleX(2.f),healthBarScaleY(1.5f)
+    healthBarScaleX(2.f), healthBarScaleY(1.5f),
+    activationTime(0), activationTimer(0)
 {
 }
 

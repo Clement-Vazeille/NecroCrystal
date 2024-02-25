@@ -15,17 +15,13 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
         if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
         {
             Character* enemy = new FireMage;
-            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
-            if (mapData->waveNumber > 1)
-                enemy->Activate();
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
         if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
         {
             Character* enemy = new MeleeMage;
-            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
-            if (mapData->waveNumber > 1)
-                enemy->Activate();
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
     }
