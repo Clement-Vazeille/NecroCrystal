@@ -3,7 +3,7 @@
 #include "../Projectiles/DarkProjectile.h"
 #include <iostream>
 
-void Necromancer::NecroZoneUpdate()
+void Necromancer::NecroZoneUpdate(VFXHandler& vFXHandler, sf::Vector2i& windowDimensions, RandomLSFR& randomLSFR,float deltaTime)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && !necroZone)
     {
@@ -21,7 +21,15 @@ void Necromancer::NecroZoneUpdate()
     }
     if (necroZone)
     {
-        //display visible particules
+        necroZoneParticuleTimer += deltaTime;
+        if (necroZoneParticuleTimer >= necroZoneParticuleCooldown)
+        {
+            necroZoneParticuleTimer = 0;
+            sf::Vector2f particulePosition(hitbox.getPosition() +
+                sf::Vector2f(hitbox.getGlobalBounds().width * ((float)randomLSFR.randomUpTo(100)) * 0.01f, hitbox.getGlobalBounds().height * ((float)randomLSFR.randomUpTo(100)) * 0.01f)
+                - Math::windowNormalizeVector(sf::Vector2f(16,16),windowDimensions)) ;
+            vFXHandler.SpawnVFX(windowDimensions, particulePosition, particulePosition, 1);
+        }
     }
 }
 
@@ -29,7 +37,8 @@ Necromancer::Necromancer() :
     darkProjectileTimer(0), darkProjectileCastSpeed(520),
     loopAnimation(120, 7, 64, 64),faceRight(true),
     healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0),
-    necroZone(false)
+    necroZone(false),
+    necroZoneParticuleCooldown(15),necroZoneParticuleTimer(0)
 {
     scale = 2;
     width = 64;
@@ -90,9 +99,10 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     }
 }
 
-void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
+void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime,Map& map, std::vector<Character*>& characters, 
+    RandomLSFR& randomLSFR, VFXHandler& vFXHandler)
 {
-    this->NecroZoneUpdate();
+    this->NecroZoneUpdate(vFXHandler,windowDimensions,randomLSFR,deltaTime);
 
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));

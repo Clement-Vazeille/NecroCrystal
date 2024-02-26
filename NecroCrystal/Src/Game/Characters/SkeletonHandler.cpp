@@ -69,11 +69,12 @@ void SkeletonHandler::SkeletonDash(sf::Vector2f posititon,float deltaTime)
 	}
 }
 
-void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
+void SkeletonHandler::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, 
+	RandomLSFR& randomLSFR,  VFXHandler& vFXHandler)
 {
 	for (auto& skeleton : skeletons)
 	{
-		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
+		skeleton->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR,vFXHandler);
 	}
 
 	if(!((Necromancer*) characters.at(0))->isInNecroZone())

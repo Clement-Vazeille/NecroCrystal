@@ -27,12 +27,12 @@ void VFX::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, f
 	sprite.setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
 	animation.Update(sprite, deltaTime);
 
-	if (followTarget)
-	{
-		cameraService.UpdateVector(target);
-		sf::Vector2f movement = Math::normalizeVector(target - sprite.getPosition()) * speed * deltaTime;
-		cameraService.MoveSprite(sprite, movement); //goes from 900 to 0 but work normaly after
-	}
+	
+	cameraService.UpdateVector(target);
+	sf::Vector2f movement = Math::normalizeVector(target - sprite.getPosition()) * speed * deltaTime;
+	//sprite.move(movement);
+	cameraService.MoveSprite(sprite, movement); //goes from 900 to 0 but work normaly after
+	
 }
 
 void VFX::Draw(sf::RenderWindow* window) const

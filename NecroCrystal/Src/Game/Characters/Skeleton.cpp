@@ -64,7 +64,8 @@ void Skeleton::Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::T
         Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 }
 
-void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
+void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, 
+    RandomLSFR& randomLSFR, VFXHandler& vFXHandler)
 {
     for (int i = 0; i < spriteNumber; i++)
     {

@@ -8,8 +8,8 @@
 class VFXHandler
 {
 protected:
-	std::array<sf::Texture,1> textures;
-	std::array<VFXdata, 1> vFXsData;
+	std::array<sf::Texture,2> textures;
+	std::array<VFXdata, 2> vFXsData;
 	std::vector<VFX> vFXs;
 
 public:

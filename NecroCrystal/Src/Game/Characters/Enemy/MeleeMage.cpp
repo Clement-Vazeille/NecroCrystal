@@ -144,7 +144,7 @@ void MeleeMage::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 }
 
 void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, 
-    std::vector<Character*>& characters,RandomLSFR& randomLSFR)
+    std::vector<Character*>& characters,RandomLSFR& randomLSFR,  VFXHandler& vFXHandler)
 {
 
     sf::Vector2f movement = sf::Vector2f();

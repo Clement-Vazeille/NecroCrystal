@@ -56,7 +56,8 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     //std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters, RandomLSFR& randomLSFR)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters, 
+    RandomLSFR& randomLSFR, VFXHandler& vFXHandler)
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
