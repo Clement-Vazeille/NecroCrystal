@@ -10,6 +10,8 @@ protected:
 	sf::RectangleShape hitbox; //on va activer son contour et le mettre en blanc
 	sf::Vector2f textPosistionRatio;
 
+	bool hasClickBeenUnpressed;
+
 	float scale;
 public:
 	Bouton();

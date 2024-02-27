@@ -1,7 +1,7 @@
 #include "Bouton.h"
 
 Bouton::Bouton() :
-	boutonText(nullptr), scale(2.f)
+	boutonText(nullptr), scale(2.f), hasClickBeenUnpressed(false)
 {
 }
 
@@ -26,11 +26,17 @@ void Bouton::Initialise(Sentence* sentence, sf::Vector2f hitboxPosition, sf::Vec
 
 bool Bouton::Update(float textScale, sf::Vector2i windowDimensions, sf::Vector2f mousePosition)
 {
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		hasClickBeenUnpressed = true;
+
 	boutonText->Update(textScale,sf::Vector2f(hitbox.getPosition().x+(hitbox.getSize().x*textPosistionRatio.x), 
 		hitbox.getPosition().y + (hitbox.getSize().y * (1.f-textPosistionRatio.y))));
 	hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x*windowDimensions.x/1920.f, hitbox.getPosition().y * windowDimensions.y / 1080.f));
 	hitbox.setScale(sf::Vector2f(hitbox.getScale().x * windowDimensions.x / 1920.f, hitbox.getScale().y * windowDimensions.y / 1080.f));
-	return(hitbox.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left));
+
+	return(hasClickBeenUnpressed &&
+		hitbox.getGlobalBounds().contains(mousePosition) && 
+		sf::Mouse::isButtonPressed(sf::Mouse::Button::Left));
 }
 
 

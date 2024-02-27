@@ -34,6 +34,8 @@ protected:
 	long dashAD; //Dash damages, < aD
 	long damageDealt;
 
+	sf::Vector2f dashKillPosition;
+
 	std::array<Animation, 4> skeletonAnimations;
 	std::array<Animation, 4> spearAnimations;
 	std::array<Animation, 4> armorAnimations;
@@ -65,5 +67,7 @@ public:
 	bool IsActivated(void) const;
 	bool IsDrawn(void) const;
 	const float GetAD(void) const;
+
+	sf::Vector2f HasDashKilledSomething(void);
 };
 

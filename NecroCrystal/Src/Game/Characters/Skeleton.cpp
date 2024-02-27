@@ -5,12 +5,12 @@
 Skeleton::Skeleton() :
     faceRight(true), moving(false), stopDistance(15.f),
     activated(false), activatedTimer(0), activationTime(1000),
-    aD(35), dashAD(10), damageDealt(0), skeletonLevel(0),
+    aD(35), dashAD(7), damageDealt(0), skeletonLevel(0),
     attackTimer(0), attackDuration(400), spawnAnimationDuration(500),
-    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration/3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration/5.f,5,64,64,9,0) }),
+    skeletonAnimations({ Animation(120,3,64,64,0,0),Animation(attackDuration / 3.f,3,64,64,3,0),Animation(120,3,64,64,6,0),Animation(spawnAnimationDuration / 5.f,5,64,64,9,0) }),
     spearAnimations({ Animation(120,3,64,64,0,1),Animation(attackDuration / 3.f,3,64,64,3,1),Animation(120,3,64,64,6,1),Animation(spawnAnimationDuration / 5.f,5,64,64,9,1) }),
     armorAnimations({ Animation(120,3,64,64,0,2),Animation(attackDuration / 3.f,3,64,64,3,2),Animation(120,3,64,64,6,2),Animation(spawnAnimationDuration / 5.f,5,64,64,9,2) }),
-    currentAnimation(0), goldDamageRequirement(55)
+    currentAnimation(0), goldDamageRequirement(55), dashKillPosition(0,0)
 
 {
     scale = 2;
@@ -19,7 +19,7 @@ Skeleton::Skeleton() :
     speed = 1.35f;
     spriteNumber = 3;
     sprites.resize(spriteNumber);
-    faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots sont jamais check dans les colisions (pas dans characters)
+    faction = -1;  //TODO -1 = inciblable même si c'est pas un problème pour le moment car les frérots sont jamais check dans les colisions (pas dans le vector characters)
     health = 1;
     maxHealth = 1;
 }
@@ -109,7 +109,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
         Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 
-    //------------------------------------Check collisions with enemies--------------------------------------------
+    //---------------BEGIN---------------Check collisions with enemies--------------------------------------------
     if(moving)
     {
         for (auto itChar = std::begin(characters)+1; itChar != std::end(characters); itChar++)
@@ -121,6 +121,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
                 this->DealDamage(dashAD);
                 if ((*itChar)->TakeDamage(dashAD)) //activate if character is dead
                 {
+                    dashKillPosition = (*itChar)->getSprite().getPosition();
                     delete(*itChar);
                     characters.erase(itChar);
                     itChar--;
@@ -128,7 +129,7 @@ void Skeleton::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
             }
         }
     }
-    //------------------------------------Check collisions with enemies--------------------------------------------
+    //----------------END---------------Check collisions with enemies--------------------------------------------
     
 
     if (!activated)
@@ -165,7 +166,7 @@ void Skeleton::DealDamage(int hitDammage)
             animation.MoveOffsets(0, 2);
         }
         aD += 25;
-        dashAD += 10;
+        dashAD += 5;
     }
 }
 
@@ -243,4 +244,12 @@ void Skeleton::FlipSkeleton(void)
     {
         animation.Flip();
     }
+}
+
+sf::Vector2f Skeleton::HasDashKilledSomething(void) 
+{
+    sf::Vector2f copy = dashKillPosition;
+    dashKillPosition.x = 0;
+    dashKillPosition.x = 0;
+    return copy;
 }
