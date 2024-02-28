@@ -10,6 +10,7 @@ protected:
 	sf::Sprite sprite;
 	Bouton retryButton;
 	Bouton quitGameButton;
+	Bouton mainMenuButton;
 
 	Sentence* loseText;
 public:
@@ -17,7 +18,8 @@ public:
 	~LooseLoop();
 
 	void initialize(sf::Vector2i& windowDimensions, TextManager& textManager);
-	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition); //0 nothing | 1 quit game | 2 retry level
+	int update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vector2f& mousePosition); 
+	//0 nothing | 1 quit game | 2 retry level | 3 Main menu
 	void draw(sf::RenderWindow* window);
 };
 

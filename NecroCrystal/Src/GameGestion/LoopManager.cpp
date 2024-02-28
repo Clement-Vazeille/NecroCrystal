@@ -66,8 +66,15 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	//update of activated loops
 	if (state == 1)
 	{
-		if (pauseLoop.update(deltaTime, windowDimensions, mousePosition))
+		int loopState = pauseLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //means quit game
 			return true;
+		if (loopState == 2) //means return to main menu
+		{
+			timer.Reset();
+			actualLevel = 0;
+			state = 0;
+		}
 	}
 	if(state == 2)
 	{
@@ -99,6 +106,12 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		{
 			this->LoadLevel(windowDimensions);
 			state = 4;
+		}
+		if (loopState == 3) //3 means return to main menu
+		{
+			timer.Reset();
+			actualLevel = 0;
+			state = 0;
 		}
 	}
 	if(state == 4)
