@@ -32,36 +32,50 @@ void CutsceneManager::initialize(sf::Vector2i& windowDimensions, TextManager& te
 	tutorial.push_back(pause);
 
 	Cutscene* dash = new Cutscene();
-	dash->Initialize(windowDimensions, "Assets/Cutscenes/Move.png");
-	dash->AddAText("Shift To Dodge", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.4f));
+	dash->Initialize(windowDimensions, "Assets/Cutscenes/NecroZone.png");
+	dash->AddAText("Shift To Dodge", textManager, sf::Vector2f(windowDimensions.x * 0.42f, windowDimensions.y * 0.3f));
 	tutorial.push_back(dash);
 
 	Cutscene* skeletonSpawn = new Cutscene();
-	skeletonSpawn->Initialize(windowDimensions, "Assets/Cutscenes/Move.png");
-	skeletonSpawn->AddAText("Skeleton Spawn", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.4f));
-	skeletonSpawn->AddAText("On Enemy Kill", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.55f));
+	skeletonSpawn->Initialize(windowDimensions, "Assets/Cutscenes/SkeletonSpawn.png");
+	skeletonSpawn->AddAText("Skeleton Spawn", textManager, sf::Vector2f(windowDimensions.x * 0.38f, windowDimensions.y * 0.3f));
+	skeletonSpawn->AddAText("On Enemy Kill", textManager, sf::Vector2f(windowDimensions.x * 0.38f, windowDimensions.y * 0.45f));
 	tutorial.push_back(skeletonSpawn);
 
-	Cutscene* skeletonAttack = new Cutscene();
-	skeletonAttack->Initialize(windowDimensions, "Assets/Cutscenes/Move.png");
-	skeletonAttack->AddAText("Skeletons Follow", textManager, sf::Vector2f(windowDimensions.x * 0.3f, windowDimensions.y * 0.3f));
-	skeletonAttack->AddAText("Your Attacks", textManager, sf::Vector2f(windowDimensions.x * 0.32f, windowDimensions.y * 0.45f));
-	skeletonAttack->AddAText("When They Are", textManager, sf::Vector2f(windowDimensions.x * 0.34f, windowDimensions.y * 0.6f));
-	skeletonAttack->AddAText("in Range", textManager, sf::Vector2f(windowDimensions.x * 0.36f, windowDimensions.y * 0.75f));
-	tutorial.push_back(skeletonAttack);
+	Cutscene* skeletonAttack1 = new Cutscene();
+	skeletonAttack1->Initialize(windowDimensions, "Assets/Cutscenes/SkeletonAttack1.png");
+	skeletonAttack1->AddAText("If an Enemy is", textManager, sf::Vector2f(windowDimensions.x * 0.45f, windowDimensions.y * 0.25f));
+	skeletonAttack1->AddAText("Attacked Close", textManager, sf::Vector2f(windowDimensions.x * 0.47f, windowDimensions.y * 0.40f));
+	skeletonAttack1->AddAText("To a Skeleton", textManager, sf::Vector2f(windowDimensions.x * 0.49f, windowDimensions.y * 0.55f));
+	tutorial.push_back(skeletonAttack1);
+
+	Cutscene* skeletonAttack2 = new Cutscene();
+	skeletonAttack2->Initialize(windowDimensions, "Assets/Cutscenes/SkeletonAttack2.png");
+	skeletonAttack2->AddAText("Skeleton Will", textManager, sf::Vector2f(windowDimensions.x * 0.3f, windowDimensions.y * 0.30f));
+	skeletonAttack2->AddAText("also Attack it", textManager, sf::Vector2f(windowDimensions.x * 0.32f, windowDimensions.y * 0.45f));
+	tutorial.push_back(skeletonAttack2);
 
 	Cutscene* skeletonDash = new Cutscene();
-	skeletonDash->Initialize(windowDimensions, "Assets/Cutscenes/Move.png");
-	skeletonDash->AddAText("Right Click To", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.4f));
-	skeletonDash->AddAText("Skeleton Dash", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.55f));
+	skeletonDash->Initialize(windowDimensions, "Assets/Cutscenes/SkeletonDash.png");
+	skeletonDash->AddAText("Right Click To", textManager, sf::Vector2f(windowDimensions.x * 0.35f, windowDimensions.y * 0.20f));
+	skeletonDash->AddAText("Skeleton Dash", textManager, sf::Vector2f(windowDimensions.x * 0.38f, windowDimensions.y * 0.35f));
 	tutorial.push_back(skeletonDash);
 }
 
 int CutsceneManager::update(float deltaTime, sf::Vector2i& windowDimensions)
 {
-	if (tutorial.at(cutsceneIndex)->Update(deltaTime, windowDimensions) == 1)
+	int actionTaken = tutorial.at(cutsceneIndex)->Update(deltaTime, windowDimensions);
+	if (actionTaken == 1)
 	{
 		if (++cutsceneIndex >= tutorial.size())
+		{
+			cutsceneIndex = 0;
+			return 1;
+		}
+	}
+	if (actionTaken == 2)
+	{
+		if (--cutsceneIndex < 0)
 		{
 			cutsceneIndex = 0;
 			return 1;

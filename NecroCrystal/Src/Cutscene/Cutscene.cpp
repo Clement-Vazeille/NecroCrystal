@@ -38,7 +38,7 @@ void Cutscene::AddAText(std::string text, TextManager& textManager, sf::Vector2f
 
 int Cutscene::Update(float deltaTime, sf::Vector2i& windowDimensions)
 {
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		hasMouseBeenUnclicked = true;
 
 	backgroundSprite.setScale(2.f * windowDimensions.x / 1920.f, 2.f * windowDimensions.y / 1080.f); 
@@ -46,13 +46,18 @@ int Cutscene::Update(float deltaTime, sf::Vector2i& windowDimensions)
 
 	for(int i = 0;i<texts.size();i++)
 	{
-		texts.at(i)->Update(17.f * windowDimensions.x / 1980.f, textsPositions.at(i)); 
+		texts.at(i)->Update(14.f * windowDimensions.x / 1980.f, textsPositions.at(i)); 
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && hasMouseBeenUnclicked)
 	{
 		hasMouseBeenUnclicked = false;
 		return 1;
+	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hasMouseBeenUnclicked)
+	{
+		hasMouseBeenUnclicked = false;
+		return 2;
 	}
 	return 0;
 }

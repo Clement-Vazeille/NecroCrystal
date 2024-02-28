@@ -20,7 +20,7 @@ public:
 
 	void Initialize(sf::Vector2i& windowDimensions, std::string backgroundFileName);
 	void AddAText(std::string text, TextManager& textManager, sf::Vector2f position);
-	int Update(float deltaTime, sf::Vector2i& windowDimensions); //0 nothing | 1 cutscene finished
+	int Update(float deltaTime, sf::Vector2i& windowDimensions); //0 nothing | 1 cutscene finished | 2 for past cutscene
 	void Draw(sf::RenderWindow* window);
 };
 
