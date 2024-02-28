@@ -35,6 +35,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
 	victoryLoop.initialize(windowDimensions, textManager);
+	cutsceneManager.initialize(windowDimensions, textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
 	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
@@ -59,6 +60,7 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	{
 		pauseTimer = 0;
 		state = 4;
+		pauseLoop.ResetButton();
 	}
 
 	//update of activated loops
@@ -121,7 +123,18 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			this->LoadLevel(windowDimensions);
 			state = 4;
 		}
+		if (loopState == 3) //2 mean player watch tutorial
+			state = 6;
 	}
+	if (state == 6)
+	{
+		int loopState = cutsceneManager.update(deltaTime, windowDimensions);
+		if (loopState == 1)  // means end of tutorial
+		{
+			state = 0;
+		}
+	}
+
 	if (state == 5)
 	{
 		int loopState = victoryLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -157,6 +170,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 	if (state == 3)
 	{
 		looseLoop.draw(window);
+	}
+	if (state == 6)
+	{
+		cutsceneManager.draw(window);
 	}
 	if (state == 5)
 	{

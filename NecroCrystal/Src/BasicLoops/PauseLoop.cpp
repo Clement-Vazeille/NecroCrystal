@@ -48,3 +48,8 @@ void PauseLoop::draw(sf::RenderWindow* window)
 	pauseText->Draw(window);
 	quitGameButton.Draw(window);
 }
+
+void PauseLoop::ResetButton(void)
+{
+	quitGameButton.Reset();
+}

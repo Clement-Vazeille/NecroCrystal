@@ -46,9 +46,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     projectileHandler.Load();
     frameRate.Load();
     gameTimer.Initialize(textManager);
-    std::cout << "balise 1" << std::endl;
     map.Load(windowDimensions,mapFileName);
-    std::cout << "balise 2" << std::endl;
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();

@@ -39,6 +39,11 @@ bool Bouton::Update(float textScale, sf::Vector2i windowDimensions, sf::Vector2f
 		sf::Mouse::isButtonPressed(sf::Mouse::Button::Left));
 }
 
+void Bouton::Reset(void)
+{
+	hasClickBeenUnpressed = false;
+}
+
 
 
 void Bouton::Draw(sf::RenderWindow* window) const

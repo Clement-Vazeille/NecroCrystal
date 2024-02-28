@@ -56,7 +56,11 @@ int VictoryLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vec
 	if (quitGameButton.Update(10.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;
 	if (restartButton.Update(10.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	{
+		quitGameButton.Reset();
+		restartButton.Reset();
 		return 2;
+	}
 
 	return 0;
 }

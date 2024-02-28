@@ -45,7 +45,11 @@ int LooseLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vecto
 	loseText->Update(10.f * windowDimensions.x / 1980.f, sf::Vector2f(windowDimensions.x * 0.4f, windowDimensions.y * 0.38f)); //TODO separate x and y scales
 
 	if (retryButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	{
+		retryButton.Reset();
+		quitGameButton.Reset();
 		return 2;
+	}
 
 	if(quitGameButton.Update(15.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;
