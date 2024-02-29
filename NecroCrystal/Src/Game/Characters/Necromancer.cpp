@@ -66,6 +66,7 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         int YNIndex = 0;
         sprites[0].setTextureRect(sf::IntRect(XNIndex * width, YNIndex * height, width, height));
         hitbox.setSize(sprites[0].getGlobalBounds().getSize());
+        wallHitbox.setSize(sprites[0].getGlobalBounds().getSize());
 
         sprites[0].scale(sf::Vector2f(scale* ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
         sprites[0].setPosition(sf::Vector2f(position.x* (double)windowDimensions.x / 1920.0, position.y* (double)windowDimensions.y / 1080.0));
@@ -78,6 +79,8 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
         hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
             Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
+        wallHitbox.setScale(sprites[0].getScale().x, sprites[0].getScale().y);
+        wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
     }
     else
     {
@@ -107,6 +110,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));
     hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    wallHitbox.setScale(sprites[0].getScale().x, sprites[0].getScale().y);
 
     sf::Vector2f position = sprites[0].getPosition();
     sf::Vector2f change = sf::Vector2f(0.0f, 0.0f);
@@ -142,7 +146,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     }
 
     //-----------------------------------------WALL COLLISION TEST------------------------------------------------------
-    Math::CorrectMovement(change, hitbox, map);
+    Math::CorrectMovement(change, wallHitbox, map);
 
     if (change.x != 0.0f && change.y != 0.0f)
         change = change * 0.85f;
@@ -159,6 +163,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
         Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
+    wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
 Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)

@@ -50,13 +50,13 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	//activate/desactivate loops
 	if (pauseTimer <= pauseCooldown)
 		pauseTimer += deltaTime;
-	if (state == 4 && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pauseTimer >= pauseCooldown) //TODO remplacer le 4 par une variable active level
+	if (state == 4 && (sf::Keyboard::isKeyPressed(sf::Keyboard::P)||sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && pauseTimer >= pauseCooldown) //TODO remplacer le 4 par une variable active level
 	{
 		pauseTimer = 0;
 		std::cout << "pause" << std::endl;
 		state = 1;
 	}
-	if (state == 1 && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pauseTimer >= pauseCooldown)
+	if (state == 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && pauseTimer >= pauseCooldown)
 	{
 		pauseTimer = 0;
 		state = 4;

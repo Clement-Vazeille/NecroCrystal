@@ -20,6 +20,8 @@ protected:
 	sf::Texture healthTexture;
 	double removedNotCountedHealth;
 
+	sf::RectangleShape wallHitbox;
+
 	float necroZoneParticuleTimer;
 	float necroZoneParticuleCooldown;
 	void NecroZoneUpdate(VFXHandler& vFXHandler, sf::Vector2i& windowDimensions, RandomLSFR& randomLSFR,float deltaTime);

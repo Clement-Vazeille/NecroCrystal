@@ -155,7 +155,10 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
     {
         activationTimer += deltaTime;
         if (activationTimer > activationTime)
+        {
             activated = true;
+            canLaunchAttack = false;
+        }
     }
     
     if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight &&currentAction != Attaquer) //mage turn to left
