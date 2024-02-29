@@ -35,6 +35,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
 	victoryLoop.initialize(windowDimensions, textManager);
+	cutsceneManager.initialize(windowDimensions, textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
 	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
@@ -49,23 +50,31 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	//activate/desactivate loops
 	if (pauseTimer <= pauseCooldown)
 		pauseTimer += deltaTime;
-	if (state == 4 && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pauseTimer >= pauseCooldown) //TODO remplacer le 4 par une variable active level
+	if (state == 4 && (sf::Keyboard::isKeyPressed(sf::Keyboard::P)||sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && pauseTimer >= pauseCooldown) //TODO remplacer le 4 par une variable active level
 	{
 		pauseTimer = 0;
 		std::cout << "pause" << std::endl;
 		state = 1;
 	}
-	if (state == 1 && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pauseTimer >= pauseCooldown)
+	if (state == 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && pauseTimer >= pauseCooldown)
 	{
 		pauseTimer = 0;
 		state = 4;
+		pauseLoop.ResetButton();
 	}
 
 	//update of activated loops
 	if (state == 1)
 	{
-		if (pauseLoop.update(deltaTime, windowDimensions, mousePosition))
+		int loopState = pauseLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //means quit game
 			return true;
+		if (loopState == 2) //means return to main menu
+		{
+			timer.Reset();
+			actualLevel = 0;
+			state = 0;
+		}
 	}
 	if(state == 2)
 	{
@@ -98,6 +107,12 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			this->LoadLevel(windowDimensions);
 			state = 4;
 		}
+		if (loopState == 3) //3 means return to main menu
+		{
+			timer.Reset();
+			actualLevel = 0;
+			state = 0;
+		}
 	}
 	if(state == 4)
 	{
@@ -121,7 +136,18 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			this->LoadLevel(windowDimensions);
 			state = 4;
 		}
+		if (loopState == 3) //2 mean player watch tutorial
+			state = 6;
 	}
+	if (state == 6)
+	{
+		int loopState = cutsceneManager.update(deltaTime, windowDimensions);
+		if (loopState == 1)  // means end of tutorial
+		{
+			state = 0;
+		}
+	}
+
 	if (state == 5)
 	{
 		int loopState = victoryLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -157,6 +183,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 	if (state == 3)
 	{
 		looseLoop.draw(window);
+	}
+	if (state == 6)
+	{
+		cutsceneManager.draw(window);
 	}
 	if (state == 5)
 	{

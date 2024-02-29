@@ -62,7 +62,11 @@ int ClearLoop::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Vecto
 	if (quitGameButton.Update(12.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
 		return 1;
 	if (continueButton.Update(12.f * windowDimensions.x / 1980.f, windowDimensions, mousePosition))
+	{
+		quitGameButton.Reset();
+		continueButton.Reset();
 		return 2;
+	}
 
 	return 0;
 }

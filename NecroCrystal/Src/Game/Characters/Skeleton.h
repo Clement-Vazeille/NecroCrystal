@@ -34,6 +34,8 @@ protected:
 	long dashAD; //Dash damages, < aD
 	long damageDealt;
 
+	sf::Vector2f dashKillPosition;
+
 	std::array<Animation, 4> skeletonAnimations;
 	std::array<Animation, 4> spearAnimations;
 	std::array<Animation, 4> armorAnimations;
@@ -53,7 +55,8 @@ public:
 
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position);   //never call this, inherited from character polymorphism
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& texture); //for when is called by SkeletonHandler
-	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);     //called once per frame
+	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, 
+		RandomLSFR& randomLSFR, VFXHandler& vFXHandler);     //called once per frame
 	Projectile* LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	void AttackAnimation(sf::Vector2f target);
@@ -64,5 +67,7 @@ public:
 	bool IsActivated(void) const;
 	bool IsDrawn(void) const;
 	const float GetAD(void) const;
+
+	sf::Vector2f HasDashKilledSomething(void);
 };
 

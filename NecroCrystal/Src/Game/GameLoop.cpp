@@ -15,17 +15,13 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
         if (mapData->enemyTypes[i] == 0) //type 0 is fire mage
         {
             Character* enemy = new FireMage;
-            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
-            if (mapData->waveNumber > 1)
-                enemy->Activate();
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
         if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
         {
             Character* enemy = new MeleeMage;
-            enemy->Load(windowDimensions, mapData->enemyPositions[i]);
-            if (mapData->waveNumber > 1)
-                enemy->Activate();
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
     }
@@ -50,9 +46,7 @@ void GameLoop::initialize(sf::Vector2i& windowDimensions,TextManager& textManage
     projectileHandler.Load();
     frameRate.Load();
     gameTimer.Initialize(textManager);
-    std::cout << "balise 1" << std::endl;
     map.Load(windowDimensions,mapFileName);
-    std::cout << "balise 2" << std::endl;
     MapData* mapData = map.getData();
     skeltonHandler.Load();
     vFXHandler.LoadTextures();
@@ -69,7 +63,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     frameRate.Update(deltaTime);
     gameTimer.Update(windowDimensions,timerString);
     map.Update(deltaTime, cameraService,windowDimensions);
-    skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters,randomLSFR);
+    skeltonHandler.Update(cameraService, windowDimensions, deltaTime, map, characters,randomLSFR,vFXHandler);
     if (projectileHandler.Update(characters, deltaTime, mousePosition, cameraService, windowDimensions, map,skeltonHandler,vFXHandler))
         return 2; //means game over
     
@@ -78,9 +72,9 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
-        if ((*it)->getFaction() != 1) //faction 1 is the necromancer faction
+        if ((*it)->getFaction() != 1 && (*it)->getFaction() != -1) //faction 1 is the necromancer faction
             isWaveCleared = false;
-        (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR);
+        (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR,vFXHandler);
     }
 
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);

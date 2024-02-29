@@ -20,7 +20,7 @@ FireMage::FireMage() :
     faction = 2;
     maxHealth = 140;
     health = maxHealth;
-    activatedDistance = 800;
+    activationTime = 800;
 }
 
 FireMage::~FireMage()
@@ -56,12 +56,19 @@ void FireMage::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
     //std::cout << "fire Mage Serial is : " << serial << std::endl;
 }
 
-void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters, RandomLSFR& randomLSFR)
+void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map,std::vector<Character*>& characters, 
+    RandomLSFR& randomLSFR, VFXHandler& vFXHandler)
 {
     sf::Vector2f movement = sf::Vector2f();
     newDirectionTimer += deltaTime;
-    if (Math::DistanceLat(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(),windowDimensions) < activatedDistance)
-        activated = true;
+
+    if (!activated)
+    {
+        activationTimer += deltaTime;
+        if(activationTimer>activationTime)
+            activated = true;
+    }
+
     if(activated)
     {
         if (newDirectionTimer > newDirectionCooldown)
