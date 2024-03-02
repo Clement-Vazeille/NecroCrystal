@@ -6,6 +6,7 @@
 #include "../BasicLoops/LooseLoop.h"
 #include "../BasicLoops/MainMenuLoop.h"
 #include "../BasicLoops/VictoryLoop.h"
+#include "../BasicLoops/DeathLoop.h"
 #include "../Cutscene/CutsceneManager.h"
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Timer.h"
@@ -19,6 +20,7 @@ protected:
 	LooseLoop looseLoop;
 	VictoryLoop victoryLoop;
 	MainMenuLoop mainMenuLoop;
+	DeathLoop deathLoop;
 	CutsceneManager cutsceneManager;
 	GameLoop* gameLoop;
 	TextManager textManager;
@@ -33,6 +35,7 @@ protected:
 	// 4 for ingame
 	// 5 for finnish screan
 	// 6 for cutscene
+	// 7 for death screen 
 
 	int actualLevel;
 	std::array<std::string, 2> levelsMapFiles;

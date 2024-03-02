@@ -20,14 +20,14 @@ void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime,
         int barreDefMax = 15 + ((maxHealth-health)/maxHealth) * 40; //le melee mage a entre 10 et 45% de chance de se protéger
 
         float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions);
-        float distProche = 450;
-        float distMoyen = 220;
+        float distProche = 250;
+        float distMoyen = 600;
 
         int barreAttMin = 80;
         if (distToNecro < distMoyen)
             barreAttMin = 60;
         if (distToNecro < distProche)
-            barreAttMin = 35;
+            barreAttMin = 30;
 
         currentAction = Marcher;
         if (randomIntChoixAction < barreDefMax)
@@ -91,8 +91,8 @@ void MeleeMage::Flip(void)
 }
 
 MeleeMage::MeleeMage() :
-    newActionCooldown(1600), newActionTimer(1600),
-    currentAction(Attaquer), canLaunchAttack(false),
+    newActionCooldown(1600), newActionTimer(0),
+    currentAction(Marcher), canLaunchAttack(false),
     dashSpeedBoost(2.5f), protectSpeedBoost(0.5f),
     isFacingRight(true),
     attackDuration(newActionCooldown*0.6f),
@@ -107,7 +107,7 @@ MeleeMage::MeleeMage() :
     faction = 2;
     maxHealth = 300;
     health = maxHealth;
-    activationTime = 1200;
+    activationTime = 600;
 }
 
 MeleeMage::~MeleeMage()
@@ -172,7 +172,10 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
         this->Flip();
     }
 
-    this->SelectNewAction(windowDimensions, deltaTime, map, characters,randomLSFR);
+    if(activated)
+    {
+        this->SelectNewAction(windowDimensions, deltaTime, map, characters, randomLSFR);
+    }
     //movement part
     if (activated)
     {
@@ -231,12 +234,12 @@ Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectile
             //sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
         if (isFacingRight)
         {
-            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x *0.8f, 0);
+            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 0.7f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * (-0.25f));
             ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,false);
         }
         else
         {
-            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 0.15f, 0);
+            initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * (-0.1f), sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * (-0.25f));
             ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,true);
         }
         return swordSlash;

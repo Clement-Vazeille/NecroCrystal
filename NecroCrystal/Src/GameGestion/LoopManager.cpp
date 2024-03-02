@@ -35,6 +35,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
 	victoryLoop.initialize(windowDimensions, textManager);
+	deathLoop.Initialize(windowDimensions, textManager);
 	cutsceneManager.initialize(windowDimensions, textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
@@ -97,6 +98,11 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		}
 
 	}
+	if (state == 7)
+	{
+		if (deathLoop.Update(deltaTime, windowDimensions))
+			state = 3;
+	}
 	if(state == 3)
 	{
 		int loopState = looseLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -124,7 +130,7 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			state = 2;
 		}
 		if (gameState == 2)//player is dead
-			state = 3;
+			state = 7;
 	}
 	if (state == 0)
 	{
@@ -191,6 +197,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 	if (state == 5)
 	{
 		victoryLoop.draw(window);
+	}
+	if (state == 7)
+	{
+		deathLoop.Draw(window);
 	}
 
 	mouseCursor.Draw(window);

@@ -39,7 +39,7 @@ void Animation::Update(sf::Sprite& sprite,float deltaTime)
 void Animation::Reset(sf::Sprite& sprite)
 {
 	actualFrame = 0;
-	timer = refreshTimer-1; //after a reset the animation should switch directly
+	timer = 0; //after a reset the animation should switch directly
 	this->SetTextureRect(sprite);
 }
 

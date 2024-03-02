@@ -20,7 +20,6 @@ protected:
 	bool canLaunchAttack;
 	bool isFacingRight;
 
-
 	enum Action {
 		Marcher=0,
 		Attaquer=1,
