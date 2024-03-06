@@ -183,6 +183,7 @@
     <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h" />
     <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h" />
     <ClInclude Include="Src\BasicLoops\DeathLoop.h" />
     <ClInclude Include="Src\Cutscene\CutsceneManager.h" />

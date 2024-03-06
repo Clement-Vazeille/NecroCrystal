@@ -269,5 +269,8 @@
     <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include"../Utilities/Math.h"
 #include "../Projectiles/DarkProjectile.h"
 #include <iostream>
+#include "../../GlobalUtility/AdaptiveControl.h"
 
 void Necromancer::NecroZoneUpdate(VFXHandler& vFXHandler, sf::Vector2i& windowDimensions, RandomLSFR& randomLSFR,float deltaTime)
 {
@@ -116,15 +117,15 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     sf::Vector2f change = sf::Vector2f(0.0f, 0.0f);
     bool moved = false;
     bool turned = false;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if (AdaptiveControl::IsDPressed())
     {
         change += sf::Vector2f(1 * (float)windowDimensions.x / 1920.f, 0)*speed*deltaTime;
         moved = true;
-        if (!faceRight) //TODO : remove the fizzling when both left and right movement are applied
+        if (!faceRight) 
             turned = true;
         faceRight = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+    if (AdaptiveControl::IsQPressed())
     {
         change -= sf::Vector2f(1 * (float)windowDimensions.x /1920.f, 0)*speed*deltaTime;
         moved = true;
@@ -134,12 +135,12 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
             faceRight = false;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+    if (AdaptiveControl::IsZPressed())
     {
          change -= sf::Vector2f(0, 1 * (float)windowDimensions.y / 1080.f) * speed * deltaTime;
          moved = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if (AdaptiveControl::IsSPressed())
     {
         change += sf::Vector2f(0, 1 * (float)windowDimensions.y / 1080.0f) * speed * deltaTime;
         moved = true;

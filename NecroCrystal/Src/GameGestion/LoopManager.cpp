@@ -1,6 +1,10 @@
 #include "LoopManager.h"
 #include <iostream>
 
+//Initialise the isAzerty From Adaptive Control
+#include "../GlobalUtility/AdaptiveControl.h"
+bool AdaptiveControl::isAzerty;
+
 void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 {
 	if (gameLoop != nullptr)
@@ -71,10 +75,12 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		int loopState = layoutChoiceLoop.update(deltaTime, windowDimensions, mousePosition);
 		if (loopState == 1) //1 azerty
 		{
+			AdaptiveControl::SetLayoutToAzerty();
 			state = 0;
 		}
 		if (loopState == 2) //2 qwerty
 		{
+			AdaptiveControl::SetLayoutToQwerty();
 			state = 0;
 		}
 	}
