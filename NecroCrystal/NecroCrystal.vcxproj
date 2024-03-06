@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp" />
     <ClCompile Include="Src\BasicLoops\DeathLoop.cpp" />
     <ClCompile Include="Src\Cutscene\CutsceneManager.cpp" />
     <ClCompile Include="Src\Cutscene\Cutscene.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h" />
     <ClInclude Include="Src\BasicLoops\DeathLoop.h" />
     <ClInclude Include="Src\Cutscene\CutsceneManager.h" />
     <ClInclude Include="Src\Cutscene\Cutscene.h" />

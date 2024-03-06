@@ -7,6 +7,7 @@
 #include "../BasicLoops/MainMenuLoop.h"
 #include "../BasicLoops/VictoryLoop.h"
 #include "../BasicLoops/DeathLoop.h"
+#include "../BasicLoops/LayoutChoiceLoop.h"
 #include "../Cutscene/CutsceneManager.h"
 #include "../GlobalUtility/TextManager.h"
 #include "../GlobalUtility/Timer.h"
@@ -21,6 +22,7 @@ protected:
 	VictoryLoop victoryLoop;
 	MainMenuLoop mainMenuLoop;
 	DeathLoop deathLoop;
+	LayoutChoiceLoop layoutChoiceLoop;
 	CutsceneManager cutsceneManager;
 	GameLoop* gameLoop;
 	TextManager textManager;
@@ -28,6 +30,7 @@ protected:
 	MouseCursor mouseCursor;
 
 	int state;
+	//-1 for layout choice
 	// 0 for main menu
 	// 1 for pause
 	// 2 for stage clear

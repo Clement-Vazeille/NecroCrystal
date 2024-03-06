@@ -12,7 +12,7 @@ void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 }
 
 LoopManager::LoopManager(sf::Vector2f windowSize) :
-	gameLoop(nullptr), state(0),
+	gameLoop(nullptr), state(-1),
 	pauseTimer(0),pauseCooldown(800),
 	actualLevel(0)
 {
@@ -30,6 +30,7 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 {
 	textManager.Initialize(); //important to initialize GlobalUtility services before initializing Loops
 
+	layoutChoiceLoop.initialize(windowDimensions, textManager);
 	mainMenuLoop.initialize(windowDimensions, textManager);
 	pauseLoop.initialize(windowDimensions,textManager);
 	clearLoop.initialize(windowDimensions,textManager);
@@ -65,6 +66,19 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	}
 
 	//update of activated loops
+	if (state == -1)
+	{
+		int loopState = layoutChoiceLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //1 azerty
+		{
+			state = 0;
+		}
+		if (loopState == 2) //2 qwerty
+		{
+			state = 0;
+		}
+	}
+
 	if (state == 1)
 	{
 		int loopState = pauseLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -174,6 +188,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 {
 	if (state == 1|| state == 2 || state == 3 || state == 4)
 		gameLoop->draw(window);
+	if (state == -1)
+	{
+		layoutChoiceLoop.draw(window);
+	}
 	if (state == 0)
 	{
 		mainMenuLoop.draw(window);
