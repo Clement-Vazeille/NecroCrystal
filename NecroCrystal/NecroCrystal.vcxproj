@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Characters\Enemy\KnightCaptain.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\CrazyFireMage.cpp" />
     <ClCompile Include="Src\Game\Projectiles\ProjectilesTextures.cpp" />
     <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Characters\Enemy\KnightCaptain.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\CrazyFireMage.h" />
     <ClInclude Include="Src\Game\Projectiles\ProjectilesTextures.h" />
     <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h" />

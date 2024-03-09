@@ -4,6 +4,7 @@
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/Enemy/MeleeMage.h"
 #include "Characters/Enemy/CrazyFireMage.h"
+#include "Characters/Enemy/KnightCaptain.h"
 
 void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 {
@@ -19,15 +20,21 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
-        if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
+        if (mapData->enemyTypes[i] == 1) //type 1 is melee mage
         {
             Character* enemy = new MeleeMage;
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
-        if (mapData->enemyTypes[i] == 2) //type 0 is fire mage
+        if (mapData->enemyTypes[i] == 2) //type 2 is crazy fire mage
         {
             Character* enemy = new CrazyFireMage;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 3) //type 3 is knight captain
+        {
+            Character* enemy = new KnightCaptain;
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
