@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
-#include "../../Projectiles/SwordSlash.h"
+#include "../../Projectiles/IndividualProjectiles/SwordSlash.h"
 
 void MeleeMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -222,7 +222,7 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
 
 }
 
-Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* MeleeMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
     if (activated && canLaunchAttack)
     {
@@ -235,12 +235,12 @@ Projectile* MeleeMage::LaunchProjectile(float deltaTime, sf::Texture* projectile
         if (isFacingRight)
         {
             initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 0.7f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * (-0.25f));
-            ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,false);
+            ((SwordSlash*) swordSlash)->Load(projectilesTextures.GetSwordSlash(), initialPosition, spellTarget, windowDimensions, false);
         }
         else
         {
             initialPosition = initialPosition + sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * (-0.1f), sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * (-0.25f));
-            ((SwordSlash*) swordSlash)->Load(projectilesTextures[2], initialPosition, spellTarget, windowDimensions,true);
+            ((SwordSlash*) swordSlash)->Load(projectilesTextures.GetSwordSlash(), initialPosition, spellTarget, windowDimensions, true);
         }
         return swordSlash;
     }

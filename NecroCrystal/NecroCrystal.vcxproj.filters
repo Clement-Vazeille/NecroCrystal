@@ -21,7 +21,7 @@
     <ClCompile Include="Src\Game\Characters\Necromancer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\DarkProjectile.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\Math.cpp">
@@ -69,7 +69,7 @@
     <ClCompile Include="Src\Game\Utilities\Animation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\FireBall.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameGestion\LoopManager.cpp">
@@ -120,7 +120,7 @@
     <ClCompile Include="Src\Game\Characters\Enemy\MeleeMage.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\RandomLSFR.cpp">
@@ -138,12 +138,15 @@
     <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\ProjectilesTextures.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\Necromancer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\DarkProjectile.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\Math.h">
@@ -197,7 +200,7 @@
     <ClInclude Include="Src\Game\Utilities\Animation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\FireBall.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameGestion\LoopManager.h">
@@ -251,7 +254,7 @@
     <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\RandomLSFR.h">
@@ -270,6 +273,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\ProjectilesTextures.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

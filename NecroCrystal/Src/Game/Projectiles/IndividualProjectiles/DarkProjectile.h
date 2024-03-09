@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../Utilities/CameraService.h"
-#include "Projectile.h"
+#include "../../Utilities/CameraService.h"
+#include "../Projectile.h"
 
 class DarkProjectile : public Projectile
 {

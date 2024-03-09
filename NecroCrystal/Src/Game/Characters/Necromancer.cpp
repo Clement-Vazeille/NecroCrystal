@@ -1,6 +1,6 @@
 #include "Necromancer.h"
 #include"../Utilities/Math.h"
-#include "../Projectiles/DarkProjectile.h"
+#include "../Projectiles/IndividualProjectiles/DarkProjectile.h"
 #include <iostream>
 #include "../../GlobalUtility/AdaptiveControl.h"
 
@@ -167,7 +167,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
-Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* Necromancer::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
     if(!necroZone)
     {
@@ -182,7 +182,7 @@ Projectile* Necromancer::LaunchProjectile(float deltaTime,sf::Texture* projectil
                 sf::Vector2f(sprites[0].getGlobalBounds().width * 0.05f, sprites[0].getGlobalBounds().height * 0.16f);
             if (faceRight)
                 spellPosition = spellPosition + sf::Vector2f(sprites[0].getGlobalBounds().width * 0.60f, 0);
-            darkProjectile->Load(projectilesTextures[0], spellPosition, mousePosition, windowDimensions);
+            darkProjectile->Load(projectilesTextures.GetDarkProjectile(), spellPosition, mousePosition, windowDimensions);
             return darkProjectile;
         }
     }

@@ -7,6 +7,7 @@
 #include "../Utilities/CameraService.h"
 #include "../World/Map.h"
 #include "../Effects/VFXHandler.h"
+#include "ProjectilesTextures.h"
 
 class ProjectilesHandler
 {
@@ -14,8 +15,7 @@ protected:
 	std::vector<Projectile*> projectiles;
 
 	//textures
-	sf::Texture* projectilesTextures;
-	int textureNumber;
+	ProjectilesTextures projectilesTextures;
 
 	bool ProjectileCollisionChecker(Projectile* projectile,std::vector<Character*>& characters, Map& map, 
 		bool& isNecroDead, sf::Vector2i& windowDimensions,SkeletonHandler& skeletonHandler,VFXHandler& vFXHandler);

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Projectiles\ProjectilesTextures.cpp" />
     <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp" />
     <ClCompile Include="Src\BasicLoops\DeathLoop.cpp" />
     <ClCompile Include="Src\Cutscene\CutsceneManager.cpp" />
@@ -156,7 +157,7 @@
     <ClCompile Include="Src\BasicLoops\ClearLoop.cpp" />
     <ClCompile Include="Src\BasicLoops\PauseLoop.cpp" />
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.cpp" />
     <ClCompile Include="Src\Game\Utilities\Animation.cpp" />
     <ClCompile Include="Src\GameGestion\MouseCursor.cpp" />
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp" />
@@ -169,7 +170,7 @@
     <ClCompile Include="Src\Game\World\MapLoader.cpp" />
     <ClCompile Include="Src\Game\World\Map.cpp" />
     <ClCompile Include="Src\Game\Utilities\FrameRate.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\DarkProjectile.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\FireMage.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Game\Utilities\Math.cpp" />
@@ -180,9 +181,10 @@
     <ClCompile Include="Src\Game\Effects\VFX.cpp" />
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Projectiles\ProjectilesTextures.h" />
     <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h" />
     <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h" />
     <ClInclude Include="Src\BasicLoops\DeathLoop.h" />
@@ -201,7 +203,7 @@
     <ClInclude Include="Src\BasicLoops\ClearLoop.h" />
     <ClInclude Include="Src\BasicLoops\PauseLoop.h" />
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
-    <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.h" />
     <ClInclude Include="Src\Game\Utilities\Animation.h" />
     <ClInclude Include="Src\GameGestion\MouseCursor.h" />
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h" />
@@ -216,7 +218,7 @@
     <ClInclude Include="Src\Game\World\Tile.h" />
     <ClInclude Include="Src\Game\World\Map.h" />
     <ClInclude Include="Src\Game\Utilities\FrameRate.h" />
-    <ClInclude Include="Src\Game\Projectiles\DarkProjectile.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\FireMage.h" />
     <ClInclude Include="Src\Game\Utilities\Math.h" />
     <ClInclude Include="Src\Game\Characters\Necromancer.h" />
@@ -226,7 +228,7 @@
     <ClInclude Include="Src\Game\Effects\VFX.h" />
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
     <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
-    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
