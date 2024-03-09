@@ -3,6 +3,7 @@
 
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/Enemy/MeleeMage.h"
+#include "Characters/Enemy/CrazyFireMage.h"
 
 void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 {
@@ -21,6 +22,12 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
         if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
         {
             Character* enemy = new MeleeMage;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 2) //type 0 is fire mage
+        {
+            Character* enemy = new CrazyFireMage;
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }

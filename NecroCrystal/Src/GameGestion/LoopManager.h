@@ -41,7 +41,7 @@ protected:
 	// 7 for death screen 
 
 	int actualLevel;
-	std::array<std::string, 2> levelsMapFiles;
+	std::array<std::string, 3> levelsMapFiles;
 
 	//l'upadate de main menu, pause et win est un bool sur si on doit quitté cet écran
 
