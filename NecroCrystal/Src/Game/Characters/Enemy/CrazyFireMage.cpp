@@ -21,6 +21,24 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
 
         int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
 
+        float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions);
+        float distProche = 200;
+        float distMoyen = 650;
+
+        int barreTourMax = 15;
+        int barreDashMin = 70;
+
+        if (distToNecro <= distMoyen)
+            barreTourMax = 35;
+        if (distToNecro <= distMoyen)
+            barreTourMax = 50;
+
+        currentAction = Explosion;
+        if (randomIntChoixAction < barreTourMax)
+            currentAction = Tourniquet;
+        if (randomIntChoixAction > barreDashMin)
+            currentAction = Dash;
+
         switch (currentAction)
         {
         case Tourniquet:
@@ -64,7 +82,7 @@ CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
     currentAction(Tourniquet),
     isFacingRight(true),
-    animations({Animation(120,1,64,64) }),
+    animations({Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
     dashSpeed(0.45f),furySpeed(0.65f)
 {
     scale = 2;

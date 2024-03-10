@@ -66,7 +66,8 @@ KnightCaptain::KnightCaptain() :
     newActionCooldown(2200), newActionTimer(0),
     currentAction(Marcher),
     isFacingRight(true),
-    animations({ Animation(120,1,88,64) }),
+    animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
+        Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
     shieldingSpeed(0.15f)
 {
     scale = 2;
@@ -147,6 +148,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
     //movement part
     if (activated)
     {
+        currentAction = Bouclier;
         switch (currentAction)
         {
         case Marcher:
@@ -172,6 +174,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
         }
+        break;
         case Priere:
         {
             direction = sf::Vector2f(0, 0);
@@ -186,7 +189,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
         Math::CorrectMovement(movement, hitbox, map);
 
-        //animations.at(currentAction).Update(sprites[0], deltaTime);
+        animations.at(currentAction).Update(sprites[0], deltaTime);
     }
 
     cameraService.MoveSprite(sprites[0], movement);

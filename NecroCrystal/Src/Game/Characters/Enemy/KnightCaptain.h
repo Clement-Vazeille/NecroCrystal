@@ -9,7 +9,7 @@ class KnightCaptain : public Enemy
 {
 
 protected:
-	std::array<Animation, 1> animations;
+	std::array<Animation, 5> animations;
 
 	float newActionTimer;
 	float newActionCooldown;

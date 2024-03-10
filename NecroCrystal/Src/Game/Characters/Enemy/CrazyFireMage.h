@@ -9,7 +9,7 @@ class CrazyFireMage : public Enemy
 {
 
 protected:
-	std::array<Animation, 1> animations;
+	std::array<Animation, 4> animations;
 
 	float newActionTimer;
 	float newActionCooldown;
