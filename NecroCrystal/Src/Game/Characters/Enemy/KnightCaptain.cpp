@@ -9,6 +9,18 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
     if (newActionTimer >= newActionCooldown)
     {
         newActionTimer = 0;
+
+        if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+        {
+            isFacingRight = false;
+            this->Flip();
+        }
+        if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+        {
+            isFacingRight = true;
+            this->Flip();
+        }
+
         //Les actions possibles
         // Globalement le choix des actions est pas hyper influencé par quoi que ce soit
         //Marcher: elle court simplement vers le nécormancien un peu moins vite que lui (dure pas longtemps)
@@ -29,20 +41,25 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Lancer:
         {
             damageMultiplier = 1.f;
+            newActionTimer = newActionCooldown - lancerTime;
         }
         break;
         case Jump:
         {
             damageMultiplier = 1.2f;
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            newActionTimer = newActionCooldown - jumpTime ;
         }
         break;
         case Bouclier:
         {
             damageMultiplier = 0.6f;
         }
+        break;
         case Priere:
         {
             damageMultiplier = 0.f;
+            newActionTimer = newActionCooldown - prayTime ;
         }
         break;
         default:
@@ -68,7 +85,8 @@ KnightCaptain::KnightCaptain() :
     isFacingRight(true),
     animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
-    shieldingSpeed(0.15f)
+    shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
+    prayTime(1100),jumpTime(1800),lancerTime(1400)
 {
     scale = 2;
     width = 64;
@@ -130,17 +148,6 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
     }
 
-    if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
-    {
-        isFacingRight = false;
-        this->Flip();
-    }
-    if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
-    {
-        isFacingRight = true;
-        this->Flip();
-    }
-
     if (activated)
     {
         this->SelectNewAction(windowDimensions, deltaTime, map, characters, randomLSFR);
@@ -148,11 +155,21 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
     //movement part
     if (activated)
     {
-        currentAction = Bouclier;
         switch (currentAction)
         {
         case Marcher:
         {
+            if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+            {
+                isFacingRight = false;
+                this->Flip();
+            }
+            if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+            {
+                isFacingRight = true;
+                this->Flip();
+            }
+
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
         }
@@ -165,12 +182,22 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         break;
         case Jump:
         {
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
-            movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
+            movement = Math::windowNormalizeVector(direction * jumpBaseSpeed * deltaTime, windowDimensions);
         }
         break;
         case Bouclier:
         {
+            if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+            {
+                isFacingRight = false;
+                this->Flip();
+            }
+            if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+            {
+                isFacingRight = true;
+                this->Flip();
+            }
+
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
         }

@@ -7,7 +7,6 @@
 #include "../../World/Map.h"
 class CrazyFireMage : public Enemy
 {
-
 protected:
 	std::array<Animation, 4> animations;
 
@@ -17,6 +16,9 @@ protected:
 
 	float dashSpeed;
 	float furySpeed;
+
+	float dashTime;
+	float furyDashTime;
 
 	bool isFacingRight;
 

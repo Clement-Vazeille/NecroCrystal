@@ -9,6 +9,18 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
     if (newActionTimer >= newActionCooldown)
     {
         newActionTimer = 0;
+
+        if (characters[0]->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+        {
+            isFacingRight = false;
+            this->Flip();
+        }
+        if (characters[0]->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+        {
+            isFacingRight = true;
+            this->Flip();
+        }
+
         //Les actions possibles
         //Tourniquet: marche plutôt lentement vers le nécromancien avec un tourniquet de feu autour de lui
         //  Plus probable si le necro est proche de lui
@@ -49,6 +61,8 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Dash:
         {
             damageMultiplier = 1.f;
+            newActionTimer = newActionCooldown - dashTime;
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
         }
         break;
         case Explosion:
@@ -59,6 +73,8 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Fury:
         {
             damageMultiplier = 0.6f;
+            newActionTimer = newActionCooldown - furyDashTime;
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
         }
         break;
         default:
@@ -83,7 +99,8 @@ CrazyFireMage::CrazyFireMage() :
     currentAction(Tourniquet),
     isFacingRight(true),
     animations({Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
-    dashSpeed(0.45f),furySpeed(0.65f)
+    dashSpeed(0.65f),furySpeed(0.90f),
+    dashTime(900),furyDashTime(700)
 {
     scale = 2;
     width = 64;
@@ -145,17 +162,6 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
     }
 
-    if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
-    {
-        isFacingRight = false;
-        this->Flip();
-    }
-    if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
-    {
-        isFacingRight = true;
-        this->Flip();
-    }
-
     if (activated)
     {
         this->SelectNewAction(windowDimensions, deltaTime, map, characters, randomLSFR);
@@ -167,13 +173,23 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
         {
         case Tourniquet:
         {
+            if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+            {
+                isFacingRight = false;
+                this->Flip();
+            }
+            if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+            {
+                isFacingRight = true;
+                this->Flip();
+            }
+
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
         }
         break;
         case Dash:
         {
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * dashSpeed * deltaTime, windowDimensions);
         }
         break;
@@ -185,7 +201,6 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
         break;
         case Fury:
         {
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * furySpeed * deltaTime, windowDimensions);
         }
         break;

@@ -16,6 +16,11 @@ protected:
 	sf::Vector2f direction;
 
 	float shieldingSpeed;
+	float jumpBaseSpeed;
+
+	float lancerTime;
+	float jumpTime;
+	float prayTime;
 
 	bool isFacingRight;
 
