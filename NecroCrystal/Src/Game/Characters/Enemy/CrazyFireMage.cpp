@@ -10,15 +10,37 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
     {
         newActionTimer = 0;
         //Les actions possibles
-        //Marcher: il court simplement vers le nécormancien un peu moins vite qui lui
+        //Tourniquet: marche plutôt lentement vers le nécromancien avec un tourniquet de feu autour de lui
+        //  Plus probable si le necro est proche de lui
+        //Dash: Dash (out ou in selon les hp actuels et la distance au necro)
+        //  et laisse derrière lui une trainée de feu imobile qui inflige des dégats
+        //Explosion: Sort de base, au début de l'action met 3 vfx de préparation d'explosion sous le nécromancien
+        //  puis à la fin créer une explosion qui fait bien mal (l'explosion est un cercle qui s'agrandit)
+        //Fury: un dash avec une vitesse augmentée, durée réduite,lance 1 explosions
+        //  est lancé automatiquement lorsqu'il est à < 10%hp
 
         int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
 
         switch (currentAction)
         {
-        case Marcher:
+        case Tourniquet:
         {
             damageMultiplier = 1.f;
+        }
+        break;
+        case Dash:
+        {
+            damageMultiplier = 1.f;
+        }
+        break;
+        case Explosion:
+        {
+            damageMultiplier = 1.f;
+        }
+        break;
+        case Fury:
+        {
+            damageMultiplier = 0.6f;
         }
         break;
         default:
@@ -39,10 +61,11 @@ void CrazyFireMage::Flip(void)
 }
 
 CrazyFireMage::CrazyFireMage() :
-    newActionCooldown(1600), newActionTimer(0),
-    currentAction(Marcher),
+    newActionCooldown(2500), newActionTimer(2500),
+    currentAction(Tourniquet),
     isFacingRight(true),
-    animations({Animation(120,1,64,64) })
+    animations({Animation(120,1,64,64) }),
+    dashSpeed(0.45f),furySpeed(0.65f)
 {
     scale = 2;
     width = 64;
@@ -124,10 +147,28 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
     {
         switch (currentAction)
         {
-        case Marcher:
+        case Tourniquet:
         {
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
+        }
+        break;
+        case Dash:
+        {
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            movement = Math::windowNormalizeVector(direction * dashSpeed * deltaTime, windowDimensions);
+        }
+        break;
+        case Explosion:
+        {
+            direction = sf::Vector2f(0, 0);
+            movement = sf::Vector2f(0, 0);
+        }
+        break;
+        case Fury:
+        {
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            movement = Math::windowNormalizeVector(direction * furySpeed * deltaTime, windowDimensions);
         }
         break;
 

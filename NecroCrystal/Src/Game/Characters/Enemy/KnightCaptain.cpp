@@ -10,15 +10,39 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
     {
         newActionTimer = 0;
         //Les actions possibles
-        //Marcher: il court simplement vers le nécormancien un peu moins vite qui lui
+        // Globalement le choix des actions est pas hyper influencé par quoi que ce soit
+        //Marcher: elle court simplement vers le nécormancien un peu moins vite que lui (dure pas longtemps)
+        //  action de base influencée par rien
+        //Lancer: devient immobile et lance 2/3 fois (dépend du nombre de prières) 3 marteaux celui du milieu visant le necro
+        //Jump: Saute sur le necro et une fois arrivée fait boom boom avec son marteau sur le son (vitesse augment avec le nombre de prière?)
+        //Bouclier: Se protège avec son bouclier et à la fin met un coup circulaire autour d'elle de marteau
+        //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps et ça la boost
 
-        int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
-
+        currentAction = KnightCaptain::Action(randomLSFR.randomUpTo(3));//choisit aléatoirement de façon une action parmis les 4 possibles
         switch (currentAction)
         {
         case Marcher:
         {
+            damageMultiplier = 0.8;
+        }
+        break;
+        case Lancer:
+        {
             damageMultiplier = 1.f;
+        }
+        break;
+        case Jump:
+        {
+            damageMultiplier = 1.2f;
+        }
+        break;
+        case Bouclier:
+        {
+            damageMultiplier = 0.6f;
+        }
+        case Priere:
+        {
+            damageMultiplier = 0.f;
         }
         break;
         default:
@@ -39,15 +63,16 @@ void KnightCaptain::Flip(void)
 }
 
 KnightCaptain::KnightCaptain() :
-    newActionCooldown(1600), newActionTimer(0),
+    newActionCooldown(2200), newActionTimer(0),
     currentAction(Marcher),
     isFacingRight(true),
-    animations({ Animation(120,1,88,64) })
+    animations({ Animation(120,1,88,64) }),
+    shieldingSpeed(0.15f)
 {
     scale = 2;
     width = 64;
     height = 64;
-    speed = 0.15f;
+    speed = 0.25f;
     spriteNumber = 2;  //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
@@ -130,7 +155,29 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
             movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
         }
         break;
-
+        case Lancer:
+        {
+            direction = sf::Vector2f(0, 0);
+            movement = sf::Vector2f(0, 0);
+        }
+        break;
+        case Jump:
+        {
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
+        }
+        break;
+        case Bouclier:
+        {
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
+        }
+        case Priere:
+        {
+            direction = sf::Vector2f(0, 0);
+            movement = sf::Vector2f(0, 0);
+        }
+        break;
         default:
         {
             std::cout << "Unknown movement asked for Crazy Fire Mage" << std::endl;
@@ -139,7 +186,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
         Math::CorrectMovement(movement, hitbox, map);
 
-        animations.at(currentAction).Update(sprites[0], deltaTime);
+        //animations.at(currentAction).Update(sprites[0], deltaTime);
     }
 
     cameraService.MoveSprite(sprites[0], movement);

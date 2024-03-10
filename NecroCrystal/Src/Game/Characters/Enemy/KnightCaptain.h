@@ -15,10 +15,16 @@ protected:
 	float newActionCooldown;
 	sf::Vector2f direction;
 
+	float shieldingSpeed;
+
 	bool isFacingRight;
 
 	enum Action {
-		Marcher = 0
+		Marcher = 0,
+		Lancer = 1,
+		Jump = 2,
+		Bouclier = 3,
+		Priere = 4
 	};
 	Action currentAction;
 	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
