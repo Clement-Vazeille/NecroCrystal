@@ -24,6 +24,11 @@ protected:
 
 	bool isFacingRight;
 
+	bool willStartPraying;
+
+	std::array<float,3> invincibilityStarters;
+	int invincibilityStartersIndex;
+
 	enum Action {
 		Marcher = 0,
 		Lancer = 1,
@@ -47,5 +52,6 @@ public:
 
 	const sf::Sprite& getSprite(void) const;
 
+	bool TakeDamage(int hp) override;
 };
 

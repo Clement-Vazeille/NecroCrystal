@@ -51,6 +51,9 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         if (randomIntChoixAction > barreDashMin)
             currentAction = Dash;
 
+        if (isCrazy)
+            currentAction = Fury;
+
         switch (currentAction)
         {
         case Tourniquet:
@@ -94,13 +97,19 @@ void CrazyFireMage::Flip(void)
     }
 }
 
+void CrazyFireMage::SpawnParticules(void) const
+{
+}
+
 CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
     currentAction(Tourniquet),
-    isFacingRight(true),
+    isFacingRight(true),isInvincible(false),
     animations({Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
     dashSpeed(0.65f),furySpeed(0.90f),
-    dashTime(900),furyDashTime(700)
+    dashTime(900),furyDashTime(700),
+    isCrazy(false),crazyHealthStart(100),
+    invulnerabilityTimer(0),invulnerabilityDuration(2000)
 {
     scale = 2;
     width = 64;
@@ -148,6 +157,13 @@ void CrazyFireMage::Load(sf::Vector2i& windowDimensions, sf::Vector2f position)
 
 void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR, VFXHandler& vFXHandler)
 {
+    if (isInvincible)
+    {
+        invulnerabilityTimer += deltaTime;
+        if (invulnerabilityTimer > invulnerabilityDuration)
+            isInvincible = false;
+        this->SpawnParticules();
+    }
 
     sf::Vector2f movement = sf::Vector2f();
     sprites.at(0).setScale(sf::Vector2f(scale * (double)windowDimensions.x / 1920.0, scale * (double)windowDimensions.y / 1080.0));
@@ -235,4 +251,20 @@ Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures
 const sf::Sprite& CrazyFireMage::getSprite(void) const
 {
     return sprites.at(0);
+}
+
+bool CrazyFireMage::TakeDamage(int hp)
+{
+    if (isInvincible)
+    {
+        return false;
+    }
+    bool ans = Enemy::TakeDamage(hp);
+    if (health <= crazyHealthStart && !isCrazy)
+    {
+        isCrazy = true;
+        isInvincible = true;
+        newActionTimer = newActionCooldown;
+    }
+    return ans;
 }

@@ -28,9 +28,14 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         //Lancer: devient immobile et lance 2/3 fois (dépend du nombre de prières) 3 marteaux celui du milieu visant le necro
         //Jump: Saute sur le necro et une fois arrivée fait boom boom avec son marteau sur le son (vitesse augment avec le nombre de prière?)
         //Bouclier: Se protège avec son bouclier et à la fin met un coup circulaire autour d'elle de marteau
-        //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps et ça la boost
+        //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps,ça la boost et à la fin elle aoe (meme aoe que bouclier)
 
         currentAction = KnightCaptain::Action(randomLSFR.randomUpTo(3));//choisit aléatoirement de façon une action parmis les 4 possibles
+        if (willStartPraying)
+        {
+            willStartPraying = false;
+            currentAction = Priere;
+        }
         switch (currentAction)
         {
         case Marcher:
@@ -86,7 +91,9 @@ KnightCaptain::KnightCaptain() :
     animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
     shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
-    prayTime(1100),jumpTime(1800),lancerTime(1400)
+    prayTime(1100),jumpTime(1800),lancerTime(1400),
+    willStartPraying(false),invincibilityStartersIndex(0),
+    invincibilityStarters({0.8f,0.5f,0.2f})
 {
     scale = 2;
     width = 64;
@@ -239,3 +246,22 @@ const sf::Sprite& KnightCaptain::getSprite(void) const
 {
     return sprites.at(0);
 }
+
+bool KnightCaptain::TakeDamage(int hp)
+{
+    if (willStartPraying)
+    {
+        return false;
+    }
+    bool ans = Enemy::TakeDamage(hp);
+    if (invincibilityStartersIndex < invincibilityStarters.size())
+    {
+        if (health <= invincibilityStarters.at(invincibilityStartersIndex)*maxHealth)
+        {
+            willStartPraying = true;
+            invincibilityStartersIndex++;
+        }
+    }
+    return ans;
+}
+

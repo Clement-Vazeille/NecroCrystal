@@ -22,6 +22,13 @@ protected:
 
 	bool isFacingRight;
 
+	bool isCrazy;
+	int crazyHealthStart;
+
+	bool isInvincible;
+	float invulnerabilityTimer;
+	float invulnerabilityDuration;
+
 	enum Action {
 		Tourniquet = 0,
 		Dash = 1,
@@ -32,6 +39,7 @@ protected:
 	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
 	void Flip(void);
 
+	void SpawnParticules(void) const;
 public:
 	CrazyFireMage();
 	~CrazyFireMage();
@@ -43,5 +51,7 @@ public:
 	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
 
 	const sf::Sprite& getSprite(void) const;
+
+	bool TakeDamage(int hp) override;
 };
 
