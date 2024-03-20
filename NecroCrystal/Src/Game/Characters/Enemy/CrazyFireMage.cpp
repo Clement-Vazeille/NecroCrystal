@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
+#include "../../Projectiles/IndividualProjectiles/CrazyFireMage/DashFire.h"
 
 void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -109,7 +110,8 @@ CrazyFireMage::CrazyFireMage() :
     dashSpeed(0.65f),furySpeed(0.90f),
     dashTime(900),furyDashTime(700),
     isCrazy(false),crazyHealthStart(100),
-    invulnerabilityTimer(0),invulnerabilityDuration(2000)
+    invulnerabilityTimer(0),invulnerabilityDuration(2000),
+    dashFireTimer(0),dashFireCooldown(120)
 {
     scale = 2;
     width = 64;
@@ -245,6 +247,46 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
 
 Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
+    if (activated)
+    {
+        switch (currentAction)
+        {
+        case Tourniquet: {
+
+        }
+            break;
+        case Dash: {
+            dashFireTimer += deltaTime;
+            if (dashFireTimer > dashFireCooldown)
+            {
+                dashFireTimer = 0;
+                Projectile* dashFire = new DashFire();
+                sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
+                dashFire->Load(projectilesTextures.GetFireBall(), initialPosition, initialPosition, windowDimensions);
+                return dashFire;
+            }
+        }
+            break;
+        case Explosion: {
+
+        }
+            break;
+        case Fury: {
+            dashFireTimer += deltaTime;
+            if (dashFireTimer > dashFireCooldown)
+            {
+                dashFireTimer = 0;
+                Projectile* dashFire = new DashFire();
+                sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
+                dashFire->Load(projectilesTextures.GetFireBall(), initialPosition, initialPosition, windowDimensions);
+                return dashFire;
+            }
+        }
+            break;
+        default:
+            break;
+        }
+    }
 	return nullptr;
 }
 

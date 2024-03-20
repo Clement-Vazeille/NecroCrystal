@@ -48,7 +48,7 @@ void SwordSlash::Update(CameraService& cameraService, sf::Vector2i& windowDimens
 
 sf::Sprite& SwordSlash::getSprite(void)
 {
-	// TODO: insérer une instruction return ici
+	return sprite;
 }
 
 bool SwordSlash::ShouldBeDestroyed(void) const

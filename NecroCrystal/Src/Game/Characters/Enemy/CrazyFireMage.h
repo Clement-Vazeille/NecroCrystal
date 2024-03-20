@@ -29,6 +29,9 @@ protected:
 	float invulnerabilityTimer;
 	float invulnerabilityDuration;
 
+	float dashFireCooldown;
+	float dashFireTimer;
+
 	enum Action {
 		Tourniquet = 0,
 		Dash = 1,
