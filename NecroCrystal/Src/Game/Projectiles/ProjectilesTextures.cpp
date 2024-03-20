@@ -16,7 +16,7 @@ void ProjectilesTextures::Load()
         std::cout << "darkProjectile image failed to load" << std::endl;
     }
 
-    if (fireBall.loadFromFile("Assets/Projectiles/fireball.png"))
+    if (fireBall.loadFromFile("Assets/Projectiles/fireballAnimated.png"))
     {
         std::cout << "fireProjectile image loaded successfully" << std::endl;
     }

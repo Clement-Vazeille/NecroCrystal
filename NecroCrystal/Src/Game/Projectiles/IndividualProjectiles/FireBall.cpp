@@ -1,12 +1,20 @@
 #include "FireBall.h"
 #include "../../Utilities/Math.h"
 
-FireBall::FireBall()
+FireBall::FireBall():
+	loopAnimation(550.f / 4.f, 4, 8, 8)
 {
 	speed = 0.2f;
 	faction = 2;
 	scale = 4.5f;
 	damage = 9;
+}
+
+void FireBall::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)
+{
+	this->Projectile::Load(texture, initialPosition, spellTarget, windowDimensions);
+	loopAnimation.SetTextureRect(sprite);
+	hitbox.setSize(sprite.getGlobalBounds().getSize()/scale);
 }
 
 void FireBall::Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime)
@@ -17,6 +25,7 @@ void FireBall::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
 
 	hitbox.setScale(sprite.getScale());
 	hitbox.setPosition(sprite.getGlobalBounds().getPosition());
+	loopAnimation.Update(sprite, deltaTime);
 }
 
 sf::Sprite& FireBall::getSprite(void)
