@@ -3,7 +3,7 @@
 #include <iostream>
 #include "../Utilities/Math.h"
 VFX::VFX(VFXdata& vFXdata) :
-	animation(vFXdata.refreshTimer, vFXdata.frameNumber, vFXdata.xFrameSize, vFXdata.yFrameSize), scale(2),
+	animation(vFXdata.refreshTimer, vFXdata.frameNumber, vFXdata.xFrameSize, vFXdata.yFrameSize), scale(vFXdata.scale),
 	followTarget(vFXdata.followTarget), endOnTimer(vFXdata.endOnTimer),
 	timer(0), maxTimer(vFXdata.maxTimer),speed(vFXdata.speed)
 {

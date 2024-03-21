@@ -3,6 +3,7 @@
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
 #include "../../Projectiles/IndividualProjectiles/CrazyFireMage/DashFire.h"
+#include "../../Projectiles/IndividualProjectiles/CrazyFireMage/Explosion.h"
 
 void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -32,7 +33,7 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         //Fury: un dash avec une vitesse augmentée, durée réduite,lance 1 explosions
         //  est lancé automatiquement lorsqu'il est à < 10%hp
 
-        int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
+        int randomIntChoixAction = 51;//randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
 
         float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions);
         float distProche = 200;
@@ -72,6 +73,11 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Explosion:
         {
             damageMultiplier = 1.f;
+            shouldStartExplo = true;
+            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x-60*static_cast<float>(windowDimensions.x)/1920.f, 
+                characters[0]->getHitbox()->getPosition().y - 28 * static_cast<float>(windowDimensions.x) / 1800.f);
+
+            explosionTimer = 800;
         }
         break;
         case Fury:
@@ -79,6 +85,12 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
             damageMultiplier = 0.6f;
             newActionTimer = newActionCooldown - furyDashTime;
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+
+            shouldStartExplo = true;
+            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x - 60 * static_cast<float>(windowDimensions.x) / 1920.f,
+                characters[0]->getHitbox()->getPosition().y - 28 * static_cast<float>(windowDimensions.x) / 1800.f);
+
+            explosionTimer = 800;
         }
         break;
         default:
@@ -105,13 +117,14 @@ void CrazyFireMage::SpawnParticules(void) const
 CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
     currentAction(Tourniquet),
-    isFacingRight(true),isInvincible(false),
-    animations({Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
-    dashSpeed(0.65f),furySpeed(0.90f),
-    dashTime(900),furyDashTime(700),
-    isCrazy(false),crazyHealthStart(100),
-    invulnerabilityTimer(0),invulnerabilityDuration(2000),
-    dashFireTimer(0),dashFireCooldown(120)
+    isFacingRight(true), isInvincible(false),
+    animations({ Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
+    dashSpeed(0.65f), furySpeed(0.90f),
+    dashTime(900), furyDashTime(700),
+    isCrazy(false), crazyHealthStart(100),
+    invulnerabilityTimer(0), invulnerabilityDuration(2000),
+    dashFireTimer(0), dashFireCooldown(120),
+    shouldStartExplo(false), explosionTimer(1)
 {
     scale = 2;
     width = 64;
@@ -215,11 +228,23 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
         {
             direction = sf::Vector2f(0, 0);
             movement = sf::Vector2f(0, 0);
+
+            if (shouldStartExplo)
+            {
+                shouldStartExplo = false;
+                vFXHandler.SpawnVFX(windowDimensions, explosionTarget, explosionTarget, 2);
+            }
         }
         break;
         case Fury:
         {
             movement = Math::windowNormalizeVector(direction * furySpeed * deltaTime, windowDimensions);
+
+            if (shouldStartExplo)
+            {
+                shouldStartExplo = false;
+                vFXHandler.SpawnVFX(windowDimensions, explosionTarget, explosionTarget, 2);
+            }
         }
         break;
 
@@ -268,11 +293,26 @@ Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures
         }
             break;
         case Explosion: {
-
+            explosionTimer -= deltaTime;
+            if (explosionTimer < 0) {
+                explosionTimer = 90000;
+                Projectile* explosion = new ExplosionProj();
+                explosion->Load(projectilesTextures.GetExplosion(), explosionTarget, explosionTarget, windowDimensions);
+                return explosion;
+            }
         }
             break;
         case Fury: {
+
             dashFireTimer += deltaTime;
+            explosionTimer -= deltaTime;
+            if (explosionTimer < 0) {
+                explosionTimer = 90000;
+                Projectile* explosion = new ExplosionProj();
+                explosion->Load(projectilesTextures.GetExplosion(), explosionTarget, explosionTarget, windowDimensions);
+                return explosion;
+            }
+
             if (dashFireTimer > dashFireCooldown)
             {
                 dashFireTimer = 0;

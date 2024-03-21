@@ -39,7 +39,7 @@ Necromancer::Necromancer() :
     loopAnimation(120, 7, 64, 64),faceRight(true),
     healthAnimation(0, 17, 64, 64), removedNotCountedHealth(0),
     necroZone(false),
-    necroZoneParticuleCooldown(15),necroZoneParticuleTimer(0)
+    necroZoneParticuleCooldown(20),necroZoneParticuleTimer(0)
 {
     scale = 2;
     width = 64;

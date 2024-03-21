@@ -12,5 +12,6 @@ struct VFXdata
 	int frameNumber;
 	int xFrameSize;
 	int yFrameSize;
+	float scale;
 	int type;
 };

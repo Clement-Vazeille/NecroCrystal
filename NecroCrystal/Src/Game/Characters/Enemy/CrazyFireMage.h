@@ -31,6 +31,10 @@ protected:
 
 	float dashFireCooldown;
 	float dashFireTimer;
+	float explosionTimer;
+
+	sf::Vector2f explosionTarget;
+	bool shouldStartExplo;
 
 	enum Action {
 		Tourniquet = 0,

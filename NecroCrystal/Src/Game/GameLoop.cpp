@@ -107,6 +107,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
 void GameLoop::draw(sf::RenderWindow* window)
 {
     map.Draw(window);
+    vFXHandler.DrawVFX(window);
     skeltonHandler.DrawSkeletons(window, hitboxDisplay.getValue());
 
     for (auto character : characters)
@@ -115,10 +116,9 @@ void GameLoop::draw(sf::RenderWindow* window)
         if (hitboxDisplay.getValue())
             character->DrawHitbox(window);
     }
-    projectileHandler.Draw(window,hitboxDisplay.getValue());
 
+    projectileHandler.Draw(window,hitboxDisplay.getValue());
     characters[0]->Draw(window); // put necro in front of enemies and projectile
-    vFXHandler.DrawVFX(window);
 
     frameRate.Draw(window);
     gameTimer.Draw(window);

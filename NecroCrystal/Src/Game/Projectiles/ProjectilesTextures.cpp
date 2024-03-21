@@ -33,4 +33,13 @@ void ProjectilesTextures::Load()
     {
         std::cout << "fireProjectile image failed to load" << std::endl;
     }
+
+    if (explosion.loadFromFile("Assets/Projectiles/explosion.png"))
+    {
+        std::cout << "explosion image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "explosion image failed to load" << std::endl;
+    }
 }
