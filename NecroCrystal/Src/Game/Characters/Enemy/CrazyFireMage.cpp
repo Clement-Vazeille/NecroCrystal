@@ -33,7 +33,7 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         //Fury: un dash avec une vitesse augmentée, durée réduite,lance 1 explosions
         //  est lancé automatiquement lorsqu'il est à < 10%hp
 
-        int randomIntChoixAction = 51;//randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
+        int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
 
         float distToNecro = Math::Distance(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition(), windowDimensions);
         float distProche = 200;
@@ -120,7 +120,7 @@ CrazyFireMage::CrazyFireMage() :
     isFacingRight(true), isInvincible(false),
     animations({ Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
     dashSpeed(0.65f), furySpeed(0.90f),
-    dashTime(900), furyDashTime(700),
+    dashTime(900), furyDashTime(850),
     isCrazy(false), crazyHealthStart(100),
     invulnerabilityTimer(0), invulnerabilityDuration(2000),
     dashFireTimer(0), dashFireCooldown(120),
@@ -234,6 +234,7 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
                 shouldStartExplo = false;
                 vFXHandler.SpawnVFX(windowDimensions, explosionTarget, explosionTarget, 2);
             }
+            cameraService.UpdateVector(explosionTarget);
         }
         break;
         case Fury:
@@ -245,6 +246,7 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
                 shouldStartExplo = false;
                 vFXHandler.SpawnVFX(windowDimensions, explosionTarget, explosionTarget, 2);
             }
+            cameraService.UpdateVector(explosionTarget);
         }
         break;
 
