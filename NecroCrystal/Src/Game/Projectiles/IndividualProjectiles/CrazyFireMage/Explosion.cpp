@@ -6,7 +6,7 @@ ExplosionProj::ExplosionProj():
 {
 	speed = 0.2f;
 	faction = 2;
-	scale = 6.f;
+	scale = 10.f;
 	damage = 25;
 }
 
@@ -21,8 +21,8 @@ void ExplosionProj::Update(CameraService& cameraService, sf::Vector2i& windowDim
 	//hitbox.setScale(sprite.getScale());
 	//hitbox.setPosition(sprite.getGlobalBounds().getPosition());
 	hitbox.setScale(sprite.getScale().x * 0.6, sprite.getScale().y * 0.6);
-	hitbox.setPosition(sprite.getGlobalBounds().getPosition() +
-		Math::windowNormalizeVector(sf::Vector2f(sprite.getGlobalBounds().width * 0.2, sprite.getGlobalBounds().height * 0.2), windowDimensions));
+	hitbox.setPosition(sprite.getGlobalBounds().getPosition()
+		+ Math::windowNormalizeVector(sf::Vector2f(sprite.getGlobalBounds().width * 0.2, sprite.getGlobalBounds().height * 0.2), windowDimensions));
 }
 
 sf::Sprite& ExplosionProj::getSprite(void)

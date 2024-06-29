@@ -186,6 +186,7 @@
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\WallFire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
     <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\WallFire.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

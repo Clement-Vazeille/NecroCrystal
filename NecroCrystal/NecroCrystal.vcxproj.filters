@@ -153,6 +153,9 @@
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\WallFire.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\Necromancer.h">
@@ -300,6 +303,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\WallFire.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

@@ -61,6 +61,7 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Tourniquet:
         {
             damageMultiplier = 1.f;
+            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
         }
         break;
         case Dash:
@@ -74,8 +75,8 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         {
             damageMultiplier = 1.f;
             shouldStartExplo = true;
-            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x-60*static_cast<float>(windowDimensions.x)/1920.f, 
-                characters[0]->getHitbox()->getPosition().y - 28 * static_cast<float>(windowDimensions.x) / 1800.f);
+            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x-128.5f*static_cast<float>(windowDimensions.x)/1920.f, 
+                characters[0]->getHitbox()->getPosition().y - 90 * static_cast<float>(windowDimensions.x) / 1800.f);
 
             explosionTimer = 800;
         }
@@ -87,8 +88,8 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
 
             shouldStartExplo = true;
-            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x - 60 * static_cast<float>(windowDimensions.x) / 1920.f,
-                characters[0]->getHitbox()->getPosition().y - 28 * static_cast<float>(windowDimensions.x) / 1800.f);
+            explosionTarget = sf::Vector2f(characters[0]->getHitbox()->getPosition().x - 128.5f * static_cast<float>(windowDimensions.x) / 1920.f,
+                characters[0]->getHitbox()->getPosition().y - 90 * static_cast<float>(windowDimensions.x) / 1800.f);
 
             explosionTimer = 800;
         }
@@ -204,18 +205,6 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
         {
         case Tourniquet:
         {
-            if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
-            {
-                isFacingRight = false;
-                this->Flip();
-            }
-            if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
-            {
-                isFacingRight = true;
-                this->Flip();
-            }
-
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
             movement = Math::windowNormalizeVector(direction * speed * deltaTime, windowDimensions);
         }
         break;

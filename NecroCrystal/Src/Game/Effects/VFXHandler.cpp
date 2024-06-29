@@ -55,7 +55,7 @@ void VFXHandler::LoadTextures(void)
 	vFXsData.at(2).refreshTimer = vFXsData.at(2).maxTimer / vFXsData.at(2).frameNumber;
 	vFXsData.at(2).xFrameSize = 32;
 	vFXsData.at(2).yFrameSize = 32;
-	vFXsData.at(2).scale = 6;
+	vFXsData.at(2).scale = 10;
 	vFXsData.at(2).type = 2;
 }
 
