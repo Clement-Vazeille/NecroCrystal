@@ -19,6 +19,7 @@ protected:
 
 	float dashTime;
 	float furyDashTime;
+	float tourniquetTime;
 
 	bool isFacingRight;
 
@@ -29,9 +30,13 @@ protected:
 	float invulnerabilityTimer;
 	float invulnerabilityDuration;
 
+	float tourniquetFireCooldown;
+	float tourniquetFireTimer;
 	float dashFireCooldown;
 	float dashFireTimer;
 	float explosionTimer;
+
+	float tourniquetTimer;
 
 	sf::Vector2f explosionTarget;
 	bool shouldStartExplo;

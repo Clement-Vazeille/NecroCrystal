@@ -2,8 +2,10 @@
 #include <iostream>
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
+#include "../../Projectiles/IndividualProjectiles/CrazyFireMage/TourniquetFire.h"
 #include "../../Projectiles/IndividualProjectiles/CrazyFireMage/DashFire.h"
 #include "../../Projectiles/IndividualProjectiles/CrazyFireMage/Explosion.h"
+#include <cmath>
 
 void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -62,6 +64,11 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         {
             damageMultiplier = 1.f;
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+
+            tourniquetTimer = 0.f;
+            //TODO : mettre un warning au player que l'attaque arrive
+
+            newActionTimer = newActionCooldown - tourniquetTime;
         }
         break;
         case Dash:
@@ -113,7 +120,7 @@ void CrazyFireMage::Flip(void)
 
 void CrazyFireMage::SpawnParticules(void) const
 {
-}
+} 
 
 CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
@@ -125,7 +132,9 @@ CrazyFireMage::CrazyFireMage() :
     isCrazy(false), crazyHealthStart(100),
     invulnerabilityTimer(0), invulnerabilityDuration(2000),
     dashFireTimer(0), dashFireCooldown(120),
-    shouldStartExplo(false), explosionTimer(1)
+    shouldStartExplo(false), explosionTimer(1),
+    tourniquetFireCooldown(2), tourniquetFireTimer(0),
+    tourniquetTimer(0.f),tourniquetTime(100)
 {
     scale = 2;
     width = 64;
@@ -268,7 +277,17 @@ Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures
         switch (currentAction)
         {
         case Tourniquet: {
-
+            tourniquetFireTimer += deltaTime;
+            tourniquetTimer += deltaTime;
+            if (tourniquetFireTimer >= tourniquetFireCooldown)
+            {
+                tourniquetFireTimer = 0;
+                Projectile* tourniquetFire = new TourniquetFire();
+                sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
+                sf::Vector2f direction(cos(tourniquetTimer), sin(tourniquetTimer));
+                tourniquetFire->Load(projectilesTextures.GetFireBall(), initialPosition, direction, windowDimensions);
+                return tourniquetFire;
+            }
         }
             break;
         case Dash: {
