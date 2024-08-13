@@ -1,7 +1,8 @@
-#include "KnightCaptain.h"
+ï»¿#include "KnightCaptain.h"
 #include <iostream>
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
+#include "../../Projectiles/IndividualProjectiles/KnightCaptain/HammerThrow.h"
 
 void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -22,15 +23,15 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         }
 
         //Les actions possibles
-        // Globalement le choix des actions est pas hyper influencé par quoi que ce soit
-        //Marcher: elle court simplement vers le nécormancien un peu moins vite que lui (dure pas longtemps)
-        //  action de base influencée par rien
-        //Lancer: devient immobile et lance 2/3 fois (dépend du nombre de prières) 3 marteaux celui du milieu visant le necro
-        //Jump: Saute sur le necro et une fois arrivée fait boom boom avec son marteau sur le son (vitesse augment avec le nombre de prière?)
-        //Bouclier: Se protège avec son bouclier et à la fin met un coup circulaire autour d'elle de marteau
-        //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps,ça la boost et à la fin elle aoe (meme aoe que bouclier)
+        // Globalement le choix des actions est pas hyper influencÃ© par quoi que ce soit
+        //Marcher: elle court simplement vers le nÃ©cromancien un peu moins vite que lui (dure pas longtemps)
+        //  action de base influence par rien
+        //Lancer: devient immobile et lance 2/3 fois (dÃ©pend du nombre de prieres) 3 marteaux celui du milieu visant le necro
+        //Jump: Saute sur le necro et une fois arrive fait boom boom avec son marteau sur le son (vitesse augment avec le nombre de prié‘½e?)
+        //Bouclier: Se protÃ¨ge avec son bouclier et Ã  la fin met un coup circulaire autour d'elle de marteau
+        //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps,Ã  la boost et Ã  la fin elle aoe (meme aoe que bouclier)
 
-        currentAction = KnightCaptain::Action(randomLSFR.randomUpTo(3));//choisit aléatoirement de façon une action parmis les 4 possibles
+        currentAction = KnightCaptain::Action(randomLSFR.randomUpTo(3));//choisit aleatoirement de faire une action parmis les 4 possibles
         if (willStartPraying)
         {
             willStartPraying = false;
@@ -41,6 +42,7 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Marcher:
         {
             damageMultiplier = 0.8;
+            newActionTimer = newActionCooldown - marcherTime;
         }
         break;
         case Lancer:
@@ -91,7 +93,7 @@ KnightCaptain::KnightCaptain() :
     animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
     shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
-    prayTime(1100),jumpTime(1800),lancerTime(1400),
+    prayTime(1100),jumpTime(1800),lancerTime(1400),marcherTime(800),
     willStartPraying(false),invincibilityStartersIndex(0),
     invincibilityStarters({0.8f,0.5f,0.2f})
 {
@@ -217,7 +219,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         break;
         default:
         {
-            std::cout << "Unknown movement asked for Crazy Fire Mage" << std::endl;
+            std::cout << "Unknown movement asked for Knight Captain" << std::endl;
         }
         break;
         }
@@ -239,6 +241,23 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
 
 Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
 {
+    if (activated)
+    {
+        switch (currentAction)
+        {
+        case Lancer: {
+            Projectile* hammerThrow = new HammerThrow();
+            sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
+            sf::Vector2f direction(characters.at(0)->getHitbox()->getPosition());
+            hammerThrow->Load(projectilesTextures.GetHammer(), initialPosition, direction, windowDimensions);
+            return hammerThrow;
+        }
+            break;
+        default:
+            break;
+        }
+
+    }
     return nullptr;
 }
 

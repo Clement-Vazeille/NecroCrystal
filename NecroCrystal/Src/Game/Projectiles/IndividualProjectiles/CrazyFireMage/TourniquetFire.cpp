@@ -7,7 +7,7 @@ TourniquetFire::TourniquetFire() :
 	speed = 0.3f;
 	faction = 2;
 	scale = 5.f;
-	damage = 7;
+	damage = 4;
 }
 
 void TourniquetFire::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellDirection, sf::Vector2i& windowDimensions)

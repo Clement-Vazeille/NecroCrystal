@@ -27,11 +27,11 @@ void ProjectilesTextures::Load()
 
     if (swordSlash.loadFromFile("Assets/Projectiles/meleMageProjectile.png"))
     {
-        std::cout << "fireProjectile image loaded successfully" << std::endl;
+        std::cout << "swordSlash image loaded successfully" << std::endl;
     }
     else
     {
-        std::cout << "fireProjectile image failed to load" << std::endl;
+        std::cout << "swordSlash image failed to load" << std::endl;
     }
 
     if (explosion.loadFromFile("Assets/Projectiles/explosion.png"))
@@ -41,5 +41,13 @@ void ProjectilesTextures::Load()
     else
     {
         std::cout << "explosion image failed to load" << std::endl;
+    }
+    if (hammer.loadFromFile("Assets/Projectiles/hammerThrow.png"))
+    {
+        std::cout << "hammer image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "hammer image failed to load" << std::endl;
     }
 }

@@ -31,9 +31,9 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         //Dash: Dash (out ou in selon les hp actuels et la distance au necro)
         //  et laisse derrière lui une trainée de feu imobile qui inflige des dégats
         //Explosion: Sort de base, au début de l'action met 3 vfx de préparation d'explosion sous le nécromancien
-        //  puis à la fin créer une explosion qui fait bien mal (l'explosion est un cercle qui s'agrandit)
+        //  puis Ela fin créer une explosion qui fait bien mal (l'explosion est un cercle qui s'agrandit)
         //Fury: un dash avec une vitesse augmentée, durée réduite,lance 1 explosions
-        //  est lancé automatiquement lorsqu'il est à < 10%hp
+        //  est lancEautomatiquement lorsqu'il est E< 10%hp
 
         int randomIntChoixAction = randomLSFR.randomUpTo(100);//nombre choisis entre 0 et 100
 
@@ -133,8 +133,8 @@ CrazyFireMage::CrazyFireMage() :
     invulnerabilityTimer(0), invulnerabilityDuration(2000),
     dashFireTimer(0), dashFireCooldown(120),
     shouldStartExplo(false), explosionTimer(1),
-    tourniquetFireCooldown(2), tourniquetFireTimer(0),
-    tourniquetTimer(0.f),tourniquetTime(100)
+    tourniquetFireCooldown(1.5f), tourniquetFireTimer(0),
+    tourniquetTimer(0.f),tourniquetTime(250)
 {
     scale = 2;
     width = 64;

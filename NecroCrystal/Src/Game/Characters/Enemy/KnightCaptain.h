@@ -20,6 +20,7 @@ protected:
 
 	float lancerTime;
 	float jumpTime;
+	float marcherTime;
 	float prayTime;
 
 	bool isFacingRight;
