@@ -94,6 +94,7 @@ KnightCaptain::KnightCaptain() :
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
     shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
     prayTime(1100),jumpTime(1800),lancerTime(1400),marcherTime(800),
+    hammerThrowTimer(0),throwNumber(0),
     willStartPraying(false),invincibilityStartersIndex(0),
     invincibilityStarters({0.8f,0.5f,0.2f})
 {
@@ -246,14 +247,41 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
         switch (currentAction)
         {
         case Lancer: {
-            Projectile* hammerThrow = new HammerThrow();
-            sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
-            sf::Vector2f direction(characters.at(0)->getHitbox()->getPosition());
-            hammerThrow->Load(projectilesTextures.GetHammer(), initialPosition, direction, windowDimensions);
-            return hammerThrow;
+            hammerThrowTimer += deltaTime;
+            if (hammerThrowTimer >= lancerTime / 3.f)
+            {
+                Projectile* hammerThrow = new HammerThrow();
+                sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
+                sf::Vector2f direction(characters.at(0)->getHitbox()->getPosition());
+                
+                if (throwNumber == 0)
+                {
+                    sf::Vector2f trajectory = direction - initialPosition;
+                    direction = direction + (sf::Vector2f(trajectory.y, -trajectory.x) * 0.3f);
+                }
+                if (throwNumber == 2)
+                {
+                    sf::Vector2f trajectory = direction - initialPosition;
+                    direction = direction - (sf::Vector2f(trajectory.y, -trajectory.x) * 0.3f);
+                }
+                
+                hammerThrow->Load(projectilesTextures.GetHammer(), initialPosition, direction, windowDimensions);
+
+                if (throwNumber++ == 2)
+                {
+                    throwNumber = 0;
+                    hammerThrowTimer -= lancerTime / 3.f;
+                }
+                
+                return hammerThrow;
+            }
+            return nullptr;
+            
         }
             break;
-        default:
+        default:{
+            return nullptr;
+        }
             break;
         }
 

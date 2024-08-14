@@ -2,11 +2,11 @@
 #include "../../../Utilities/Math.h"
 
 HammerThrow::HammerThrow() :
-	loopAnimation(0,0,1,0)
+	loopAnimation(0,1,16,16)
 {
-	speed = 0.35f;
+	speed = 0.85f;
 	faction = 2;
-	scale = 8.f;
+	scale = 4.f;
 	damage = 15;
 }
 void HammerThrow::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)

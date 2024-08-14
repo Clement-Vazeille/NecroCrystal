@@ -23,6 +23,9 @@ protected:
 	float marcherTime;
 	float prayTime;
 
+	float hammerThrowTimer;
+	int throwNumber; //captain rotate through 3 differents throws the number 0 aims too high, the number 1 aims for necro and 2 aims too low
+
 	bool isFacingRight;
 
 	bool willStartPraying;
