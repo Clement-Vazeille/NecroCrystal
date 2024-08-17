@@ -55,8 +55,18 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Jump:
         {
             damageMultiplier = 1.2f;
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+            sf::Vector2f target = characters[0]->getHitbox()->getPosition() +
+                sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x* 0.32f, 0);
+            if (isFacingRight)
+            {
+                 target = characters[0]->getHitbox()->getPosition() -
+                    sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 0.32f, 0);
+            }
+                
+            direction = Math::normalizeVector(target - sprites[0].getPosition());
+            jumpSpeed = Math::Distance(target - sprites[0].getPosition(),windowDimensions)/jumpAirTime;
             newActionTimer = newActionCooldown - jumpTime ;
+            jumpTimer = 0;
         }
         break;
         case Bouclier:
@@ -96,9 +106,10 @@ KnightCaptain::KnightCaptain() :
     isFacingRight(true),
     animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
-    shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
-    prayTime(1100),jumpTime(1800),lancerTime(1400),marcherTime(800),
-    shieldTime(1800),shieldPrepTime(1200),
+    shieldingSpeed(0.15f),
+    prayTime(1100),lancerTime(1400),marcherTime(800),
+    shieldTime(1800),shieldPrepTime(1200),shieldingTimer(0),
+    jumpTime(2300),jumpTimer(0),jumpAirTime(300),jumpSpeed(0),
     hammerThrowTimer(0),throwNumber(0),
     willStartPraying(false),invincibilityStartersIndex(0),
     invincibilityStarters({0.8f,0.5f,0.2f}),
@@ -198,7 +209,11 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         break;
         case Jump:
         {
-            movement = Math::windowNormalizeVector(direction * jumpBaseSpeed * deltaTime, windowDimensions);
+            jumpTimer += deltaTime;
+            if (jumpTimer <= jumpAirTime)
+                movement = Math::windowNormalizeVector(direction * jumpSpeed * deltaTime, windowDimensions);
+            else
+                movement = sf::Vector2f(0, 0);
         }
         break;
         case Bouclier:

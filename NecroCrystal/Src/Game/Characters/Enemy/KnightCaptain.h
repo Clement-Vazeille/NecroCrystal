@@ -15,14 +15,17 @@ protected:
 	float newActionCooldown;
 	sf::Vector2f direction;
 
-	float shieldingSpeed;
-	float jumpBaseSpeed;
 
 	float lancerTime;
-	float jumpTime;
 	float marcherTime;
 	float prayTime;
 	
+	float jumpTime;
+	float jumpTimer;
+	float jumpAirTime;
+	float jumpSpeed;
+
+	float shieldingSpeed;
 	float shieldTime;
 	float shieldPrepTime;
 	float shieldingTimer;
