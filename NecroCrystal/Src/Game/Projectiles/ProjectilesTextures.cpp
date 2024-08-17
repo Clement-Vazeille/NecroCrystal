@@ -50,4 +50,12 @@ void ProjectilesTextures::Load()
     {
         std::cout << "hammer image failed to load" << std::endl;
     }
+    if (captainSlash.loadFromFile("Assets/Projectiles/CaptainSlash.png"))
+    {
+        std::cout << "CaptainSlash image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "CaptainSlash image failed to load" << std::endl;
+    }
 }

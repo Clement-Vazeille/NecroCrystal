@@ -3,6 +3,7 @@
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
 #include "../../Projectiles/IndividualProjectiles/KnightCaptain/HammerThrow.h"
+#include "../../Projectiles/IndividualProjectiles/KnightCaptain/CaptainSlash.h"
 
 void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR)
 {
@@ -28,7 +29,7 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         //  action de base influence par rien
         //Lancer: devient immobile et lance 2/3 fois (dépend du nombre de prieres) 3 marteaux celui du milieu visant le necro
         //Jump: Saute sur le necro et une fois arrive fait boom boom avec son marteau sur le son (vitesse augment avec le nombre de pri鑽e?)
-        //Bouclier: Se protège avec son bouclier et à la fin met un coup circulaire autour d'elle de marteau
+        //Bouclier: Se protège avec son bouclier et à la fin met un coup circulaire de marteau autour d'elle
         //Priere: Se lance automatiquement lorsqu'elle a 70%, 40%, et 10% hp, elle est invincible pendant ce temps,à la boost et à la fin elle aoe (meme aoe que bouclier)
 
         currentAction = KnightCaptain::Action(randomLSFR.randomUpTo(3));//choisit aleatoirement de faire une action parmis les 4 possibles
@@ -61,11 +62,14 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Bouclier:
         {
             damageMultiplier = 0.6f;
+            shieldingTimer = 0;
+            newActionTimer = newActionCooldown - shieldTime;
         }
         break;
         case Priere:
         {
             damageMultiplier = 0.f;
+            prayCounter++;
             newActionTimer = newActionCooldown - prayTime ;
         }
         break;
@@ -94,9 +98,11 @@ KnightCaptain::KnightCaptain() :
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
     shieldingSpeed(0.15f),jumpBaseSpeed(0.40f),
     prayTime(1100),jumpTime(1800),lancerTime(1400),marcherTime(800),
+    shieldTime(1800),shieldPrepTime(1200),
     hammerThrowTimer(0),throwNumber(0),
     willStartPraying(false),invincibilityStartersIndex(0),
-    invincibilityStarters({0.8f,0.5f,0.2f})
+    invincibilityStarters({0.8f,0.5f,0.2f}),
+    prayCounter(0)
 {
     scale = 2;
     width = 64;
@@ -196,20 +202,29 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
         break;
         case Bouclier:
-        {
-            if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+        {            
+            if (shieldingTimer < 0) //correspond à lorsque le coup de marteau est donné
             {
-                isFacingRight = false;
-                this->Flip();
+                direction = sf::Vector2f(0, 0);
+                movement = sf::Vector2f(0, 0);
             }
-            if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+            else
             {
-                isFacingRight = true;
-                this->Flip();
-            }
+                if (characters.at(0)->getHitbox()->getPosition().x < hitbox.getPosition().x && isFacingRight) //mage turn to left
+                {
+                    isFacingRight = false;
+                    this->Flip();
+                }
+                if (characters.at(0)->getHitbox()->getPosition().x > hitbox.getPosition().x && !isFacingRight) //mage turn to right
+                {
+                    isFacingRight = true;
+                    this->Flip();
+                }
 
-            direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
-            movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
+                direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
+                movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
+            }
+            
         }
         break;
         case Priere:
@@ -248,7 +263,7 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
         {
         case Lancer: {
             hammerThrowTimer += deltaTime;
-            if (hammerThrowTimer >= lancerTime / 3.f)
+            if (hammerThrowTimer >= lancerTime / (2.f+(prayCounter*1.5f)))
             {
                 Projectile* hammerThrow = new HammerThrow();
                 sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(0, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * 0.05f));
@@ -270,7 +285,7 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
                 if (throwNumber++ == 2)
                 {
                     throwNumber = 0;
-                    hammerThrowTimer -= lancerTime / 3.f;
+                    hammerThrowTimer -= lancerTime / (2.f + (prayCounter * 1.5f));
                 }
                 
                 return hammerThrow;
@@ -279,6 +294,25 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
             
         }
             break;
+        case Bouclier: {
+            shieldingTimer += deltaTime;
+            if (shieldingTimer >= shieldPrepTime)
+            {
+                shieldingTimer = -10000; //
+                Projectile* captainSlash = new CaptainSlash();
+                sf::Vector2f slashPosition = sprites[0].getPosition() + 
+                    (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 1.f, 
+                        sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * -1.5f));
+                if(isFacingRight)
+                    slashPosition = sprites[0].getPosition() +
+                    (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * -1.f,
+                        sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * -1.5f));
+                captainSlash->Load(projectilesTextures.GetCaptainSlash(), slashPosition, slashPosition, windowDimensions);
+                return captainSlash;
+            }
+        }
+            break;
+
         default:{
             return nullptr;
         }

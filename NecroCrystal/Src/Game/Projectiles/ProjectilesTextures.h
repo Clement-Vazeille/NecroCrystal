@@ -8,6 +8,7 @@ private:
 	sf::Texture swordSlash;
 	sf::Texture explosion;
 	sf::Texture hammer;
+	sf::Texture captainSlash;
 public:
 	ProjectilesTextures();
 
@@ -18,5 +19,6 @@ public:
 	inline const sf::Texture& GetSwordSlash(void) const { return swordSlash; }
 	inline const sf::Texture& GetExplosion(void) const { return explosion; }
 	inline const sf::Texture& GetHammer(void) const { return hammer; }
+	inline const sf::Texture& GetCaptainSlash(void) const { return captainSlash; }
 };
 
