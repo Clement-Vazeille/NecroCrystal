@@ -24,6 +24,7 @@ protected:
 	float jumpTimer;
 	float jumpAirTime;
 	float jumpSpeed;
+	bool hasNotJumpAttacked;
 
 	float shieldingSpeed;
 	float shieldTime;

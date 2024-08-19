@@ -54,6 +54,8 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         break;
         case Jump:
         {
+            hasNotJumpAttacked = true;
+
             damageMultiplier = 1.2f;
             sf::Vector2f target = characters[0]->getHitbox()->getPosition() +
                 sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x* 0.32f, 0);
@@ -106,7 +108,7 @@ KnightCaptain::KnightCaptain() :
     isFacingRight(true),
     animations({ Animation(120,1,88,64,0,0),Animation(120,1,88,64,1,0),Animation(120,1,88,64,2,0),
         Animation(120,1,88,64,3,0) ,Animation(120,1,88,64,4,0) }),
-    shieldingSpeed(0.15f),
+    shieldingSpeed(0.15f),hasNotJumpAttacked(true),
     prayTime(1100),lancerTime(1400),marcherTime(800),
     shieldTime(1800),shieldPrepTime(1200),shieldingTimer(0),
     jumpTime(2300),jumpTimer(0),jumpAirTime(300),jumpSpeed(0),
@@ -313,7 +315,7 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
             shieldingTimer += deltaTime;
             if (shieldingTimer >= shieldPrepTime)
             {
-                shieldingTimer = -10000; //
+                shieldingTimer = -10000; //makes there will only be one attack per shield stance taken
                 Projectile* captainSlash = new CaptainSlash();
                 sf::Vector2f slashPosition = sprites[0].getPosition() + 
                     (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 1.f, 
@@ -327,6 +329,24 @@ Projectile* KnightCaptain::LaunchProjectile(float deltaTime, ProjectilesTextures
             }
         }
             break;
+        case Jump: {
+            if (jumpTimer >= jumpAirTime && hasNotJumpAttacked)
+            {
+                hasNotJumpAttacked = false; //makes there will only be one attack per jump
+                Projectile* captainSlash = new CaptainSlash();
+                sf::Vector2f slashPosition = sprites[0].getPosition() +
+                    (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * 1.f,
+                        sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * -1.5f));
+                if (isFacingRight)
+                    slashPosition = sprites[0].getPosition() +
+                    (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x * -1.f,
+                        sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y * -1.5f));
+                captainSlash->Load(projectilesTextures.GetCaptainSlash(), slashPosition, slashPosition, windowDimensions);
+                return captainSlash;
+            }
+        }
+            break;
+
 
         default:{
             return nullptr;
