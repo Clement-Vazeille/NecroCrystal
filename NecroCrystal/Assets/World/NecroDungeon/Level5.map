@@ -1,6 +1,6 @@
 [Map]
 tileSheet=Assets/World/NecroDungeon/TileSheet.png
-name=NecroDungeon
+name=Boss
 tileWidth=16
 tileHeight=16
 scaleX=4
@@ -30,9 +30,8 @@ walls=4
 0,0,1,17
 0,16,30,1
 29,0,1,17
-spawn=5,9
-enemies=2
-20,4,0
-5,7,2
-waves=2
-0,1
+spawn=5,8
+enemies=1
+17,7,4
+waves=1
+0

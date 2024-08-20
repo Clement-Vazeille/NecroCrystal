@@ -18,7 +18,7 @@ void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 LoopManager::LoopManager(sf::Vector2f windowSize) :
 	gameLoop(nullptr), state(-1),
 	pauseTimer(0),pauseCooldown(800),
-	actualLevel(2)
+	actualLevel(4)
 {
 }
 
@@ -46,6 +46,8 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
 	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
 	levelsMapFiles.at(2) = ("Assets/World/NecroDungeon/Level3.map");
+	levelsMapFiles.at(3) = ("Assets/World/NecroDungeon/Level4.map");
+	levelsMapFiles.at(4) = ("Assets/World/NecroDungeon/Level5.map");
 	this->LoadLevel(windowDimensions);
 	
 	mouseCursor.Load(windowDimensions);
