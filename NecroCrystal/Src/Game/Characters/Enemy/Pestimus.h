@@ -8,7 +8,7 @@
 class Pestimus : public Enemy
 {
 protected:
-	std::array<Animation, 1> animations;
+	std::array<Animation, 5> animations;
 
 	float newAttackActionTimer;
 	float newAttackActionCooldown;
@@ -28,7 +28,7 @@ protected:
 		Bulles = 1,
 		Circu = 2,
 		Flaques = 3,
-		PhaseSwitch = 4
+		PhaseSwitchMovement = 4
 	};
 	AttackAction currentAttack;
 
@@ -37,9 +37,9 @@ protected:
 		Recule = 1,
 		FuiteCircu = 2,
 		Imo = 3,
-		PhaseSwitch = 4
+		PhaseSwitchAttack = 4
 	};
-	MovementAction movementAttack;
+	MovementAction currentMovement;
 
 	void SelectNewAttackAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
 	void SelectNewMovementAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);

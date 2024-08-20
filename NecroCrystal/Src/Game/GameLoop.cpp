@@ -5,6 +5,7 @@
 #include "Characters/Enemy/MeleeMage.h"
 #include "Characters/Enemy/CrazyFireMage.h"
 #include "Characters/Enemy/KnightCaptain.h"
+#include "Characters/Enemy/Pestimus.h"
 
 void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 {
@@ -35,6 +36,12 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
         if (mapData->enemyTypes[i] == 3) //type 3 is knight captain
         {
             Character* enemy = new KnightCaptain;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 4) //type 4 is Pestimus
+        {
+            Character* enemy = new Pestimus;
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
@@ -83,7 +90,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     
     hitboxDisplay.Update(deltaTime);
 
-    bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
+    bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
         if ((*it)->getFaction() != 1 && (*it)->getFaction() != -1) //faction 1 is the necromancer faction
