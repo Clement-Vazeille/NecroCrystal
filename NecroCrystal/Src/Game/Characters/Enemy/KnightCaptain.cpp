@@ -43,7 +43,7 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Marcher:
         {
             damageMultiplier = 0.8;
-            newActionTimer = newActionCooldown - marcherTime;
+            newActionTimer = newActionCooldown - (marcherTime* (1.f - (prayCounter*0.2f) ));
         }
         break;
         case Lancer:
@@ -111,7 +111,7 @@ KnightCaptain::KnightCaptain() :
     shieldingSpeed(0.15f),hasNotJumpAttacked(true),
     prayTime(1100),lancerTime(1400),marcherTime(800),
     shieldTime(1800),shieldPrepTime(1200),shieldingTimer(0),
-    jumpTime(2300),jumpTimer(0),jumpAirTime(300),jumpSpeed(0),
+    jumpTime(2400),jumpTimer(0),jumpAirTime(400),jumpSpeed(0),
     hammerThrowTimer(0),throwNumber(0),
     willStartPraying(false),invincibilityStartersIndex(0),
     invincibilityStarters({0.8f,0.5f,0.2f}),
@@ -239,7 +239,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
                 }
 
                 direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
-                movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime, windowDimensions);
+                movement = Math::windowNormalizeVector(direction * shieldingSpeed * deltaTime * (1.f+(prayCounter * 0.8f)), windowDimensions);
             }
             
         }
