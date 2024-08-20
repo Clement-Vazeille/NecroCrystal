@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Characters\Enemy\Pestimus.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Characters\Enemy\Pestimus.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.h" />
