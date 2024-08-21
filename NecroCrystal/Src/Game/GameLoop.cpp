@@ -49,7 +49,9 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 }
 
 GameLoop::GameLoop(sf::Vector2i windowSize) : 
-    cameraService(windowSize),currentWave(0)
+    cameraService(windowSize),
+    currentWave(0),waveInstruction(1),
+    waveSpawnTimer(8000),waveSpawnCooldown(8000)
 {
     Enemy::enemyNumber = 0;
 }
@@ -96,10 +98,32 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
         if ((*it)->getFaction() != 1 && (*it)->getFaction() != -1) //faction 1 is the necromancer faction
             isWaveCleared = false;
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR,vFXHandler);
+        if ((*it)->GiveWaveInstruction() > waveInstruction)
+            waveInstruction = (*it)->GiveWaveInstruction();
     }
 
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);
     vFXHandler.DeleteExpiredVFX(windowDimensions);
+
+    if (waveInstruction == 2)
+    {
+        waveSpawnTimer += deltaTime;
+        if (waveSpawnTimer >= waveSpawnCooldown && currentWave + 1 < map.getData()->waveNumber)
+        {
+            currentWave++;
+            this->LoadWave(map.getData(), windowDimensions);
+            waveSpawnTimer -= waveSpawnCooldown;
+        }
+    }
+
+    if (waveInstruction == 3)
+    {
+        while (currentWave+1 < map.getData()->waveNumber)
+        {
+            currentWave++;
+            this->LoadWave(map.getData(), windowDimensions);
+        }
+    }
 
     if (isWaveCleared)
     {

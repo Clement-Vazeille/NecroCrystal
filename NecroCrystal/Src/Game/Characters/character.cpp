@@ -55,6 +55,11 @@ void Character::Activate(void)
 {
 }
 
+int Character::GiveWaveInstruction(void) const
+{
+	return 1;
+}
+
 sf::RectangleShape* Character::getHitbox(void)
 {
 	return &hitbox;

@@ -45,6 +45,7 @@ public:
 	int getFaction(void) const;
 
 	virtual void Activate(void);
+	virtual int GiveWaveInstruction(void) const; //instructions for wave spawn management (only used by the boss)
 
 	sf::RectangleShape* getHitbox(void);
 };

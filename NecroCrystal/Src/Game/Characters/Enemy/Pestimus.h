@@ -58,5 +58,6 @@ public:
 	const sf::Sprite& getSprite(void) const;
 
 	bool TakeDamage(int hp) override;
+	int GiveWaveInstruction(void) const override;
 };
 

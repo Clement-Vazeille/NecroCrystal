@@ -32,6 +32,10 @@ protected:
 	RandomLSFR randomLSFR;
 	int currentWave;
 	void LoadWave(MapData* mapData, sf::Vector2i& windowDimensions);
+
+	int waveInstruction;
+	float waveSpawnTimer;    //for wave Instruction 2
+	float waveSpawnCooldown;
 public:
 	GameLoop(sf::Vector2i windowSize);
 	~GameLoop();
