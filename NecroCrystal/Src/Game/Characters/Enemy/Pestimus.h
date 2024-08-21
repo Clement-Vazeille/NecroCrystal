@@ -10,10 +10,10 @@ class Pestimus : public Enemy
 protected:
 	std::array<Animation, 5> animations;
 
-	float newAttackActionTimer;
-	float newAttackActionCooldown;
-	float newMovementActionTimer;
-	float newMovementActionCooldown;
+	float newAttackTimer;
+	float newAttackCooldown;
+	float newMovementTimer;
+	float newMovementCooldown;
 
 	sf::Vector2f direction;
 
@@ -28,7 +28,7 @@ protected:
 		Bulles = 1,
 		Circu = 2,
 		Flaques = 3,
-		PhaseSwitchMovement = 4
+		PhaseSwitchAttack = 4
 	};
 	AttackAction currentAttack;
 
@@ -37,7 +37,7 @@ protected:
 		Recule = 1,
 		FuiteCircu = 2,
 		Imo = 3,
-		PhaseSwitchAttack = 4
+		PhaseSwitchMovement = 4
 	};
 	MovementAction currentMovement;
 
