@@ -58,4 +58,12 @@ void ProjectilesTextures::Load()
     {
         std::cout << "CaptainSlash image failed to load" << std::endl;
     }
+    if (poisonDot.loadFromFile("Assets/Projectiles/PoisonDot.png"))
+    {
+        std::cout << "PoisonDot image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "PoisonDot image failed to load" << std::endl;
+    }
 }

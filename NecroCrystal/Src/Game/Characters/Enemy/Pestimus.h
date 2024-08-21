@@ -22,6 +22,11 @@ protected:
 	bool willStartNewPhase;
 	int phaseNumber;
 
+	float phaseSwitchDuration;
+
+	float poisonDotThrowTimer;
+	float poisonDotThrowCooldown;
+	bool isLastPoisonDotSwitched;
 
 	enum AttackAction {
 		Laser = 0,
