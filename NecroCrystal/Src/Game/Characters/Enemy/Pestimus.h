@@ -24,6 +24,12 @@ protected:
 
 	float phaseSwitchDuration;
 
+	sf::Vector2f circuInitialPosition;
+	sf::Vector2f circuTarget;
+	sf::Vector2f circuTargetDrift;
+	bool movementYSwitch;
+	bool movementXSwitch;
+
 	float poisonDotThrowTimer;
 	float poisonDotThrowCooldown;
 	bool isLastPoisonDotSwitched;
