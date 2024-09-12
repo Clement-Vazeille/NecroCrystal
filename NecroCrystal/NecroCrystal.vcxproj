@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Projectiles\ProjManagers\LaserManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\Pestimus.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Projectiles\ProjManagers\LaserManager.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\Pestimus.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.h" />

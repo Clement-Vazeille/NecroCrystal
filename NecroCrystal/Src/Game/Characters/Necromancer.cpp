@@ -167,7 +167,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
     wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
-Projectile* Necromancer::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* Necromancer::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures,sf::Vector2i windowDimensions,sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler)
 {
     if(!necroZone)
     {

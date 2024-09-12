@@ -57,7 +57,7 @@ public:
 	void Load(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Texture& texture); //for when is called by SkeletonHandler
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, 
 		RandomLSFR& randomLSFR, VFXHandler& vFXHandler);     //called once per frame
-	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
+	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler);
 
 	void AttackAnimation(sf::Vector2f target);
 	void StartDash(sf::Vector2f mousePosition);

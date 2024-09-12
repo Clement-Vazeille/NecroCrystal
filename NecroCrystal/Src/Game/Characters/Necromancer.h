@@ -32,7 +32,7 @@ public:
 	void Load(sf::Vector2i& windowDimensions,sf::Vector2f position);       //called once per App Start
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, 
 		RandomLSFR& randomLSFR, VFXHandler& vFXHandler);     //called once per frame
-	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
+	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler);
 
 	const sf::Sprite& getSprite(void) const;
 	bool TakeDamage(int hp);

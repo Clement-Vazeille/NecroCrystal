@@ -5,10 +5,13 @@
 #include "../../Utilities/Animation.h"
 #include "Enemy.h"
 #include "../../World/Map.h"
+#include "../../Projectiles/ProjManagers/LaserManager.h"
 class Pestimus : public Enemy
 {
 protected:
 	std::array<Animation, 5> animations;
+
+	std::vector<LaserManager*> laserManagers;
 
 	float newAttackTimer;
 	float newAttackCooldown;
@@ -21,6 +24,8 @@ protected:
 
 	bool willStartNewPhase;
 	int phaseNumber;
+
+	float laserDuration;
 
 	float phaseSwitchDuration;
 
@@ -64,7 +69,7 @@ public:
 	void Update(CameraService& cameraService, sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters,
 		RandomLSFR& randomLSFR, VFXHandler& vFXHandler);
 
-	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters);
+	Projectile* LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler);
 
 	const sf::Sprite& getSprite(void) const;
 

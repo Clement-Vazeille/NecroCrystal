@@ -32,7 +32,7 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
-        Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters);
+        Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters,vFXHandler);
         if (projectile != nullptr)
         {
             projectiles.push_back(projectile);

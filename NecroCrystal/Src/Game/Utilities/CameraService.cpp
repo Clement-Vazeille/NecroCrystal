@@ -33,6 +33,11 @@ void CameraService::UpdateVector(sf::Vector2f& vect)
 	vect.y = vect.y + diff;
 }
 
+float CameraService::GetDiff(void)
+{
+	return diff;
+}
+
 void CameraService::Update(float new_diff, sf::Vector2f windowSize)
 {
 	diff = new_diff;

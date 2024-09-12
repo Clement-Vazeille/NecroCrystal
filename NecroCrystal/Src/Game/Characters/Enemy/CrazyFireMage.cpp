@@ -270,7 +270,7 @@ void CrazyFireMage::Update(CameraService& cameraService, sf::Vector2i& windowDim
 
 }
 
-Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler)
 {
     if (activated)
     {

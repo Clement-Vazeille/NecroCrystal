@@ -22,6 +22,11 @@ void VFXHandler::LoadTextures(void)
 	else
 		std::cout << "failed to load explosion FX texture" << std::endl;
 
+	if (textures.at(3).loadFromFile("Assets/FX/laserFx.png"))
+		std::cout << "laser FX texture SpriteSheet loaded successfully" << std::endl;
+	else
+		std::cout << "failed to load explosion FX texture" << std::endl;
+
 	//SkeletonProjectile characteristics
 	vFXsData.at(0).maxTimer=-1;
 	vFXsData.at(0).followTarget=true;
@@ -57,6 +62,18 @@ void VFXHandler::LoadTextures(void)
 	vFXsData.at(2).yFrameSize = 32;
 	vFXsData.at(2).scale = 10;
 	vFXsData.at(2).type = 2;
+
+	//laser VFX characteristics
+	vFXsData.at(3).maxTimer = 1000;
+	vFXsData.at(3).followTarget = true;
+	vFXsData.at(3).endOnTimer = false;
+	vFXsData.at(3).speed =0.8f;
+	vFXsData.at(3).frameNumber = 3;
+	vFXsData.at(3).refreshTimer = vFXsData.at(3).maxTimer / vFXsData.at(3).frameNumber;
+	vFXsData.at(3).xFrameSize = 256;
+	vFXsData.at(3).yFrameSize = 16;
+	vFXsData.at(3).scale = 7;
+	vFXsData.at(3).type = 3;
 }
 
 void VFXHandler::SpawnVFX(sf::Vector2i& windowDimensions, sf::Vector2f position, sf::Vector2f target, int type)

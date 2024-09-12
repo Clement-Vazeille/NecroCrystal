@@ -222,7 +222,7 @@ void MeleeMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensi
 
 }
 
-Projectile* MeleeMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* MeleeMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler)
 {
     if (activated && canLaunchAttack)
     {
