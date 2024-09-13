@@ -20,7 +20,8 @@ public:
 	void SetRectangle(sf::RectangleShape& sprite, sf::Vector2f& position);
 	void UpdateVector(sf::Vector2f& vector);
 
-	float GetDiff(void);
+	float GetDiff(void) const;
+	float GetCameraPosition(void) const;
 
 	sf::Vector2f SetVector(sf::Vector2f vector);
 

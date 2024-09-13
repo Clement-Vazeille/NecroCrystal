@@ -6,12 +6,14 @@
 #include "Enemy.h"
 #include "../../World/Map.h"
 #include "../../Projectiles/ProjManagers/LaserManager.h"
+#include "../../Projectiles/ProjManagers/FlaqueManager.h"
 class Pestimus : public Enemy
 {
 protected:
 	std::array<Animation, 5> animations;
 
 	std::vector<LaserManager*> laserManagers;
+	std::vector<FlaqueManager*> flaqueManagers;
 
 	float newAttackTimer;
 	float newAttackCooldown;
@@ -57,7 +59,7 @@ protected:
 	};
 	MovementAction currentMovement;
 
-	void SelectNewAttackAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
+	void SelectNewAttackAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR, CameraService& cameraService);
 	void SelectNewMovementAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
 	void Flip(void);
 
