@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.cpp" />
     <ClCompile Include="Src\Game\Projectiles\ProjManagers\LaserManager.cpp" />
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\Pestimus.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.h" />
     <ClInclude Include="Src\Game\Projectiles\ProjManagers\LaserManager.h" />
     <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\Pestimus.h" />

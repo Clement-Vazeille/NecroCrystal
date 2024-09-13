@@ -10,14 +10,17 @@ private:
 	float yDrift;
 
 	float aliveTime;
+	float lifeTime;
+
+	float spawnLaserCD;
+	float spawnLaserTimer;
+
 	float speed;
 public:
 	LaserManager();
-	~LaserManager();
 
-	void Load();
 	void DataUpdate(const float& yCamera, const float& deltaTime);
-	void AttackUpdate(sf::Vector2i& windowDimensions,VFXHandler& vFXHandler);
+	bool AttackUpdate(sf::Vector2i& windowDimensions,VFXHandler& vFXHandler,float& yLaserPosition); //Return true if a laser should be shot
 	bool ShouldBeDestroyed(void);
 };
 

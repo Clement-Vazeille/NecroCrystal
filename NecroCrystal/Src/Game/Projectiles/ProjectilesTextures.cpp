@@ -66,4 +66,12 @@ void ProjectilesTextures::Load()
     {
         std::cout << "PoisonDot image failed to load" << std::endl;
     }
+    if (laser.loadFromFile("Assets/Projectiles/laser.png"))
+    {
+        std::cout << "Laser image loaded successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "laser image failed to load" << std::endl;
+    }
 }

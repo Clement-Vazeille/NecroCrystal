@@ -10,6 +10,7 @@ private:
 	sf::Texture hammer;
 	sf::Texture captainSlash;
 	sf::Texture poisonDot;
+	sf::Texture laser;
 public:
 	ProjectilesTextures();
 
@@ -22,5 +23,6 @@ public:
 	inline const sf::Texture& GetHammer(void) const { return hammer; }
 	inline const sf::Texture& GetCaptainSlash(void) const { return captainSlash; }
 	inline const sf::Texture& GetPoisonDot(void) const { return poisonDot; }
+	inline const sf::Texture& GetLaser(void) const { return laser; }
 };
 
