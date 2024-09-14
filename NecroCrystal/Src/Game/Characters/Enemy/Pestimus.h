@@ -28,6 +28,8 @@ protected:
 	int phaseNumber;
 
 	float laserDuration;
+	float circuDuration;
+	float flaqueDuration;
 
 	float phaseSwitchDuration;
 

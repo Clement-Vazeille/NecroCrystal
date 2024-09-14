@@ -77,9 +77,10 @@ void Necromancer::Load(sf::Vector2i& windowDimensions,sf::Vector2f position)
         hitbox.setOutlineThickness(-1);
         hitbox.setFillColor(sf::Color::Transparent);
 
-        hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+        hitbox.setScale(sprites[0].getScale().x * 0.3f, sprites[0].getScale().y*0.8f);
         hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
-            Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
+            Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.35f, 
+                sprites[0].getGlobalBounds().height * 0.1f), windowDimensions));
         wallHitbox.setScale(sprites[0].getScale().x, sprites[0].getScale().y);
         wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
     }
@@ -110,7 +111,7 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
 
     sprites[0].setScale(sf::Vector2f(scale * ((double)windowDimensions.x / 1920.0), scale * ((double)windowDimensions.y / 1080.0)));
     sprites[1].setScale(sf::Vector2f(2.5 * scale * (double)windowDimensions.x / 1920.0, 2.5 * scale * (double)windowDimensions.y / 1080.0));
-    hitbox.setScale(sprites[0].getScale().x * 0.5, sprites[0].getScale().y);
+    hitbox.setScale(sprites[0].getScale().x * 0.3f, sprites[0].getScale().y*0.8f);
     wallHitbox.setScale(sprites[0].getScale().x, sprites[0].getScale().y);
 
     sf::Vector2f position = sprites[0].getPosition();
@@ -163,7 +164,8 @@ void Necromancer::Update(CameraService& cameraService, sf::Vector2i& windowDimen
         loopAnimation.Reset(sprites[0]);
 
     hitbox.setPosition(sprites[0].getGlobalBounds().getPosition() +
-        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
+        Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.35, 
+            sprites[0].getGlobalBounds().height * 0.1f), windowDimensions));
     wallHitbox.setPosition(sprites[0].getGlobalBounds().getPosition());
 }
 
