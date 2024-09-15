@@ -143,7 +143,7 @@ CrazyFireMage::CrazyFireMage() :
     spriteNumber = 2;  //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
-    maxHealth = 300;
+    maxHealth = 7000;
     health = maxHealth;
     activationTime = 600;
 }
