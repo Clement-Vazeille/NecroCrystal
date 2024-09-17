@@ -37,6 +37,7 @@ protected:
 	float explosionTimer;
 
 	float tourniquetTimer;
+	float tourniquetAttackPreparation;
 
 	sf::Vector2f explosionTarget;
 	bool shouldStartExplo;

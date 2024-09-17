@@ -45,8 +45,8 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         int barreDashMin = 70;
 
         if (distToNecro <= distMoyen)
-            barreTourMax = 35;
-        if (distToNecro <= distMoyen)
+            barreTourMax = 40;
+        if (distToNecro <= distProche)
             barreTourMax = 50;
 
         currentAction = Explosion;
@@ -126,7 +126,7 @@ CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
     currentAction(Tourniquet),
     isFacingRight(true), isInvincible(false),
-    animations({ Animation(120,1,64,64,0,0), Animation(120,1,64,64,1,0) ,Animation(120,1,64,64,2,0) ,Animation(120,1,64,64,3,0) }),
+    animations({ Animation(120,5,64,64,0,0), Animation(120,3,64,64,5,0) ,Animation(120,1,64,64,8,0) ,Animation(120,1,64,64,9,0) }),
     dashSpeed(0.65f), furySpeed(0.90f),
     dashTime(900), furyDashTime(850),
     isCrazy(false), crazyHealthStart(100),
@@ -134,7 +134,8 @@ CrazyFireMage::CrazyFireMage() :
     dashFireTimer(0), dashFireCooldown(120),
     shouldStartExplo(false), explosionTimer(1),
     tourniquetFireCooldown(1.5f), tourniquetFireTimer(0),
-    tourniquetTimer(0.f),tourniquetTime(250)
+    tourniquetTimer(0.f),tourniquetTime(700.f),
+    tourniquetAttackPreparation(450.f)
 {
     scale = 2;
     width = 64;
@@ -279,7 +280,7 @@ Projectile* CrazyFireMage::LaunchProjectile(float deltaTime, ProjectilesTextures
         case Tourniquet: {
             tourniquetFireTimer += deltaTime;
             tourniquetTimer += deltaTime;
-            if (tourniquetFireTimer >= tourniquetFireCooldown)
+            if (tourniquetFireTimer >= tourniquetFireCooldown &&tourniquetTimer >=tourniquetAttackPreparation)
             {
                 tourniquetFireTimer = 0;
                 Projectile* tourniquetFire = new TourniquetFire();
