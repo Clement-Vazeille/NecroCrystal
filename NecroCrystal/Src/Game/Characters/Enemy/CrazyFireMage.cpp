@@ -90,7 +90,7 @@ void CrazyFireMage::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         break;
         case Fury:
         {
-            damageMultiplier = 0.6f;
+            damageMultiplier = 0.008f;
             newActionTimer = newActionCooldown - furyDashTime;
             direction = Math::normalizeVector(characters[0]->getHitbox()->getPosition() - sprites[0].getPosition());
 
@@ -126,7 +126,7 @@ CrazyFireMage::CrazyFireMage() :
     newActionCooldown(2500), newActionTimer(2500),
     currentAction(Tourniquet),
     isFacingRight(true), isInvincible(false),
-    animations({ Animation(120,5,64,64,0,0), Animation(120,3,64,64,5,0) ,Animation(120,1,64,64,8,0) ,Animation(120,1,64,64,9,0) }),
+    animations({ Animation(120,5,64,64,0,0), Animation(120,3,64,64,5,0) ,Animation(120,5,64,64,8,0) ,Animation(120,3,64,64,13,0) }),
     dashSpeed(0.65f), furySpeed(0.90f),
     dashTime(900), furyDashTime(850),
     isCrazy(false), crazyHealthStart(100),
