@@ -18,7 +18,7 @@ void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 LoopManager::LoopManager(sf::Vector2f windowSize) :
 	gameLoop(nullptr), state(-1),
 	pauseTimer(0),pauseCooldown(800),
-	actualLevel(2)
+	actualLevel(3)
 {
 }
 
