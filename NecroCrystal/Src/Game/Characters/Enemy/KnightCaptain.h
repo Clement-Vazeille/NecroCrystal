@@ -9,7 +9,7 @@ class KnightCaptain : public Enemy
 {
 
 protected:
-	std::array<Animation, 5> animations;
+	std::array<Animation, 6> animations;
 
 	float newActionTimer;
 	float newActionCooldown;
@@ -52,6 +52,8 @@ protected:
 	Action currentAction;
 	void SelectNewAction(sf::Vector2i& windowDimensions, float deltaTime, Map& map, std::vector<Character*>& characters, RandomLSFR& randomLSFR);
 	void Flip(void);
+
+	int pickAnimation(void) const;
 
 public:
 	KnightCaptain();

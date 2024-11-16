@@ -102,12 +102,22 @@ void KnightCaptain::Flip(void)
     }
 }
 
+int KnightCaptain::pickAnimation(void) const
+{
+    if (currentAction < 2)
+        return currentAction;
+    if (currentAction > 2)
+        return currentAction+1;
+    //if the knight is jumpig, change the animation depending on if the knight his jumping or doing its ground attack
+    return currentAction + (!hasNotJumpAttacked?1:0);
+}
+
 KnightCaptain::KnightCaptain() :
     newActionCooldown(2200), newActionTimer(0),
     currentAction(Marcher),
     isFacingRight(true),
     animations({ Animation(120,4,88,64,0,0),Animation(120,4,88,64,4,0),Animation(120,4,88,64,8,0),
-        Animation(120,4,88,64,12,0) ,Animation(120,3,88,64,16,0) }),
+        Animation(120,3,88,64,12,0),Animation(120,4,88,64,15,0) ,Animation(120,3,88,64,19,0)}),
     shieldingSpeed(0.15f),hasNotJumpAttacked(true),
     prayTime(2200),lancerTime(1400),marcherTime(800),
     shieldTime(1800),shieldPrepTime(1200),shieldingTimer(0),
@@ -258,7 +268,7 @@ void KnightCaptain::Update(CameraService& cameraService, sf::Vector2i& windowDim
         }
         Math::CorrectMovement(movement, hitbox, map);
 
-        animations.at(currentAction).Update(sprites[0], deltaTime);
+        animations.at(pickAnimation()).Update(sprites[0], deltaTime);
     }
 
     cameraService.MoveSprite(sprites[0], movement);
