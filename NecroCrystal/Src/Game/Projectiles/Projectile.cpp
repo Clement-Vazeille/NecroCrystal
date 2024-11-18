@@ -49,3 +49,8 @@ sf::RectangleShape* Projectile::getHitbox(void)
 {
 	return &hitbox;
 }
+
+bool Projectile::IsWallDestroyable(void) const
+{
+	return true;
+}

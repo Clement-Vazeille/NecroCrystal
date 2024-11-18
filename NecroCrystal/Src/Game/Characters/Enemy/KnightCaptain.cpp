@@ -49,6 +49,7 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         case Lancer:
         {
             damageMultiplier = 1.f;
+            hammerThrowTimer = 0;
             newActionTimer = newActionCooldown - lancerTime;
         }
         break;
@@ -56,7 +57,7 @@ void KnightCaptain::SelectNewAction(sf::Vector2i& windowDimensions, float deltaT
         {
             hasNotJumpAttacked = true;
 
-            damageMultiplier = 1.2f;
+            damageMultiplier = 1.f;
             sf::Vector2f target = characters[0]->getHitbox()->getPosition() +
                 sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x* 0.32f, 0);
             if (isFacingRight)
@@ -134,7 +135,7 @@ KnightCaptain::KnightCaptain() :
     spriteNumber = 2;  //compte la barre de vie
     sprites.resize(spriteNumber);
     faction = 2;
-    maxHealth = 800;
+    maxHealth = 15000;
     health = maxHealth;
     activationTime = 600;
 }

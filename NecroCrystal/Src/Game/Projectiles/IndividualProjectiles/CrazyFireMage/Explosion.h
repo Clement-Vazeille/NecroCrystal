@@ -16,4 +16,5 @@ public:
 	sf::Sprite& getSprite(void);
 
 	bool ShouldBeDestroyed(void) const;
+	bool IsWallDestroyable(void) const override;
 };

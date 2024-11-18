@@ -24,5 +24,6 @@ public:
 	int getDamage(void) const;
 	virtual bool ShouldBeDestroyed(void) const;
 	sf::RectangleShape* getHitbox(void);
+	virtual bool IsWallDestroyable(void) const;
 };
 

@@ -34,3 +34,8 @@ bool ExplosionProj::ShouldBeDestroyed(void) const
 {
 	return liveTimer >= lifeSpan;
 }
+
+bool ExplosionProj::IsWallDestroyable(void) const
+{
+	return false;
+}

@@ -8,7 +8,7 @@ CaptainSlash::CaptainSlash() :
 	speed = 0.2f;
 	faction = 2;
 	scale = 15.f;
-	damage = 30;
+	damage = 22;
 }
 
 void CaptainSlash::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)
@@ -43,4 +43,9 @@ sf::Sprite& CaptainSlash::getSprite(void)
 bool CaptainSlash::ShouldBeDestroyed(void) const
 {
 	return liveTimer >= lifeSpan;
+}
+
+bool CaptainSlash::IsWallDestroyable(void) const
+{
+	return false;
 }

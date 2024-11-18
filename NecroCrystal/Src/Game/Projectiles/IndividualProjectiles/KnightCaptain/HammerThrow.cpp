@@ -7,7 +7,7 @@ HammerThrow::HammerThrow() :
 	speed = 0.85f;
 	faction = 2;
 	scale = 4.f;
-	damage = 12;
+	damage = 10;
 }
 void HammerThrow::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)
 {

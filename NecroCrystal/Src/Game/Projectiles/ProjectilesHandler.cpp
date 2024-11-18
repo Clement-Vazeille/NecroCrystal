@@ -84,7 +84,7 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         }
     }
 
-    if (map.ColideWithWall(projectile->getHitbox()))
+    if (map.ColideWithWall(projectile->getHitbox()) && projectile->IsWallDestroyable())
     {
         return true;
     }
