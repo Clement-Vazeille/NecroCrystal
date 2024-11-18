@@ -21,7 +21,7 @@
     <ClCompile Include="Src\Game\Characters\Necromancer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\DarkProjectile.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\Math.cpp">
@@ -69,7 +69,7 @@
     <ClCompile Include="Src\Game\Utilities\Animation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\FireBall.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameGestion\LoopManager.cpp">
@@ -120,7 +120,7 @@
     <ClCompile Include="Src\Game\Characters\Enemy\MeleeMage.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp">
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Utilities\RandomLSFR.cpp">
@@ -132,12 +132,60 @@
     <ClCompile Include="Src\Cutscene\CutsceneManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Src\BasicLoops\DeathLoop.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\ProjectilesTextures.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Characters\Enemy\CrazyFireMage.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Characters\Enemy\KnightCaptain.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\DashFire.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Characters\Enemy\Pestimus.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\ProjManagers\LaserManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonFlaque.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Projectiles\ProjManagers\FlaqueManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Characters\Necromancer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\DarkProjectile.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\Math.h">
@@ -191,7 +239,7 @@
     <ClInclude Include="Src\Game\Utilities\Animation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\FireBall.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameGestion\LoopManager.h">
@@ -245,7 +293,7 @@
     <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h">
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Utilities\RandomLSFR.h">
@@ -255,6 +303,57 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Src\Cutscene\CutsceneManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\BasicLoops\DeathLoop.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\ProjectilesTextures.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Characters\Enemy\CrazyFireMage.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Characters\Enemy\KnightCaptain.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\DashFire.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Characters\Enemy\Pestimus.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\ProjManagers\LaserManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonFlaque.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Projectiles\ProjManagers\FlaqueManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

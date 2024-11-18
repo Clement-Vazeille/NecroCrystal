@@ -1,4 +1,4 @@
-#include "MapLoader.h"
+ï»¿#include "MapLoader.h"
 #include<fstream>
 #include<iostream>
 
@@ -35,7 +35,7 @@ void MapLoader::Load(std::string fileName,MapData& mapData)
 				std::string variable = line.substr(0, separatorIndex);
 				std::string value = line.substr(separatorIndex + 1, line.length() - separatorIndex);
 
-				if (variable == "tileSheet")         //un switch avec un Enum, ce serait plus rapide à executer mais plus long à faire
+				if (variable == "tileSheet")         //un switch avec un Enum, ce serait plus rapide ãƒ»executer mais plus long Ã  faire
 				{
 					mapData.tileSheet = value;
 				}

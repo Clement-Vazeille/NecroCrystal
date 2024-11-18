@@ -1,4 +1,4 @@
-#include "character.h"
+ï»¿#include "character.h"
 
 Character::Character() :
 	width(0), height(0), scale(0),
@@ -41,7 +41,7 @@ void Character::DrawHitbox(sf::RenderWindow* window) const
 	window->draw(hitbox);
 }
 
-const sf::Sprite& Character::getSprite(void) const   //devrait techniquement plus être utilisé
+const sf::Sprite& Character::getSprite(void) const   //devrait techniquement plus Ãªtre utilisÃ©
 {
 	return sprites[0];
 }
@@ -53,6 +53,11 @@ int Character::getFaction(void) const
 
 void Character::Activate(void)
 {
+}
+
+int Character::GiveWaveInstruction(void) const
+{
+	return 1;
 }
 
 sf::RectangleShape* Character::getHitbox(void)

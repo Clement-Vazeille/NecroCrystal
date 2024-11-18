@@ -1,6 +1,10 @@
 #include "LoopManager.h"
 #include <iostream>
 
+//Initialise the isAzerty From Adaptive Control
+#include "../GlobalUtility/AdaptiveControl.h"
+bool AdaptiveControl::isAzerty;
+
 void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 {
 	if (gameLoop != nullptr)
@@ -12,9 +16,9 @@ void LoopManager::LoadLevel(sf::Vector2i& windowDimensions)
 }
 
 LoopManager::LoopManager(sf::Vector2f windowSize) :
-	gameLoop(nullptr), state(0),
+	gameLoop(nullptr), state(-1),
 	pauseTimer(0),pauseCooldown(800),
-	actualLevel(0)
+	actualLevel(3)
 {
 }
 
@@ -30,15 +34,20 @@ void LoopManager::initialize(sf::Vector2i& windowDimensions)
 {
 	textManager.Initialize(); //important to initialize GlobalUtility services before initializing Loops
 
+	layoutChoiceLoop.initialize(windowDimensions, textManager);
 	mainMenuLoop.initialize(windowDimensions, textManager);
 	pauseLoop.initialize(windowDimensions,textManager);
 	clearLoop.initialize(windowDimensions,textManager);
 	looseLoop.initialize(windowDimensions,textManager);
 	victoryLoop.initialize(windowDimensions, textManager);
+	deathLoop.Initialize(windowDimensions, textManager);
 	cutsceneManager.initialize(windowDimensions, textManager);
 
 	levelsMapFiles.at(0)=("Assets/World/NecroDungeon/Level1.map");
 	levelsMapFiles.at(1) = ("Assets/World/NecroDungeon/Level2.map");
+	levelsMapFiles.at(2) = ("Assets/World/NecroDungeon/Level3.map");
+	levelsMapFiles.at(3) = ("Assets/World/NecroDungeon/Level4.map");
+	levelsMapFiles.at(4) = ("Assets/World/NecroDungeon/Level5.map");
 	this->LoadLevel(windowDimensions);
 	
 	mouseCursor.Load(windowDimensions);
@@ -64,6 +73,21 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 	}
 
 	//update of activated loops
+	if (state == -1)
+	{
+		int loopState = layoutChoiceLoop.update(deltaTime, windowDimensions, mousePosition);
+		if (loopState == 1) //1 azerty
+		{
+			AdaptiveControl::SetLayoutToAzerty();
+			state = 0;
+		}
+		if (loopState == 2) //2 qwerty
+		{
+			AdaptiveControl::SetLayoutToQwerty();
+			state = 0;
+		}
+	}
+
 	if (state == 1)
 	{
 		int loopState = pauseLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -97,6 +121,11 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 		}
 
 	}
+	if (state == 7)
+	{
+		if (deathLoop.Update(deltaTime, windowDimensions))
+			state = 3;
+	}
 	if(state == 3)
 	{
 		int loopState = looseLoop.update(deltaTime, windowDimensions, mousePosition);
@@ -124,7 +153,7 @@ bool LoopManager::update(float deltaTime, sf::Vector2i& windowDimensions, sf::Ve
 			state = 2;
 		}
 		if (gameState == 2)//player is dead
-			state = 3;
+			state = 7;
 	}
 	if (state == 0)
 	{
@@ -168,6 +197,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 {
 	if (state == 1|| state == 2 || state == 3 || state == 4)
 		gameLoop->draw(window);
+	if (state == -1)
+	{
+		layoutChoiceLoop.draw(window);
+	}
 	if (state == 0)
 	{
 		mainMenuLoop.draw(window);
@@ -191,6 +224,10 @@ void LoopManager::draw(sf::RenderWindow* window)
 	if (state == 5)
 	{
 		victoryLoop.draw(window);
+	}
+	if (state == 7)
+	{
+		deathLoop.Draw(window);
 	}
 
 	mouseCursor.Draw(window);

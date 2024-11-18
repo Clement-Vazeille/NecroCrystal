@@ -17,25 +17,35 @@ WindowManager::~WindowManager()
 
 void WindowManager::Load()
 {
-	fullScreenMode = sf::VideoMode::getFullscreenModes()[0];
-	//desktopMode = sf::VideoMode::getDesktopMode();
 
-	//desktopWindow = new sf::RenderWindow(desktopMode, "NecroCrystal", sf::Style::Default);
-	fullScreenWindow = new sf::RenderWindow(fullScreenMode, "NecroCrystal", sf::Style::Fullscreen);
-	//desktopWindow->setVisible(false);
-	//desktopWindow->setFramerateLimit(60);
-	//fullScreenWindow->setFramerateLimit(60);
-
-	//desktopWindow->setMouseCursorVisible(false);
+	// Créer une fenêtre SFML
+	fullScreenWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "NecroCrystal",sf::Style::Fullscreen);
 	fullScreenWindow->setMouseCursorVisible(false);
+	size = sf::Vector2i(1920, 1080);
+	
 
-	size = sf::Vector2i(fullScreenMode.width, fullScreenMode.height);
+	//fullScreenMode = sf::VideoMode::getFullscreenModes()[0];
+	//fullScreenWindow = new sf::RenderWindow(fullScreenMode, "NecroCrystal", sf::Style::Fullscreen);
+	//fullScreenWindow->setMouseCursorVisible(false);
+	//size = sf::Vector2i(fullScreenMode.width, fullScreenMode.height);
 
 
 }
 
 void WindowManager::Update(double deltaTime)
 {
+	// Adapter la résolution de la fenêtre à l'écran
+	sf::Vector2u screenSize = sf::Vector2u(sf::VideoMode::getDesktopMode().width,
+		sf::VideoMode::getDesktopMode().height);
+
+	// Calculez la nouvelle résolution en maintenant le ratio d'aspect
+	float aspectRatio = static_cast<float>(screenSize.x) / static_cast<float>(screenSize.y);
+	sf::Vector2u newResolution(static_cast<unsigned int>(screenSize.x),
+		static_cast<unsigned int>(screenSize.x / aspectRatio));
+
+	// Add la nouvelle résolution
+	fullScreenWindow->setSize(newResolution);
+
 	//timer += deltaTime;
 	//if (timer > refreshTime)
 	//{

@@ -3,6 +3,9 @@
 
 #include "Characters/Enemy/Enemy.h"
 #include "Characters/Enemy/MeleeMage.h"
+#include "Characters/Enemy/CrazyFireMage.h"
+#include "Characters/Enemy/KnightCaptain.h"
+#include "Characters/Enemy/Pestimus.h"
 
 void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 {
@@ -18,9 +21,27 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
-        if (mapData->enemyTypes[i] == 1) //type 0 is fire mage
+        if (mapData->enemyTypes[i] == 1) //type 1 is melee mage
         {
             Character* enemy = new MeleeMage;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 2) //type 2 is crazy fire mage
+        {
+            Character* enemy = new CrazyFireMage;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 3) //type 3 is knight captain
+        {
+            Character* enemy = new KnightCaptain;
+            enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
+            characters.push_back(enemy);
+        }
+        if (mapData->enemyTypes[i] == 4) //type 4 is Pestimus
+        {
+            Character* enemy = new Pestimus;
             enemy->Load(windowDimensions, cameraService.SetVector(mapData->enemyPositions[i]));
             characters.push_back(enemy);
         }
@@ -28,7 +49,9 @@ void GameLoop::LoadWave(MapData* mapData, sf::Vector2i& windowDimensions)
 }
 
 GameLoop::GameLoop(sf::Vector2i windowSize) : 
-    cameraService(windowSize),currentWave(0)
+    cameraService(windowSize),
+    currentWave(0),waveInstruction(1),
+    waveSpawnTimer(8000),waveSpawnCooldown(8000)
 {
     Enemy::enemyNumber = 0;
 }
@@ -69,16 +92,38 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
     
     hitboxDisplay.Update(deltaTime);
 
-    bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check ça pendnat l'update des chars
+    bool isWaveCleared = true;  //les enemis peuvent uniquement mourir dans projectile Handler, donc on peut bien check pendnat l'update des chars
     for (auto it = std::begin(characters); it != std::end(characters); it++)
     {
         if ((*it)->getFaction() != 1 && (*it)->getFaction() != -1) //faction 1 is the necromancer faction
             isWaveCleared = false;
         (*it)->Update(cameraService, windowDimensions, deltaTime,map,characters,randomLSFR,vFXHandler);
+        if ((*it)->GiveWaveInstruction() > waveInstruction)
+            waveInstruction = (*it)->GiveWaveInstruction();
     }
 
     vFXHandler.Update(cameraService, windowDimensions, deltaTime);
     vFXHandler.DeleteExpiredVFX(windowDimensions);
+
+    if (waveInstruction == 2)
+    {
+        waveSpawnTimer += deltaTime;
+        if (waveSpawnTimer >= waveSpawnCooldown && currentWave + 1 < map.getData()->waveNumber)
+        {
+            currentWave++;
+            this->LoadWave(map.getData(), windowDimensions);
+            waveSpawnTimer -= waveSpawnCooldown;
+        }
+    }
+
+    if (waveInstruction == 3)
+    {
+        while (currentWave+1 < map.getData()->waveNumber)
+        {
+            currentWave++;
+            this->LoadWave(map.getData(), windowDimensions);
+        }
+    }
 
     if (isWaveCleared)
     {
@@ -93,6 +138,7 @@ int GameLoop::update(float deltaTime,sf::Vector2i& windowDimensions,sf::Vector2f
 void GameLoop::draw(sf::RenderWindow* window)
 {
     map.Draw(window);
+    vFXHandler.DrawVFX(window);
     skeltonHandler.DrawSkeletons(window, hitboxDisplay.getValue());
 
     for (auto character : characters)
@@ -101,10 +147,9 @@ void GameLoop::draw(sf::RenderWindow* window)
         if (hitboxDisplay.getValue())
             character->DrawHitbox(window);
     }
-    projectileHandler.Draw(window,hitboxDisplay.getValue());
 
+    projectileHandler.Draw(window,hitboxDisplay.getValue());
     characters[0]->Draw(window); // put necro in front of enemies and projectile
-    vFXHandler.DrawVFX(window);
 
     frameRate.Draw(window);
     gameTimer.Draw(window);

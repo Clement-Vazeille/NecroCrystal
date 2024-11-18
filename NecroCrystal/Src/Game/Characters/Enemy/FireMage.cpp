@@ -1,7 +1,7 @@
 #include "FireMage.h"
 
 #include <iostream>
-#include "../../Projectiles/FireBall.h"
+#include "../../Projectiles/IndividualProjectiles/FireBall.h"
 #include "../Necromancer.h"
 #include "../../Utilities/Math.h"
 
@@ -94,7 +94,7 @@ void FireMage::Update(CameraService& cameraService, sf::Vector2i& windowDimensio
         Math::windowNormalizeVector(sf::Vector2f(sprites[0].getGlobalBounds().width * 0.25, 0), windowDimensions));
 }
 
-Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters)
+Projectile* FireMage::LaunchProjectile(float deltaTime, ProjectilesTextures& projectilesTextures, sf::Vector2i windowDimensions, sf::Vector2f mousePosition, std::vector<Character*>& characters, VFXHandler& vFXHandler)
 {
     if(activated)
     {
@@ -106,7 +106,7 @@ Projectile* FireMage::LaunchProjectile(float deltaTime, sf::Texture* projectiles
             sf::Vector2f initialPosition = sprites[0].getPosition() + (sf::Vector2f(sprites[0].getScale().x * sprites[0].getTextureRect().getSize().x / 8.0f, sprites[0].getScale().y * sprites[0].getTextureRect().getSize().y / 2.0f));
             sf::Vector2f spellTarget = ((Necromancer*)characters[0])->getSprite().getPosition() + 2.0f *
                 sf::Vector2f(48 * (float)windowDimensions.x / 1920.0f, 6 * (float)windowDimensions.y / 1080.0f);
-            fireBall->Load(projectilesTextures[1], initialPosition, spellTarget, windowDimensions);
+            fireBall->Load(projectilesTextures.GetFireBall(), initialPosition, spellTarget, windowDimensions);
             return fireBall;
         }
     }

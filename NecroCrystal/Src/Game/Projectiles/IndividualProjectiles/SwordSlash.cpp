@@ -1,5 +1,5 @@
 #include "SwordSlash.h"
-#include "../Utilities/Math.h"
+#include "../../Utilities/Math.h"
 
 SwordSlash::SwordSlash() :
 	lifeSpan(960),liveTimer(0),
@@ -11,7 +11,7 @@ SwordSlash::SwordSlash() :
 	damage = 17;
 }
 
-void SwordSlash::Load(sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellDirection, sf::Vector2i& windowDimensions,bool flipped)
+void SwordSlash::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellDirection, sf::Vector2i& windowDimensions,bool flipped)
 {
 	sprite.setTexture(texture);
 	loopAnimation.SetTextureRect(sprite);
@@ -48,7 +48,7 @@ void SwordSlash::Update(CameraService& cameraService, sf::Vector2i& windowDimens
 
 sf::Sprite& SwordSlash::getSprite(void)
 {
-	// TODO: insérer une instruction return ici
+	return sprite;
 }
 
 bool SwordSlash::ShouldBeDestroyed(void) const

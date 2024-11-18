@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -140,6 +140,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Projectiles\ProjManagers\FlaqueManager.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonFlaque.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\ProjManagers\LaserManager.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.cpp" />
+    <ClCompile Include="Src\Game\Characters\Enemy\Pestimus.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\DashFire.cpp" />
+    <ClCompile Include="Src\Game\Characters\Enemy\KnightCaptain.cpp" />
+    <ClCompile Include="Src\Game\Characters\Enemy\CrazyFireMage.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\ProjectilesTextures.cpp" />
+    <ClCompile Include="Src\BasicLoops\LayoutChoiceLoop.cpp" />
+    <ClCompile Include="Src\BasicLoops\DeathLoop.cpp" />
     <ClCompile Include="Src\Cutscene\CutsceneManager.cpp" />
     <ClCompile Include="Src\Cutscene\Cutscene.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\MeleeMage.cpp" />
@@ -154,7 +169,7 @@
     <ClCompile Include="Src\BasicLoops\ClearLoop.cpp" />
     <ClCompile Include="Src\BasicLoops\PauseLoop.cpp" />
     <ClCompile Include="Src\GameGestion\LoopManager.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\FireBall.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.cpp" />
     <ClCompile Include="Src\Game\Utilities\Animation.cpp" />
     <ClCompile Include="Src\GameGestion\MouseCursor.cpp" />
     <ClCompile Include="Src\Game\Utilities\HitboxDisplay.cpp" />
@@ -167,7 +182,7 @@
     <ClCompile Include="Src\Game\World\MapLoader.cpp" />
     <ClCompile Include="Src\Game\World\Map.cpp" />
     <ClCompile Include="Src\Game\Utilities\FrameRate.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\DarkProjectile.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.cpp" />
     <ClCompile Include="Src\Game\Characters\Enemy\FireMage.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Game\Utilities\Math.cpp" />
@@ -178,9 +193,26 @@
     <ClCompile Include="Src\Game\Effects\VFX.cpp" />
     <ClCompile Include="Src\Game\Effects\VFXHandler.cpp" />
     <ClCompile Include="Src\BasicLoops\VictoryLoop.cpp" />
-    <ClCompile Include="Src\Game\Projectiles\SwordSlash.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.cpp" />
+    <ClCompile Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Projectiles\ProjManagers\FlaqueManager.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonFlaque.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonLaser.h" />
+    <ClInclude Include="Src\Game\Projectiles\ProjManagers\LaserManager.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\Pestimus\PoisonDot.h" />
+    <ClInclude Include="Src\Game\Characters\Enemy\Pestimus.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\CaptainSlash.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\KnightCaptain\HammerThrow.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\Explosion.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\DashFire.h" />
+    <ClInclude Include="Src\Game\Characters\Enemy\KnightCaptain.h" />
+    <ClInclude Include="Src\Game\Characters\Enemy\CrazyFireMage.h" />
+    <ClInclude Include="Src\Game\Projectiles\ProjectilesTextures.h" />
+    <ClInclude Include="Src\GlobalUtility\AdaptiveControl.h" />
+    <ClInclude Include="Src\BasicLoops\LayoutChoiceLoop.h" />
+    <ClInclude Include="Src\BasicLoops\DeathLoop.h" />
     <ClInclude Include="Src\Cutscene\CutsceneManager.h" />
     <ClInclude Include="Src\Cutscene\Cutscene.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\MeleeMage.h" />
@@ -196,7 +228,7 @@
     <ClInclude Include="Src\BasicLoops\ClearLoop.h" />
     <ClInclude Include="Src\BasicLoops\PauseLoop.h" />
     <ClInclude Include="Src\GameGestion\LoopManager.h" />
-    <ClInclude Include="Src\Game\Projectiles\FireBall.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\FireBall.h" />
     <ClInclude Include="Src\Game\Utilities\Animation.h" />
     <ClInclude Include="Src\GameGestion\MouseCursor.h" />
     <ClInclude Include="Src\Game\Utilities\HitboxDisplay.h" />
@@ -211,7 +243,7 @@
     <ClInclude Include="Src\Game\World\Tile.h" />
     <ClInclude Include="Src\Game\World\Map.h" />
     <ClInclude Include="Src\Game\Utilities\FrameRate.h" />
-    <ClInclude Include="Src\Game\Projectiles\DarkProjectile.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\DarkProjectile.h" />
     <ClInclude Include="Src\Game\Characters\Enemy\FireMage.h" />
     <ClInclude Include="Src\Game\Utilities\Math.h" />
     <ClInclude Include="Src\Game\Characters\Necromancer.h" />
@@ -221,7 +253,8 @@
     <ClInclude Include="Src\Game\Effects\VFX.h" />
     <ClInclude Include="Src\Game\Effects\VFXHandler.h" />
     <ClInclude Include="Src\BasicLoops\VictoryLoop.h" />
-    <ClInclude Include="Src\Game\Projectiles\SwordSlash.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\SwordSlash.h" />
+    <ClInclude Include="Src\Game\Projectiles\IndividualProjectiles\CrazyFireMage\TourniquetFire.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

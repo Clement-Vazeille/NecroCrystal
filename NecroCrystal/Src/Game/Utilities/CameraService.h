@@ -3,8 +3,8 @@
 
 class CameraService
 {
-	//Pour le moment l'idée c'est d'avoir une variable diff qui compte la ddifférence verticale avec la position précédente
-	//On retient aussi la position absolue au cas où ce sera utile plus tard
+	//L'idee c'est d'avoir une variable diff qui compte la difference verticale avec la position presente
+	//On retient aussi la position absolue au cas ou ce sera utile un jour
 
 private:
 	float diff;
@@ -19,6 +19,9 @@ public:
 	void SetSprite(sf::Sprite& sprite, sf::Vector2f& position);
 	void SetRectangle(sf::RectangleShape& sprite, sf::Vector2f& position);
 	void UpdateVector(sf::Vector2f& vector);
+
+	float GetDiff(void) const;
+	float GetCameraPosition(void) const;
 
 	sf::Vector2f SetVector(sf::Vector2f vector);
 

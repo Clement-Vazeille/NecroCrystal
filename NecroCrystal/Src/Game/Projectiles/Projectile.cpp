@@ -6,7 +6,7 @@ Projectile::Projectile() : speed(0.2f),faction(0),scale(1),damage(0)
 {
 }
 
-void Projectile::Load(sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)
+void Projectile::Load(const sf::Texture& texture, const sf::Vector2f& initialPosition, sf::Vector2f& spellTarget, sf::Vector2i& windowDimensions)
 {
 	sprite.setTexture(texture);
 	hitbox.setSize(sprite.getGlobalBounds().getSize());
@@ -48,4 +48,9 @@ bool Projectile::ShouldBeDestroyed(void) const
 sf::RectangleShape* Projectile::getHitbox(void)
 {
 	return &hitbox;
+}
+
+bool Projectile::IsWallDestroyable(void) const
+{
+	return true;
 }

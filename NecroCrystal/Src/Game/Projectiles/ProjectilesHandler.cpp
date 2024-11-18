@@ -1,12 +1,11 @@
 #include "ProjectilesHandler.h"
 #include<iostream>
-#include "DarkProjectile.h"
-#include "FireBall.h"
+#include "IndividualProjectiles/DarkProjectile.h"
+#include "IndividualProjectiles/FireBall.h"
 #include "../Characters/Necromancer.h"
 #include "../Utilities/Math.h"
 
-ProjectilesHandler::ProjectilesHandler() : 
-    projectilesTextures(nullptr),textureNumber(3)
+ProjectilesHandler::ProjectilesHandler()
 {
 }
 
@@ -25,34 +24,7 @@ ProjectilesHandler::~ProjectilesHandler()
 
 void ProjectilesHandler::Load()
 {
-    projectilesTextures = new sf::Texture[textureNumber];
-
-    if (projectilesTextures[0].loadFromFile("Assets/Projectiles/darkProjectile.png"))
-    {
-        std::cout << "darkProjectile image loaded successfully" << std::endl;
-    }
-    else
-    {
-        std::cout << "darkProjectile image failed to load" << std::endl;
-    }
-
-    if (projectilesTextures[1].loadFromFile("Assets/Projectiles/fireball.png"))
-    {
-        std::cout << "fireProjectile image loaded successfully" << std::endl;
-    }
-    else
-    {
-        std::cout << "fireProjectile image failed to load" << std::endl;
-    }
-
-    if (projectilesTextures[2].loadFromFile("Assets/Projectiles/meleMageProjectile.png"))
-    {
-        std::cout << "fireProjectile image loaded successfully" << std::endl;
-    }
-    else
-    {
-        std::cout << "fireProjectile image failed to load" << std::endl;
-    }
+    projectilesTextures.Load();
 }
 
 bool ProjectilesHandler::Update(std::vector<Character*>& characters, double deltaTime, sf::Vector2f& mousePosition, CameraService& cameraService, 
@@ -60,7 +32,7 @@ bool ProjectilesHandler::Update(std::vector<Character*>& characters, double delt
 {
     for (auto& character : characters) //boucle qui rajoute les nouveaux projectiles
     {
-        Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters);
+        Projectile* projectile = character->LaunchProjectile(deltaTime,projectilesTextures, windowDimensions,mousePosition,characters,vFXHandler);
         if (projectile != nullptr)
         {
             projectiles.push_back(projectile);
@@ -112,7 +84,7 @@ bool ProjectilesHandler::ProjectileCollisionChecker(Projectile* projectile,std::
         }
     }
 
-    if (map.ColideWithWall(projectile->getHitbox()))
+    if (map.ColideWithWall(projectile->getHitbox()) && projectile->IsWallDestroyable())
     {
         return true;
     }
